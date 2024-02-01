@@ -1,6 +1,6 @@
 package edu.ntnu.stud.models;
 
-public class JuliaTransform implements Transform2D{
+public class JuliaTransform implements Transform2D {
   private final Complex constantPoint;
   private final int sign;
 
