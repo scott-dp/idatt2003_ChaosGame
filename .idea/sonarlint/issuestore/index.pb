@@ -13,3 +13,7 @@ a
 1src/main/java/edu/ntnu/stud/models/Matrix2x2.java,b\1\b1e6580317db0f422077576a7b2c64efc4d311dd
 _
 /src/main/java/edu/ntnu/stud/models/Complex.java,1\3\13cfb387bf5296a3261693ebebf7c5fa19df3d20
+`
+0src/main/java/edu/ntnu/stud/models/Vector2D.java,f\f\ff384b298a12e1e28d5efb707cd7723fdd599ffa
+c
+3src/main/java/edu/ntnu/stud/models/Transform2D.java,2\b\2bc9a6333dc37eaeeb263ec88d2d951f2d6c446f
