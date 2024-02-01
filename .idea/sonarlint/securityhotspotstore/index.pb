@@ -17,3 +17,5 @@ _
 0src/main/java/edu/ntnu/stud/models/Vector2D.java,f\f\ff384b298a12e1e28d5efb707cd7723fdd599ffa
 c
 3src/main/java/edu/ntnu/stud/models/Transform2D.java,2\b\2bc9a6333dc37eaeeb263ec88d2d951f2d6c446f
+i
+9src/main/java/edu/ntnu/stud/models/AffineTransform2D.java,1\4\14e4dd9101690f1ca3acd5193f51c45cff613f40
