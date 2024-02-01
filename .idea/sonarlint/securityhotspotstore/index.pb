@@ -17,3 +17,5 @@ a
 0src/main/java/edu/ntnu/stud/HelloController.java,4\8\4813386d54010cc523425e2d224c4a7a32a304c3
 G
 src/main/java/Main.java,e\4\e44a8606ce010ad9b89aafdfcee2ab49afbf6d10
+U
+%src/main/java/edu/ntnu/stud/Main.java,c\1\c1b72bfcf4dea49ad7f0fc6ad40667d2a0a7a7bc
