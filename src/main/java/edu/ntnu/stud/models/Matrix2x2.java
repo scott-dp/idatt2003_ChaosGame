@@ -11,6 +11,6 @@ public class Matrix2x2 {
     }
 
     public Vector2D multiply(Vector2D vector) {
-        return new Vector2D(a00 * v.getX0() + a01 * v.getX1(), a10 * v.getX0() + a11 * v.getX1());
+        return new Vector2D(a00 * vector.getX0() + a01 * vector.getX1(), a10 * vector.getX0() + a11 * vector.getX1());
     }
 }
