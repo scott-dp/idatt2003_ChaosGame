@@ -1,9 +1,2 @@
 
-<<<<<<< HEAD
-7
-java:S1220""Move this file to a named package.8›ß¸«Ö1
-@	java:S106"+Replace this use of System.out by a logger.(´ü»ˆ
-=======
-0
-java:S1220""Move this file to a named package.
->>>>>>> 1cacb41f7ba54d16c90c73ff08b02a97ac377ed1
+@	java:S106"+Replace this use of System.out by a logger.(´ü»ˆ
