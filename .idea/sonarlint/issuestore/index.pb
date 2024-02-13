@@ -9,3 +9,6 @@ f
 0src/main/java/edu/ntnu/stud/models/Vector2D.java,f\f\ff384b298a12e1e28d5efb707cd7723fdd599ffa
 _
 /src/main/java/edu/ntnu/stud/models/Complex.java,1\3\13cfb387bf5296a3261693ebebf7c5fa19df3d20
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
