@@ -9,9 +9,14 @@ target/
 .idea/compiler.xml
 .idea/libraries/
 .idea/sonarlint/
+<<<<<<< HEAD
+
+=======
+>>>>>>> f1e1e45838ce746858f76ed10a5f21180d7f5050
 *.iws
 *.iml
 *.ipr
+
 
 ### Eclipse ###
 .apt_generated
