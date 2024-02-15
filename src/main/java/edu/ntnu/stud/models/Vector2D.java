@@ -69,9 +69,15 @@ public class Vector2D {
     return new Vector2D(newX0, newX1);
   }
 
+  /**
+   * Checks if the parameter {@code o} is equal to this instance of {@code Vector2D}.
+   *
+   * @param o object to check for equality to {@code this}
+   * @return true if {@code this} and {@code o} are equal, false if they are not
+   */
   @Override
-  public boolean equals(Object o){
-    if (this == o){
+  public boolean equals(Object o) {
+    if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
@@ -79,8 +85,8 @@ public class Vector2D {
     }
     Vector2D vector = (Vector2D) o;
 
-    return ChaosGameUtils.areDoublesEqual(getX0(), vector.getX0()) &&
-        ChaosGameUtils.areDoublesEqual(getX1(), vector.getX1());
+    return ChaosGameUtils.areDoublesEqual(getX0(), vector.getX0())
+        && ChaosGameUtils.areDoublesEqual(getX1(), vector.getX1());
   }
 
 }
