@@ -1,5 +1,7 @@
 package edu.ntnu.stud.models;
 
+import edu.ntnu.stud.utils.ChaosGameUtils;
+
 /**
  * The Vector2D class represents a two-dimensional vector.
  * <p>
@@ -77,7 +79,8 @@ public class Vector2D {
     }
     Vector2D vector = (Vector2D) o;
 
-    return
+    return ChaosGameUtils.areDoublesEqual(getX0(), vector.getX0()) &&
+        ChaosGameUtils.areDoublesEqual(getX1(), vector.getX1());
   }
 
 }
