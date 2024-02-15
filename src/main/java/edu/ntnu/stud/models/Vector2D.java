@@ -67,4 +67,17 @@ public class Vector2D {
     return new Vector2D(newX0, newX1);
   }
 
+  @Override
+  public boolean equals(Object o){
+    if (this == o){
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Vector2D vector = (Vector2D) o;
+
+    return
+  }
+
 }
