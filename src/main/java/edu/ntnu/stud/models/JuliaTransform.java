@@ -23,6 +23,14 @@ public class JuliaTransform implements Transform2D {
     this.sign = sign;
   }
 
+  public Complex getConstantPoint() {
+    return constantPoint;
+  }
+
+  public int getSign() {
+    return sign;
+  }
+
   /**
    * Transforms a given {@link Vector2D} point according to the Julia set transformation formula.
    * <p>
@@ -41,5 +49,19 @@ public class JuliaTransform implements Transform2D {
     newComplexPoint = newComplexPoint.sqrt();
 
     return new Complex(sign * newComplexPoint.getX0(), sign * newComplexPoint.getX1());
+  }
+
+  @Override
+  public boolean equals(Object o){
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    JuliaTransform juliaTransform = (JuliaTransform) o;
+
+    return getConstantPoint().equals(juliaTransform.getConstantPoint())
+        && getSign()==juliaTransform.getSign();
   }
 }

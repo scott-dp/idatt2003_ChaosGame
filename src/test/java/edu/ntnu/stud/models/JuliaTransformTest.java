@@ -13,6 +13,15 @@ public class JuliaTransformTest {
   public void setUp() {
     complex = new Complex(2, 1);
     juliaTransform = new JuliaTransform(complex, -1);
-    vector2D = new Vector2D(1.5, 3.4);
+    vector2D = new Vector2D(1, 3);
+  }
+
+  @Nested
+  class positiveTests {
+    @Test
+    void testTransform() {
+      Vector2D transformedPoint = juliaTransform.transform(vector2D);
+
+    }
   }
 }
