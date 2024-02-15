@@ -21,8 +21,8 @@ public class Vector2D {
    * @param x1 The y-coordinate of the vector.
    */
   public Vector2D(double x0, double x1) {
-    this.x0 = x0;
-    this.x1 = x1;
+    this.x0 = ChaosGameUtils.roundDoubleToSetDecimals(x0, 3);
+    this.x1 = ChaosGameUtils.roundDoubleToSetDecimals(x1, 3);
   }
 
   /**
@@ -81,10 +81,11 @@ public class Vector2D {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
+      System.out.println(getClass());
+      System.out.println(o.getClass());
       return false;
     }
     Vector2D vector = (Vector2D) o;
-
     return ChaosGameUtils.areDoublesEqual(getX0(), vector.getX0())
         && ChaosGameUtils.areDoublesEqual(getX1(), vector.getX1());
   }

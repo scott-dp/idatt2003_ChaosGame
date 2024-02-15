@@ -22,6 +22,8 @@ public class JuliaTransformTest {
     void testTransform() {
       Vector2D transformedPoint = juliaTransform.transform(vector2D);
 
+      assertEquals(new Complex(-0.786, -1.272), transformedPoint);
+
     }
   }
 }
