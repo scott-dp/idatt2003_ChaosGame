@@ -6,7 +6,8 @@ package edu.ntnu.stud.models;
  * This class implements the Transform2D interface.
  * </p>
  *
- * @author Scott du Plessis
+ * @author Scott du Plessis, Stanislovas Mockus
+ * @see Transform2D
  */
 
 public class AffineTransform2D implements Transform2D {

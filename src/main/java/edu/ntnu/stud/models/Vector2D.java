@@ -8,7 +8,7 @@ import edu.ntnu.stud.utils.ChaosGameUtils;
  * This class provides basic operations for manipulating vectors.
  * </p>
  *
- * @author scott du plessis
+ * @author Scott du Plessis, Stanislovas Mockus
  */
 public class Vector2D {
   private final double x0;
@@ -81,8 +81,6 @@ public class Vector2D {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
-      System.out.println(getClass());
-      System.out.println(o.getClass());
       return false;
     }
     Vector2D vector = (Vector2D) o;
