@@ -5,7 +5,7 @@ import edu.ntnu.stud.utils.ChaosGameUtils;
  * Implements a transformation based on Julia sets for 2D points.
  * This class provides a method to transform a {@link Vector2D} point using a Julia set formula.
  *
- * @author Scott du Plessis
+ * @author Scott du Plessis, Stanislovas Mockus
  * @version 1.0
  * @see Transform2D
  */
@@ -36,8 +36,9 @@ public class JuliaTransform implements Transform2D {
   /**
    * Transforms a given {@link Vector2D} point according to the Julia set transformation formula.
    * <p>
-   * The method performs the transformation by first converting the input {@code Vector2D} point into a complex number,
-   * subtracting the constant complex point {@code constantPoint}, taking the square root of the result, and then
+   * The method performs the transformation by first converting the input {@code Vector2D}
+   * point into a complex number, subtracting the constant complex point {@code constantPoint},
+   * taking the square root of the result, and then
    * applying the {@code sign} multiplier to the real and imaginary parts of the result.
    * </p>
    *

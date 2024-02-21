@@ -9,7 +9,8 @@ import edu.ntnu.stud.utils.ChaosGameUtils;
  * functionality related to two-dimensional vectors.
  * </p>
  *
- * @author Scott du Plessis
+ * @author Scott du Plessis, Stanislovas Mockus
+ * @see Vector2D
  */
 public class Complex extends Vector2D {
   /**
