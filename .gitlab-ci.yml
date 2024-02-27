@@ -10,7 +10,7 @@ stages:          # List of stages for jobs, and their order of execution
 build-job:
   stage: build
   script:
-    - mvn clean install
+    - mvn clean package
 
 unit-test-job:
   stage: test
