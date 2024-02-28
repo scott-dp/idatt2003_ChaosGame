@@ -34,4 +34,6 @@ public class ChaosGameUtils {
 
     return decimalNum.doubleValue();
   }
+
+  //TODO add validation method for width, height in ChaosCanvas
 }

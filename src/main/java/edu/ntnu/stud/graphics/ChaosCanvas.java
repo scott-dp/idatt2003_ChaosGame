@@ -25,6 +25,7 @@ public class ChaosCanvas {
    * @param maxCoords  The maximum coordinates of the fractal in the plane.
    */
   ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) {
+    //TODO add validation of width, height by using util methods
     this.width = width;
     this.height = height;
     this.minCoords = minCoords;
