@@ -1,6 +1,7 @@
 package edu.ntnu.stud.graphics;
 
 import edu.ntnu.stud.models.AffineTransform2D;
+import edu.ntnu.stud.models.Matrix2x2;
 import edu.ntnu.stud.models.Vector2D;
 
 
@@ -17,29 +18,43 @@ public class ChaosCanvas {
         this.height = height;
         this.minCoords = minCoords;
         this.maxCoords = maxCoords;
-        this.canvas = new int[width][height];
+        this.canvas = new int[height][width];
+        transformCoordsToIndices = setTransformCoordsMatrix();
     }
 
     public int getPixel(Vector2D point) {
         Vector2D transformedPoint = transformCoordsToIndices.transform(point);
         int x = (int) transformedPoint.getX0();
         int y = (int) transformedPoint.getX1();
-        return canvas[x][y];
+        return canvas[y][x];
     }
 
     public void putPixel(Vector2D point) {
         Vector2D transformedPoint = transformCoordsToIndices.transform(point);
         int x = (int) transformedPoint.getX0();
         int y = (int) transformedPoint.getX1();
-        canvas[x][0] = x;
-        canvas[0][y] = y;
+        canvas[y][x]=1;
     }
 
     public void clear() {
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 canvas[i][j] = 0;
             }
         }
+    }
+
+    public AffineTransform2D setTransformCoordsMatrix() {
+        double a01 =(height-1)/(minCoords.getX1()- maxCoords.getX1());
+        double a10 = (width-1)/(maxCoords.getX0()- minCoords.getX0());
+
+        Matrix2x2 transformMatrix = new Matrix2x2(0, a01, a10,0);
+
+        double x0 = ((height-1)* maxCoords.getX1())/(maxCoords.getX1()- minCoords.getX1());
+        double x1 = ((width-1)* minCoords.getX0())/(minCoords.getX0()- maxCoords.getX0());
+
+        Vector2D transformVector = new Vector2D(x0, x1);
+
+        return new AffineTransform2D(transformMatrix, transformVector);
     }
 }
