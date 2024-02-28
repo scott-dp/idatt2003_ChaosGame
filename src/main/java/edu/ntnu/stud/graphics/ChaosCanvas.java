@@ -8,6 +8,7 @@ import edu.ntnu.stud.models.Vector2D;
  * Represents a canvas for chaos game visualization with methods to manipulate pixels and canvas.
  */
 public class ChaosCanvas {
+  //TODO make unit tests for this class
   private final int[][] canvas;
   private final int width;
   private final int height;
@@ -25,6 +26,7 @@ public class ChaosCanvas {
    * @param maxCoords  The maximum coordinates of the fractal in the plane.
    */
   ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) {
+    //TODO add validation of width, height by using util methods
     this.width = width;
     this.height = height;
     this.minCoords = minCoords;
