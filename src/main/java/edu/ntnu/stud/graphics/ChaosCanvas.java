@@ -8,6 +8,7 @@ import edu.ntnu.stud.models.Vector2D;
  * Represents a canvas for chaos game visualization with methods to manipulate pixels and canvas.
  */
 public class ChaosCanvas {
+  //TODO make unit tests for this class
   private final int[][] canvas;
   private final int width;
   private final int height;
