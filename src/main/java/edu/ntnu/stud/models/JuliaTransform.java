@@ -1,13 +1,15 @@
 package edu.ntnu.stud.models;
 
+import edu.ntnu.stud.utils.ChaosGameUtils;
 /**
  * Implements a transformation based on Julia sets for 2D points.
  * This class provides a method to transform a {@link Vector2D} point using a Julia set formula.
  *
- * @author Scott du Plessis
+ * @author Scott du Plessis, Stanislovas Mockus
  * @version 1.0
  * @see Transform2D
  */
+
 public class JuliaTransform implements Transform2D {
   private final Complex constantPoint;
   private final int sign;
@@ -23,11 +25,20 @@ public class JuliaTransform implements Transform2D {
     this.sign = sign;
   }
 
+  public Complex getConstantPoint() {
+    return constantPoint;
+  }
+
+  public int getSign() {
+    return sign;
+  }
+
   /**
    * Transforms a given {@link Vector2D} point according to the Julia set transformation formula.
    * <p>
-   * The method performs the transformation by first converting the input {@code Vector2D} point into a complex number,
-   * subtracting the constant complex point {@code constantPoint}, taking the square root of the result, and then
+   * The method performs the transformation by first converting the input {@code Vector2D}
+   * point into a complex number, subtracting the constant complex point {@code constantPoint},
+   * taking the square root of the result, and then
    * applying the {@code sign} multiplier to the real and imaginary parts of the result.
    * </p>
    *
@@ -36,10 +47,25 @@ public class JuliaTransform implements Transform2D {
    */
   @Override
   public Vector2D transform(Vector2D point) {
-    Complex newComplexPoint = (Complex) point.subtract(constantPoint);
+    Vector2D vectorSubtracted = point.subtract(constantPoint);
+    Complex newComplexPoint = new Complex(vectorSubtracted.getX0(), vectorSubtracted.getX1());
 
     newComplexPoint = newComplexPoint.sqrt();
 
     return new Complex(sign * newComplexPoint.getX0(), sign * newComplexPoint.getX1());
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    JuliaTransform juliaTransform = (JuliaTransform) o;
+
+    return getConstantPoint().equals(juliaTransform.getConstantPoint())
+        && getSign() == juliaTransform.getSign();
   }
 }

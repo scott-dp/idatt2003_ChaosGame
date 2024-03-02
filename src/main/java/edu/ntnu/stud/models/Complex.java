@@ -1,6 +1,6 @@
 package edu.ntnu.stud.models;
 
-import java.util.Vector;
+import edu.ntnu.stud.utils.ChaosGameUtils;
 
 /**
  * The Complex class represents complex numbers, which consist of a real part and an imaginary part.
@@ -9,7 +9,8 @@ import java.util.Vector;
  * functionality related to two-dimensional vectors.
  * </p>
  *
- * @author Scott du Plessis
+ * @author Scott du Plessis, Stanislovas Mockus
+ * @see Vector2D
  */
 public class Complex extends Vector2D {
   /**
@@ -28,10 +29,14 @@ public class Complex extends Vector2D {
    *@return The complex square root of the complex number.
    */
   public Complex sqrt() {
-    double realPart = Math.sqrt(0.5 * Math.sqrt(Math.pow(this.getX0(), 2)
-        + Math.pow(this.getX1(), 2) + this.getX0()));
+    if (getX0() < 0 && ChaosGameUtils.areDoublesEqual(getX1(), 0.0)) {
+      //Negative real number, square root is an imaginary number
+      return new Complex(0, Math.sqrt(Math.abs(getX0())));
+    }
+    double realPart = Math.sqrt(0.5 * (Math.sqrt(Math.pow(this.getX0(), 2)
+        + Math.pow(this.getX1(), 2)) + this.getX0()));
     double imaginaryPart = Math.signum(this.getX1()) * Math.sqrt(0.5
-        * Math.sqrt(Math.pow(this.getX0(), 2) + Math.pow(this.getX1(), 2) - this.getX0()));
+        * (Math.sqrt(Math.pow(this.getX0(), 2) + Math.pow(this.getX1(), 2)) - this.getX0()));
 
     return new Complex(realPart, imaginaryPart);
   }

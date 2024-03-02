@@ -1,12 +1,14 @@
 package edu.ntnu.stud.models;
 
 
+import edu.ntnu.stud.utils.ChaosGameUtils;
+
 /**
  * Represents a 2x2 matrix and provides a method to multiply it by a 2D vector.
  * This class is immutable, meaning the matrix cannot be changed after it is created.
  *
  *
- * @author Stanislovas Mockus
+ * @author Stanislovas Mockus, Scott du Plessis
  * @version 1.0
  */
 public class Matrix2x2 {
@@ -24,10 +26,10 @@ public class Matrix2x2 {
    * @param a11 the element at (1, 1)
    */
   public Matrix2x2(double a00, double a01, double a10, double a11) {
-    this.a00 = a00;
-    this.a01 = a01;
-    this.a10 = a10;
-    this.a11 = a11;
+    this.a00 = ChaosGameUtils.roundDoubleToSetDecimals(a00, 3);
+    this.a01 = ChaosGameUtils.roundDoubleToSetDecimals(a01, 3);
+    this.a10 = ChaosGameUtils.roundDoubleToSetDecimals(a10, 3);
+    this.a11 = ChaosGameUtils.roundDoubleToSetDecimals(a11, 3);
   }
 
   /**

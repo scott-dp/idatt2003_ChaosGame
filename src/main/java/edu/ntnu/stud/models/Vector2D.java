@@ -1,12 +1,14 @@
 package edu.ntnu.stud.models;
 
+import edu.ntnu.stud.utils.ChaosGameUtils;
+
 /**
  * The Vector2D class represents a two-dimensional vector.
  * <p>
  * This class provides basic operations for manipulating vectors.
  * </p>
  *
- * @author scott du plessis
+ * @author Scott du Plessis, Stanislovas Mockus
  */
 public class Vector2D {
   private final double x0;
@@ -19,8 +21,8 @@ public class Vector2D {
    * @param x1 The y-coordinate of the vector.
    */
   public Vector2D(double x0, double x1) {
-    this.x0 = x0;
-    this.x1 = x1;
+    this.x0 = ChaosGameUtils.roundDoubleToSetDecimals(x0, 3);
+    this.x1 = ChaosGameUtils.roundDoubleToSetDecimals(x1, 3);
   }
 
   /**
@@ -65,6 +67,25 @@ public class Vector2D {
     double newX1 = this.getX1() - other.getX1();
 
     return new Vector2D(newX0, newX1);
+  }
+
+  /**
+   * Checks if the parameter {@code o} is equal to this instance of {@code Vector2D}.
+   *
+   * @param o object to check for equality to {@code this}
+   * @return true if {@code this} and {@code o} are equal, false if they are not
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Vector2D vector = (Vector2D) o;
+    return ChaosGameUtils.areDoublesEqual(getX0(), vector.getX0())
+        && ChaosGameUtils.areDoublesEqual(getX1(), vector.getX1());
   }
 
 }

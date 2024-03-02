@@ -6,7 +6,7 @@ package edu.ntnu.stud.models;
  *   Implementing classes provide methods to transform 2D vectors.
  * </p>
  *
- * @author scott
+ * @author Scott du Plessis, Stanislovas Mockus
  */
 public interface Transform2D {
   /**
