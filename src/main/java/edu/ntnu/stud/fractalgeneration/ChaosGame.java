@@ -21,7 +21,7 @@ public class ChaosGame {
   private final ChaosCanvas canvas;
   private final ChaosGameDescription description;
   private Vector2D currentPoint;
-  private Random random;
+  private final Random random;
 
   /**
    * Constructs a ChaosGame instance with the specified game description and canvas dimensions.
@@ -32,6 +32,7 @@ public class ChaosGame {
    */
   public ChaosGame(ChaosGameDescription description, int width, int height) {
     this.description = description;
+    this.currentPoint = new Vector2D(0, 0);
     this.canvas =
         new ChaosCanvas(width, height, description.getMinCoords(), description.getMaxCoords());
     this.random = new Random();
@@ -55,8 +56,9 @@ public class ChaosGame {
    */
   public void runSteps(int steps) {
     for (int i = 0; i < steps; i++) {
-      int randomIndex = new Random().nextInt(description.getTransforms().size());
+      int randomIndex = random.nextInt(description.getTransforms().size());
       currentPoint = description.getTransforms().get(randomIndex).transform(currentPoint);
+
       canvas.putPixel(currentPoint);
     }
   }

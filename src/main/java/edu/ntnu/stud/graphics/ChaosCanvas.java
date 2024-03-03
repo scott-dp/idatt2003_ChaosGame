@@ -54,6 +54,7 @@ public class ChaosCanvas {
    * @param point The coordinates of the point in the plane.
    */
   public void putPixel(Vector2D point) {
+    System.out.println("point: " + point.getX0() + " " + point.getX1());
     Vector2D transformedPoint = transformCoordsToIndices.transform(point);
     int x = (int) transformedPoint.getX0();
     int y = (int) transformedPoint.getX1();
@@ -90,5 +91,18 @@ public class ChaosCanvas {
     Vector2D transformVector = new Vector2D(x0, x1);
 
     return new AffineTransform2D(transformMatrix, transformVector);
+  }
+
+  public void showCanvas() {
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        if (canvas[i][j] == 1) {
+          System.out.print("X");
+        } else {
+          System.out.print(" ");
+        }
+      }
+      System.out.println();
+    }
   }
 }
