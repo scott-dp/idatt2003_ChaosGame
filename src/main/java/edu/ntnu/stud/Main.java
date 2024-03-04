@@ -25,7 +25,7 @@ public class Main {
 
     ChaosGameDescription description = new ChaosGameDescription(min, max, transform2DList);
     ChaosGame game = new ChaosGame(description, 100, 100);
-    game.runSteps(5000);
+    game.runSteps(10000);
     game.getCanvas().showCanvas();
   }
 }
