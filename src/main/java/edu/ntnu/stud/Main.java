@@ -13,8 +13,8 @@ import java.util.List;
 
 public class Main {
   public static void main(String[] args) {
-    Vector2D min = new Vector2D(1, 0);
-    Vector2D max = new Vector2D(0, 1);
+    Vector2D min = new Vector2D(0, 0);
+    Vector2D max = new Vector2D(1, 1);
     Transform2D sierpinski1 = new AffineTransform2D(new Matrix2x2(0.5, 0, 0, 0.5), new Vector2D(0, 0));
     Transform2D sierpinski2 = new AffineTransform2D(new Matrix2x2(0.5, 0, 0, 0.5), new Vector2D(0.5, 0));
     Transform2D sierpinski3 = new AffineTransform2D(new Matrix2x2(0.5, 0, 0, 0.5), new Vector2D(0.25, 0.5));
@@ -25,7 +25,7 @@ public class Main {
 
     ChaosGameDescription description = new ChaosGameDescription(min, max, transform2DList);
     ChaosGame game = new ChaosGame(description, 100, 100);
-    game.runSteps(5000);
+    game.runSteps(10000);
     game.getCanvas().showCanvas();
   }
 }
