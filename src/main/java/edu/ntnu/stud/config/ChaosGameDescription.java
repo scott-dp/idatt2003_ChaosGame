@@ -1,5 +1,7 @@
 package edu.ntnu.stud.config;
 
+import edu.ntnu.stud.models.AffineTransform2D;
+import edu.ntnu.stud.models.JuliaTransform;
 import edu.ntnu.stud.models.Transform2D;
 import edu.ntnu.stud.models.Vector2D;
 import java.util.List;
@@ -38,5 +40,23 @@ public class ChaosGameDescription {
 
   public Vector2D getMinCoords() {
     return minCoords;
+  }
+
+  public String toString() {
+    StringBuilder info = new StringBuilder();
+
+    if (transforms.get(0) instanceof AffineTransform2D) {
+      info.append("Affine\n");
+    } else if (transforms.get(0) instanceof JuliaTransform) {
+      info.append("Julia\n");
+    } else {
+      throw new IllegalArgumentException("Unknown transform type");
+    }
+    info.append(minCoords.toString()).append("\n");
+    info.append(maxCoords.toString()).append("\n");
+    for (Transform2D transform : transforms) {
+      info.append(transform.toString()).append("\n");
+    }
+    return info.toString();
   }
 }

@@ -39,10 +39,6 @@ public class ChaosGameFileHandler {
     return newDescription;
   }
 
-  public void writeToFile(ChaosGameDescription description, String path) {
-    // Write to file using BufferedWriter
-  }
-
   public List<Transform2D> parseAffineFile(Scanner scanner) {
     List<Transform2D> affineTransformList = new ArrayList<>();
     while (scanner.hasNext()) {
@@ -60,5 +56,15 @@ public class ChaosGameFileHandler {
       juliaTransformList.add(new JuliaTransform(complexPoint, ));
     }
     return juliaTransformList;
+  }
+
+  public void writeToFile(ChaosGameDescription description, String path) throws IOException {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
+      writer.write(description.toString());
+    } catch (IOException e) {
+      throw new IOException("Could not write to file: " + path);
+    } catch (NullPointerException e) {
+      throw new NullPointerException("No description found");
+    }
   }
 }
