@@ -68,6 +68,10 @@ public class Vector2D {
 
     return new Vector2D(newX0, newX1);
   }
+  @Override
+  public String toString() {
+    return x0 + ", " + x1;
+  }
 
   /**
    * Checks if the parameter {@code o} is equal to this instance of {@code Vector2D}.
