@@ -46,7 +46,7 @@ public class ChaosGameDescription {
     StringBuilder info = new StringBuilder();
 
     if (transforms.get(0) instanceof AffineTransform2D) {
-      info.append("Affine\n");
+      info.append("Affine2D\n");
     } else if (transforms.get(0) instanceof JuliaTransform) {
       info.append("Julia\n");
     } else {

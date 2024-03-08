@@ -56,6 +56,11 @@ public class JuliaTransform implements Transform2D {
   }
 
   @Override
+  public String toString() {
+    return constantPoint.toString();
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
