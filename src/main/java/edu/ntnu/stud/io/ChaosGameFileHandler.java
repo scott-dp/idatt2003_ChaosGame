@@ -1,15 +1,46 @@
 package edu.ntnu.stud.io;
 
 import edu.ntnu.stud.config.ChaosGameDescription;
-import edu.ntnu.stud.models.*;
-
-import java.io.*;
+import edu.ntnu.stud.models.AffineTransform2D;
+import edu.ntnu.stud.models.Complex;
+import edu.ntnu.stud.models.JuliaTransform;
+import edu.ntnu.stud.models.Matrix2x2;
+import edu.ntnu.stud.models.Transform2D;
+import edu.ntnu.stud.models.Vector2D;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The ChaosGameFileHandler class provides methods,
+ * for reading and writing chaos game descriptions to and from files.
+ *<p>
+ *The class utilizes a Scanner object to read from files,
+ *  and a BufferedWriter object to write to files.
+ *</p>
+ *
+ * @version 1.0
+ * @author Scott du Plessis, Stanislovas Mockus
+ * @see ChaosGameDescription
+ */
 public class ChaosGameFileHandler {
 
+  /**
+   * Reads a text file and constructs a ChaosGameDescription object from the file contents.
+   * <p>
+   * The file should contain a description of the chaos game,
+   * including the coordinate range and the set of transformations.
+   * </p>
+   *
+   * @param path The path to the file to be read.
+   * @return A ChaosGameDescription object constructed from the file contents.
+   * @throws FileNotFoundException If the file does not exist or is not accessible.
+   */
   public ChaosGameDescription readFromFile(String path) throws FileNotFoundException {
     //Any method that uses result from this method can throw NullPointerException if file is empty
     ChaosGameDescription newDescription = null;
@@ -39,16 +70,33 @@ public class ChaosGameFileHandler {
     return newDescription;
   }
 
+  /**
+   * If the file contains info about an affine transformation,
+   * this method will parse the file and return a list of AffineTransform2D objects.
+   *
+   * @param scanner The scanner object used to read the file,
+   *               which is initially created in {@link #readFromFile(String)}
+   * @return A list of AffineTransform2D objects parsed from the file.
+   */
   public List<Transform2D> parseAffineFile(Scanner scanner) {
     List<Transform2D> affineTransformList = new ArrayList<>();
     while (scanner.hasNext()) {
-      Matrix2x2 matrix = new Matrix2x2(scanner.nextDouble(), scanner.nextDouble(), scanner.nextDouble(), scanner.nextDouble());
+      Matrix2x2 matrix = new Matrix2x2(scanner.nextDouble(), scanner.nextDouble(),
+              scanner.nextDouble(), scanner.nextDouble());
       Vector2D vector = new Vector2D(scanner.nextDouble(), scanner.nextDouble());
       affineTransformList.add(new AffineTransform2D(matrix, vector));
     }
     return affineTransformList;
   }
 
+  /**
+   * If the file contains info about a Julia transformation,
+   * this method will parse the file and return a list of JuliaTransform objects.
+   *
+   * @param scanner The scanner object used to read the file,
+   *               which is initially created in {@link #readFromFile(String)}
+   * @return A list of JuliaTransform objects parsed from the file.
+   */
   public List<Transform2D> parseJuliaFile(Scanner scanner) {
     List<Transform2D> juliaTransformList = new ArrayList<>();
     while (scanner.hasNext()) {
@@ -59,6 +107,13 @@ public class ChaosGameFileHandler {
     return juliaTransformList;
   }
 
+  /**
+   * Uses a BufferedWriter object to write a ChaosGameDescription object to a text file.
+   *
+   * @param description The ChaosGameDescription object to be written to the file.
+   * @param path The path to the file to be written.
+   * @throws IOException If the file cannot be written to.
+   */
   public void writeToFile(ChaosGameDescription description, String path) throws IOException {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
       writer.write(description.toString());
