@@ -35,5 +35,17 @@ public class ChaosGameUtils {
     return decimalNum.doubleValue();
   }
 
-  //TODO add validation method for width, height in ChaosCanvas
+  /**
+   * Util method that validates if an integer is a positive integer.
+   *
+   * @param num the number to be validated
+   * @return the number if it is a positive integer
+   */
+  public static int validatePositiveInteger(int num) {
+    if (num < 1) {
+      throw new IllegalArgumentException("Integer " + num + " has to be greater than 0");
+    } else {
+      return num;
+    }
+  }
 }
