@@ -3,6 +3,7 @@ package edu.ntnu.stud.graphics;
 import edu.ntnu.stud.models.AffineTransform2D;
 import edu.ntnu.stud.models.Matrix2x2;
 import edu.ntnu.stud.models.Vector2D;
+import edu.ntnu.stud.utils.ChaosGameUtils;
 
 /**
  * Represents a canvas for chaos game visualization with methods to manipulate pixels and canvas.
@@ -26,9 +27,8 @@ public class ChaosCanvas {
    * @param maxCoords  The maximum coordinates of the fractal in the plane.
    */
   public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) {
-    //TODO add validation of width, height by using util methods
-    this.width = width;
-    this.height = height;
+    this.width = ChaosGameUtils.validatePositiveInteger(width);
+    this.height = ChaosGameUtils.validatePositiveInteger(height);
     this.minCoords = minCoords;
     this.maxCoords = maxCoords;
     this.canvas = new int[height][width];
@@ -75,7 +75,7 @@ public class ChaosCanvas {
 
   /**
    * Creates and returns an AffineTransform2D object representing the transformation
-   * that transforms coordinates from the plane to the int[][] grid
+   * that transforms coordinates from the plane to the int[][] grid.
    *
    * @return AffineTransform2D object representing the 2D transformation
    */
@@ -93,6 +93,10 @@ public class ChaosCanvas {
     return new AffineTransform2D(transformMatrix, transformVector);
   }
 
+  /**
+   * Goes through every element in the canvas and prints it to the terminal to show
+   * a fractal.
+   */
   public void showCanvas() {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {

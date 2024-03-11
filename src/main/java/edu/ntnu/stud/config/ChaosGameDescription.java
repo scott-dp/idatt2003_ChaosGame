@@ -42,20 +42,34 @@ public class ChaosGameDescription {
     return minCoords;
   }
 
+  /**
+   * Creates the correctly formatted description of a transform which is
+   * used when writing to a file.
+   *
+   * @return the correctly formatted string that is added to a file
+   */
+  @Override
   public String toString() {
     StringBuilder info = new StringBuilder();
 
     if (transforms.get(0) instanceof AffineTransform2D) {
       info.append("Affine2D\n");
+
+      info.append(minCoords.toString()).append("\n");
+      info.append(maxCoords.toString()).append("\n");
+
+      for (Transform2D transform : transforms) {
+        info.append(transform.toString()).append("\n");
+      }
     } else if (transforms.get(0) instanceof JuliaTransform) {
       info.append("Julia\n");
+
+      info.append(minCoords.toString()).append("\n");
+      info.append(maxCoords.toString()).append("\n");
+
+      info.append(transforms.get(0).toString());
     } else {
-      throw new IllegalArgumentException("Unknown transform type");
-    }
-    info.append(minCoords.toString()).append("\n");
-    info.append(maxCoords.toString()).append("\n");
-    for (Transform2D transform : transforms) {
-      info.append(transform.toString()).append("\n");
+      throw new IllegalArgumentException("Unknown transform type: " + transforms.get(0).getClass().getSimpleName());
     }
     return info.toString();
   }
