@@ -44,6 +44,7 @@ public class Matrix2x2 {
         * vector.getX0() + a11 * vector.getX1());
   }
 
+  //TODO add javadoc here
   @Override
   public String toString() {
     return a00 + ", " + a01 + ", " + a10 + ", " + a11;
