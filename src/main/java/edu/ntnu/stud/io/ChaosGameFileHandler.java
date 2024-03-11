@@ -47,10 +47,12 @@ public class ChaosGameFileHandler {
     File file = new File(path);
     try (Scanner scanner = new Scanner(file)) {
       //Regex to tokenize file
-      scanner.useDelimiter(",|\\s+|#.*\\n");
+      scanner.useDelimiter("(?<=^|\\\\n)(?>[^,#]+,|[^#]+)");
 
       while (scanner.hasNext()) {
         String transformType = scanner.next();
+        System.out.println(transformType);
+        System.out.println(scanner.next());
 
         Vector2D min = new Vector2D(scanner.nextDouble(), scanner.nextDouble());
         Vector2D max = new Vector2D(scanner.nextDouble(), scanner.nextDouble());
