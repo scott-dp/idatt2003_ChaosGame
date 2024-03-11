@@ -21,6 +21,7 @@ public class JuliaTransform implements Transform2D {
    * @param sign  the sign to apply to the transformed point, typically 1 or -1
    */
   public JuliaTransform(Complex point, int sign) {
+    //TODO validate sign field
     this.constantPoint = point;
     this.sign = sign;
   }
