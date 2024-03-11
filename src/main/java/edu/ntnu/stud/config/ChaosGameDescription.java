@@ -42,6 +42,13 @@ public class ChaosGameDescription {
     return minCoords;
   }
 
+  /**
+   * Creates the correctly formatted description of a transform which is
+   * used when writing to a file.
+   *
+   * @return the correctly formatted string that is added to a file
+   */
+  @Override
   public String toString() {
     StringBuilder info = new StringBuilder();
 

@@ -75,7 +75,7 @@ public class ChaosCanvas {
 
   /**
    * Creates and returns an AffineTransform2D object representing the transformation
-   * that transforms coordinates from the plane to the int[][] grid
+   * that transforms coordinates from the plane to the int[][] grid.
    *
    * @return AffineTransform2D object representing the 2D transformation
    */
@@ -93,6 +93,10 @@ public class ChaosCanvas {
     return new AffineTransform2D(transformMatrix, transformVector);
   }
 
+  /**
+   * Goes through every element in the canvas and prints it to the terminal to show
+   * a fractal.
+   */
   public void showCanvas() {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {

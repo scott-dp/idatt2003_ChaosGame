@@ -68,6 +68,12 @@ public class Vector2D {
 
     return new Vector2D(newX0, newX1);
   }
+
+  /**
+   * Creates a String that represents a Vector2D object.
+   *
+   * @return the String that represents the object
+   */
   @Override
   public String toString() {
     return x0 + ", " + x1;
