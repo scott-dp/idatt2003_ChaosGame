@@ -16,12 +16,13 @@ public class UserInterface {
     private final Scanner input = new Scanner(System.in);
     ChaosGameFileHandler fileHandler = new ChaosGameFileHandler();
     ChaosGame game;
+    ChaosGameDescription description;
     public void init() {
         menuItems.put(1, this::readDescriptionFromFile);
         menuItems.put(2, this::writeDescriptionToFile);
         menuItems.put(3, this::runSteps);
-        menuItems.put(4, () -> System.out.println("Show canvas"));
-        menuItems.put(5, () -> System.out.println("Exit"));
+        menuItems.put(4, this::showCanvas);
+        menuItems.put(5, () -> System.exit(0));
     }
 
     public void showMenu() {
@@ -33,6 +34,7 @@ public class UserInterface {
     }
 
     public void start() {
+        /*
         try {
             ChaosGameDescription description = readDescriptionFromFile();
             game = new ChaosGame(description, 100, 100);
@@ -40,6 +42,7 @@ public class UserInterface {
             System.out.println("Error initializing game: " + e.getMessage());
             // Handle error or retry
         }
+        */
 
         while (true) {
             showMenu();
@@ -82,7 +85,7 @@ public class UserInterface {
         }
     }
 
-    public ChaosGameDescription readDescriptionFromFile() {
+    public void readDescriptionFromFile() {
         ChaosGameDescription newDescription = null;
         System.out.print("Enter the path to the file: ");
         String path = textInput();
@@ -92,7 +95,8 @@ public class UserInterface {
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());
         }
-        return newDescription;
+        this.description = newDescription;
+        game = new ChaosGame(description, 100, 100);
     }
 
     public void writeDescriptionToFile() {
@@ -200,6 +204,13 @@ public class UserInterface {
     }
 
     public void runSteps() {
+        if (game == null) {
+            System.out.println("No game initialized");
+            return;
+        } else if (description == null) {
+            System.out.println("No description initialized");
+            return;
+        }
         System.out.println("Enter the amount of steps: ");
         int steps = numberInput();
         System.out.println("Running " + steps + " steps");
