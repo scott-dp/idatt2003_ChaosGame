@@ -1,6 +1,7 @@
 package edu.ntnu.stud.io;
 
 import edu.ntnu.stud.config.ChaosGameDescription;
+import edu.ntnu.stud.exceptions.EmptyFileException;
 import edu.ntnu.stud.models.AffineTransform2D;
 import edu.ntnu.stud.models.Complex;
 import edu.ntnu.stud.models.JuliaTransform;
@@ -14,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -41,19 +43,19 @@ public class ChaosGameFileHandler {
    * @return A ChaosGameDescription object constructed from the file contents.
    * @throws FileNotFoundException If the file does not exist or is not accessible.
    */
-  public ChaosGameDescription readFromFile(String path) throws FileNotFoundException {
-    //Any method that uses result from this method can throw NullPointerException if file is empty
+  public ChaosGameDescription readFromFile(String path) throws FileNotFoundException, EmptyFileException, NoSuchElementException {
     ChaosGameDescription newDescription = null;
     File file = new File(path);
     try (Scanner scanner = new Scanner(file)) {
       //Regex to tokenize file
-      scanner.useDelimiter(",|\\s+|#.*\\n");
+      scanner.useDelimiter(",|\n|#.*");
 
       while (scanner.hasNext()) {
-        String transformType = scanner.next();
+        String transformType = scanner.next().trim();
 
-        Vector2D min = new Vector2D(scanner.nextDouble(), scanner.nextDouble());
-        Vector2D max = new Vector2D(scanner.nextDouble(), scanner.nextDouble());
+        //nevn i rapporten at det ble feil med \n chars osv og dermed måtte parseNextDouble implementeres med \n i regexen
+        Vector2D min = new Vector2D(parseNextDouble(scanner), parseNextDouble(scanner));
+        Vector2D max = new Vector2D(parseNextDouble(scanner), parseNextDouble(scanner));
 
         // own method call for each different transform type
         if ("Affine2D".equals(transformType)) {
@@ -61,11 +63,16 @@ public class ChaosGameFileHandler {
         } else if ("Julia".equals(transformType)) {
           newDescription = new ChaosGameDescription(min, max, parseJuliaFile(scanner));
         } else {
-          throw new IllegalArgumentException("No transform type found");
+          throw new IllegalArgumentException("No valid transform type found. Found: " + transformType);
         }
       }
     } catch (FileNotFoundException e) {
       throw new FileNotFoundException("No file found in path: " + path);
+    } catch (NoSuchElementException e) {
+      throw new NoSuchElementException("File in incorrect format. File: " + path);
+    }
+    if (newDescription == null) {
+      throw new EmptyFileException("Given file is empty. File: " + path);
     }
     return newDescription;
   }
@@ -81,12 +88,25 @@ public class ChaosGameFileHandler {
   public List<Transform2D> parseAffineFile(Scanner scanner) {
     List<Transform2D> affineTransformList = new ArrayList<>();
     while (scanner.hasNext()) {
-      Matrix2x2 matrix = new Matrix2x2(scanner.nextDouble(), scanner.nextDouble(),
-              scanner.nextDouble(), scanner.nextDouble());
-      Vector2D vector = new Vector2D(scanner.nextDouble(), scanner.nextDouble());
+      Matrix2x2 matrix = new Matrix2x2(parseNextDouble(scanner), parseNextDouble(scanner),
+          parseNextDouble(scanner), parseNextDouble(scanner));
+      Vector2D vector = new Vector2D(parseNextDouble(scanner), parseNextDouble(scanner));
       affineTransformList.add(new AffineTransform2D(matrix, vector));
     }
     return affineTransformList;
+  }
+
+  public double parseNextDouble(Scanner scanner) {
+    String nextToken = scanner.next();
+    double nextDouble;
+
+    if (nextToken.isBlank()) {
+      nextDouble = parseNextDouble(scanner);//rekursiv kall slik at man aldri får tomme strings
+    } else {
+      nextDouble = Double.parseDouble(nextToken);
+    }
+
+    return nextDouble;
   }
 
   /**
@@ -100,7 +120,7 @@ public class ChaosGameFileHandler {
   public List<Transform2D> parseJuliaFile(Scanner scanner) {
     List<Transform2D> juliaTransformList = new ArrayList<>();
     while (scanner.hasNext()) {
-      Complex complexPoint = new Complex(scanner.nextDouble(), scanner.nextDouble());
+      Complex complexPoint = new Complex(parseNextDouble(scanner), parseNextDouble(scanner));
       juliaTransformList.add(new JuliaTransform(complexPoint, -1));
       juliaTransformList.add(new JuliaTransform(complexPoint, 1));
     }
@@ -114,13 +134,13 @@ public class ChaosGameFileHandler {
    * @param path The path to the file to be written.
    * @throws IOException If the file cannot be written to.
    */
-  public void writeToFile(ChaosGameDescription description, String path) throws IOException {
+  public void writeToFile(ChaosGameDescription description, String path) throws IOException, NullPointerException {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
       writer.write(description.toString());
     } catch (IOException e) {
       throw new IOException("Could not write to file: " + path);
     } catch (NullPointerException e) {
-      throw new NullPointerException("No description found");
+      throw new NullPointerException("No ChaosGameDescription found");
     }
   }
 }

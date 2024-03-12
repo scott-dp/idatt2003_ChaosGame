@@ -11,6 +11,7 @@ import edu.ntnu.stud.utils.ChaosGameUtils;
  */
 
 public class JuliaTransform implements Transform2D {
+  //TODO add javadocs to overridden methods
   private final Complex constantPoint;
   private final int sign;
 
