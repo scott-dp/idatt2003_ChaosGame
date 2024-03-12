@@ -42,33 +42,36 @@ public class ChaosGameFileHandler {
    * @throws FileNotFoundException If the file does not exist or is not accessible.
    */
   public ChaosGameDescription readFromFile(String path) throws FileNotFoundException {
-    //Any method that uses result from this method can throw NullPointerException if file is empty
-    ChaosGameDescription newDescription = null;
     File file = new File(path);
+    if (file.length() == 0) {
+      throw new FileNotFoundException("File is empty");
+    }
+
+    ChaosGameDescription newDescription = null;
     try (Scanner scanner = new Scanner(file)) {
-      //Regex to tokenize file
-      scanner.useDelimiter(",|\\s+|#.*\\n");
+      // Adjust the delimiter to correctly handle different types of inputs
+      scanner.useDelimiter(",|\\s+|#.*(?=\\n|$)");
 
       while (scanner.hasNext()) {
-        String transformType = scanner.next();
+        String transformType = scanner.next().trim();
+
+        if (!scanner.hasNextDouble()) continue; // Skip to the next loop if next is not a double
 
         Vector2D min = new Vector2D(scanner.nextDouble(), scanner.nextDouble());
         Vector2D max = new Vector2D(scanner.nextDouble(), scanner.nextDouble());
 
-        // own method call for each different transform type
-        if ("Affine2D".equals(transformType)) {
-          newDescription = new ChaosGameDescription(min, max, parseAffineFile(scanner));
-        } else if ("Julia".equals(transformType)) {
-          newDescription = new ChaosGameDescription(min, max, parseJuliaFile(scanner));
-        } else {
-          throw new IllegalArgumentException("No transform type found");
-        }
+        newDescription = switch (transformType) {
+          case "Affine2D" -> new ChaosGameDescription(min, max, parseAffineFile(scanner));
+          case "Julia" -> new ChaosGameDescription(min, max, parseJuliaFile(scanner));
+          default -> throw new IllegalArgumentException("No transform type found: " + transformType);
+        };
       }
     } catch (FileNotFoundException e) {
-      throw new FileNotFoundException("No file found in path: " + path);
+      throw new FileNotFoundException("No file found at path: " + path);
     }
     return newDescription;
   }
+
 
   /**
    * If the file contains info about an affine transformation,

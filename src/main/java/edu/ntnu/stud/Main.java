@@ -7,11 +7,13 @@ import edu.ntnu.stud.models.AffineTransform2D;
 import edu.ntnu.stud.models.Matrix2x2;
 import edu.ntnu.stud.models.Transform2D;
 import edu.ntnu.stud.models.Vector2D;
+import edu.ntnu.stud.ui.UserInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+  static UserInterface ui = new UserInterface();
   public static void main(String[] args) {
     Vector2D min = new Vector2D(0, 0);
     Vector2D max = new Vector2D(1, 1);
@@ -27,5 +29,7 @@ public class Main {
     ChaosGame game = new ChaosGame(description, 100, 100);
     game.runSteps(10000);
     game.getCanvas().showCanvas();
+    ui.init();
+    ui.start();
   }
 }
