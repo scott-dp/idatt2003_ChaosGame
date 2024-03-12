@@ -96,12 +96,19 @@ public class ChaosGameFileHandler {
     return affineTransformList;
   }
 
+  /**
+   * Makes sure the next value parsed is a double value and not an empty/blank String
+   * which can come from the file because of the delimiter.
+   *
+   * @param scanner the scanner that goes through the file
+   * @return the next double number that can be parsed
+   */
   public double parseNextDouble(Scanner scanner) {
     String nextToken = scanner.next();
     double nextDouble;
 
     if (nextToken.isBlank()) {
-      nextDouble = parseNextDouble(scanner);//rekursiv kall slik at man aldri får tomme strings
+      nextDouble = parseNextDouble(scanner);//recursive call so that a blank/empty string is never parsed
     } else {
       nextDouble = Double.parseDouble(nextToken);
     }

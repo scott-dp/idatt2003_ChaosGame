@@ -9,7 +9,6 @@ import edu.ntnu.stud.utils.ChaosGameUtils;
  * Represents a canvas for chaos game visualization with methods to manipulate pixels and canvas.
  */
 public class ChaosCanvas {
-  //TODO make unit tests for this class
   private final int[][] canvas;
   private final int width;
   private final int height;
@@ -26,7 +25,7 @@ public class ChaosCanvas {
    * @param minCoords  The minimum coordinates of the fractal in the plane.
    * @param maxCoords  The maximum coordinates of the fractal in the plane.
    */
-  public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) {
+  public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) throws IllegalArgumentException{
     this.width = ChaosGameUtils.validatePositiveInteger(width);
     this.height = ChaosGameUtils.validatePositiveInteger(height);
     this.minCoords = minCoords;
@@ -42,6 +41,7 @@ public class ChaosCanvas {
    * @return The canvas value at the specified point.
    */
   public int getPixel(Vector2D point) {
+    //TODO verification of values in point argument and make negative tests
     Vector2D transformedPoint = transformCoordsToIndices.transform(point);
     int x = (int) transformedPoint.getX0();
     int y = (int) transformedPoint.getX1();
@@ -54,11 +54,11 @@ public class ChaosCanvas {
    * @param point The coordinates of the point in the plane.
    */
   public void putPixel(Vector2D point) {
-    System.out.println("point: " + point.getX0() + " " + point.getX1());
+    //TODO verification of values in point argument and make negative tests
     Vector2D transformedPoint = transformCoordsToIndices.transform(point);
     int x = (int) transformedPoint.getX0();
     int y = (int) transformedPoint.getX1();
-    canvas[y][x] = 1;
+    canvas[x][y] = 1;
   }
 
   /**
@@ -98,6 +98,7 @@ public class ChaosCanvas {
    * a fractal.
    */
   public void showCanvas() {
+    //TODO use forEach()?
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         if (canvas[i][j] == 1) {
