@@ -89,7 +89,7 @@ public class ChaosGameFileHandler {
     List<Transform2D> affineTransformList = new ArrayList<>();
     while (scanner.hasNext()) {
       Matrix2x2 matrix = new Matrix2x2(parseNextDouble(scanner), parseNextDouble(scanner),
-          parseNextDouble(scanner), parseNextDouble(scanner));
+            parseNextDouble(scanner), parseNextDouble(scanner));
       Vector2D vector = new Vector2D(parseNextDouble(scanner), parseNextDouble(scanner));
       affineTransformList.add(new AffineTransform2D(matrix, vector));
     }
