@@ -5,6 +5,7 @@ import edu.ntnu.stud.models.*;
 import org.junit.jupiter.api.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,24 @@ public class ChaosGameFileHandlerTest {
       transform2DList.add(transform2);
       ChaosGameDescription description = new ChaosGameDescription(new Vector2D(-1.6, -1), new Vector2D(1.6, 1), transform2DList);
       assertEquals(fileHandler.readFromFile(pathJulia).toString(), description.toString());
+    }
+
+    @Test
+    void testWriteAffineTransformToFile() throws IOException {
+      String newPath = "src/main/resources/writeAffineTest.txt";
+      ChaosGameDescription description = fileHandler.readFromFile(pathAffine);
+      fileHandler.writeToFile(description, newPath);
+      ChaosGameDescription newDescription = fileHandler.readFromFile(newPath);
+      assertEquals(description.toString(), newDescription.toString());
+    }
+
+    @Test
+    void testWriteJuliaTransformToFile() throws IOException {
+      String newPath = "src/main/resources/writeJuliaTest.txt";
+      ChaosGameDescription description = fileHandler.readFromFile(pathJulia);
+      fileHandler.writeToFile(description, newPath);
+      ChaosGameDescription newDescription = fileHandler.readFromFile(newPath);
+      assertEquals(description.toString(), newDescription.toString());
     }
   }
 }
