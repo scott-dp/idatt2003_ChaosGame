@@ -96,7 +96,7 @@ public class UserInterface {
             throw new IllegalArgumentException(e.getMessage());
         }
         this.description = newDescription;
-        game = new ChaosGame(description, 100, 100);
+        game = new ChaosGame(description, 200, 100);
     }
 
     public void writeDescriptionToFile() {
@@ -218,6 +218,10 @@ public class UserInterface {
     }
 
     public void showCanvas() {
+        if (game == null) {
+            System.out.println("No game initialized");
+            return;
+        }
         System.out.println("Showing canvas");
         game.getCanvas().showCanvas();
     }
