@@ -84,5 +84,16 @@ public class ChaosGameFileHandlerTest {
     void testReadIncorrectFormatFile() {
       assertThrows(NoSuchElementException.class, () -> fileHandler.readFromFile("src/main/resources/incorrectFormat.txt"));
     }
+
+    @Test
+    void testWriteToNonExistentDirectory() throws IOException {
+      ChaosGameDescription description = fileHandler.readFromFile(pathAffine);
+      assertThrows(IOException.class, () -> fileHandler.writeToFile(description, "src/main/bla/bla"));
+    }
+
+    @Test
+    void testWriteNullObjectToFile() {
+      assertThrows(NullPointerException.class, () -> fileHandler.writeToFile(null, "src/main/resources/empty.txt"));
+    }
   }
 }

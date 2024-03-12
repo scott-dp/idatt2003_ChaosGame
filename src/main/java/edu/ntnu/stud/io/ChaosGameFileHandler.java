@@ -69,10 +69,10 @@ public class ChaosGameFileHandler {
     } catch (FileNotFoundException e) {
       throw new FileNotFoundException("No file found in path: " + path);
     } catch (NoSuchElementException e) {
-      throw new NoSuchElementException("File in incorrect format");
+      throw new NoSuchElementException("File in incorrect format. File: " + path);
     }
     if (newDescription == null) {
-      throw new EmptyFileException("The file is empty");
+      throw new EmptyFileException("Given file is empty. File: " + path);
     }
     return newDescription;
   }
@@ -134,7 +134,7 @@ public class ChaosGameFileHandler {
    * @param path The path to the file to be written.
    * @throws IOException If the file cannot be written to.
    */
-  public void writeToFile(ChaosGameDescription description, String path) throws IOException {
+  public void writeToFile(ChaosGameDescription description, String path) throws IOException, NullPointerException {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
       writer.write(description.toString());
     } catch (IOException e) {
