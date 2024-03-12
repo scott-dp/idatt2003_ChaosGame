@@ -41,7 +41,7 @@ public class ChaosGameUtils {
    * @param num the number to be validated
    * @return the number if it is a positive integer
    */
-  public static int validatePositiveInteger(int num) {
+  public static int validatePositiveInteger(int num) throws IllegalArgumentException{
     if (num < 1) {
       throw new IllegalArgumentException("Integer " + num + " has to be greater than 0");
     } else {
