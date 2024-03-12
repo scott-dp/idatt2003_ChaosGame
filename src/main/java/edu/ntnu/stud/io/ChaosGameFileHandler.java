@@ -46,16 +46,14 @@ public class ChaosGameFileHandler {
     ChaosGameDescription newDescription = null;
     File file = new File(path);
     try (Scanner scanner = new Scanner(file)) {
-      //Regex to tokenize file
-      scanner.useDelimiter("(?<=^|\\\\n)(?>[^,#]+,|[^#]+)");
+      scanner.useDelimiter(",|#.*");
 
       while (scanner.hasNext()) {
-        String transformType = scanner.next();
-        System.out.println(transformType);
-        System.out.println(scanner.next());
+        String transformType = scanner.next().trim();
 
-        Vector2D min = new Vector2D(scanner.nextDouble(), scanner.nextDouble());
-        Vector2D max = new Vector2D(scanner.nextDouble(), scanner.nextDouble());
+        //parseDouble() kan parse feks "\n0.0" til double 0.0, men nextDouble() kan ikke det (nevn i rapporten)
+        Vector2D min = new Vector2D(Double.parseDouble(scanner.next()), Double.parseDouble(scanner.next()));
+        Vector2D max = new Vector2D(Double.parseDouble(scanner.next()), Double.parseDouble(scanner.next()));
 
         // own method call for each different transform type
         if ("Affine2D".equals(transformType)) {
@@ -83,9 +81,9 @@ public class ChaosGameFileHandler {
   public List<Transform2D> parseAffineFile(Scanner scanner) {
     List<Transform2D> affineTransformList = new ArrayList<>();
     while (scanner.hasNext()) {
-      Matrix2x2 matrix = new Matrix2x2(scanner.nextDouble(), scanner.nextDouble(),
-              scanner.nextDouble(), scanner.nextDouble());
-      Vector2D vector = new Vector2D(scanner.nextDouble(), scanner.nextDouble());
+      Matrix2x2 matrix = new Matrix2x2(Double.parseDouble(scanner.next()), Double.parseDouble(scanner.next()),
+          Double.parseDouble(scanner.next()), Double.parseDouble(scanner.next()));
+      Vector2D vector = new Vector2D(Double.parseDouble(scanner.next()), Double.parseDouble(scanner.next()));
       affineTransformList.add(new AffineTransform2D(matrix, vector));
     }
     return affineTransformList;
@@ -102,7 +100,7 @@ public class ChaosGameFileHandler {
   public List<Transform2D> parseJuliaFile(Scanner scanner) {
     List<Transform2D> juliaTransformList = new ArrayList<>();
     while (scanner.hasNext()) {
-      Complex complexPoint = new Complex(scanner.nextDouble(), scanner.nextDouble());
+      Complex complexPoint = new Complex(Double.parseDouble(scanner.next()), Double.parseDouble(scanner.next()));
       juliaTransformList.add(new JuliaTransform(complexPoint, -1));
       juliaTransformList.add(new JuliaTransform(complexPoint, 1));
     }
