@@ -1,6 +1,7 @@
 package edu.ntnu.stud.io;
 
 import edu.ntnu.stud.config.ChaosGameDescription;
+import edu.ntnu.stud.exceptions.EmptyFileException;
 import edu.ntnu.stud.models.*;
 import org.junit.jupiter.api.*;
 
@@ -8,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -63,6 +65,24 @@ public class ChaosGameFileHandlerTest {
       fileHandler.writeToFile(description, newPath);
       ChaosGameDescription newDescription = fileHandler.readFromFile(newPath);
       assertEquals(description.toString(), newDescription.toString());
+    }
+  }
+
+  @Nested
+  class NegativeTests {
+    @Test
+    void testNonValidPathToReadFromFile() {
+      assertThrows(FileNotFoundException.class, () -> fileHandler.readFromFile("src/main/main"));
+    }
+
+    @Test
+    void testReadEmptyFile() throws FileNotFoundException {
+      assertThrows(EmptyFileException.class, () -> fileHandler.readFromFile("src/main/resources/empty.txt"));
+    }
+
+    @Test
+    void testReadIncorrectFormatFile() {
+      assertThrows(NoSuchElementException.class, () -> fileHandler.readFromFile("src/main/resources/incorrectFormat.txt"));
     }
   }
 }

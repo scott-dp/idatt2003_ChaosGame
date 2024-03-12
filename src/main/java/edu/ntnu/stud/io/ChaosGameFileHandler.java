@@ -1,6 +1,7 @@
 package edu.ntnu.stud.io;
 
 import edu.ntnu.stud.config.ChaosGameDescription;
+import edu.ntnu.stud.exceptions.EmptyFileException;
 import edu.ntnu.stud.models.AffineTransform2D;
 import edu.ntnu.stud.models.Complex;
 import edu.ntnu.stud.models.JuliaTransform;
@@ -14,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -41,8 +43,7 @@ public class ChaosGameFileHandler {
    * @return A ChaosGameDescription object constructed from the file contents.
    * @throws FileNotFoundException If the file does not exist or is not accessible.
    */
-  public ChaosGameDescription readFromFile(String path) throws FileNotFoundException {
-    //Any method that uses result from this method can throw NullPointerException if file is empty
+  public ChaosGameDescription readFromFile(String path) throws FileNotFoundException, EmptyFileException, NoSuchElementException {
     ChaosGameDescription newDescription = null;
     File file = new File(path);
     try (Scanner scanner = new Scanner(file)) {
@@ -67,6 +68,11 @@ public class ChaosGameFileHandler {
       }
     } catch (FileNotFoundException e) {
       throw new FileNotFoundException("No file found in path: " + path);
+    } catch (NoSuchElementException e) {
+      throw new NoSuchElementException("File in incorrect format");
+    }
+    if (newDescription == null) {
+      throw new EmptyFileException("The file is empty");
     }
     return newDescription;
   }
