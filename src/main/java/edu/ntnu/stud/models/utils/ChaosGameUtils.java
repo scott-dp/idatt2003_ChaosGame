@@ -1,4 +1,4 @@
-package edu.ntnu.stud.utils;
+package edu.ntnu.stud.models.utils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -1,6 +1,6 @@
 package edu.ntnu.stud.models;
 
-import edu.ntnu.stud.utils.ChaosGameUtils;
+import edu.ntnu.stud.models.utils.ChaosGameUtils;
 
 /**
  * The Complex class represents complex numbers, which consist of a real part and an imaginary part.

@@ -1,6 +1,5 @@
 package edu.ntnu.stud.models;
 
-import edu.ntnu.stud.utils.ChaosGameUtils;
 /**
  * Implements a transformation based on Julia sets for 2D points.
  * This class provides a method to transform a {@link Vector2D} point using a Julia set formula.

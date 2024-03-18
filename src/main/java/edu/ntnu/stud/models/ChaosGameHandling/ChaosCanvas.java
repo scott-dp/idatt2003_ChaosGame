@@ -1,9 +1,9 @@
-package edu.ntnu.stud.graphics;
+package edu.ntnu.stud.models.ChaosGameHandling;
 
 import edu.ntnu.stud.models.AffineTransform2D;
 import edu.ntnu.stud.models.Matrix2x2;
 import edu.ntnu.stud.models.Vector2D;
-import edu.ntnu.stud.utils.ChaosGameUtils;
+import edu.ntnu.stud.models.utils.ChaosGameUtils;
 
 /**
  * Represents a canvas for chaos game visualization with methods to manipulate pixels and canvas.

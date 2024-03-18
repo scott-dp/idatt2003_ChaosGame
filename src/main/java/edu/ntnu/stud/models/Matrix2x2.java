@@ -1,7 +1,7 @@
 package edu.ntnu.stud.models;
 
 
-import edu.ntnu.stud.utils.ChaosGameUtils;
+import edu.ntnu.stud.models.utils.ChaosGameUtils;
 
 /**
  * Represents a 2x2 matrix and provides a method to multiply it by a 2D vector.

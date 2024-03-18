@@ -1,15 +1,14 @@
 package edu.ntnu.stud.ui;
 
-import edu.ntnu.stud.config.ChaosGameDescription;
-import edu.ntnu.stud.fractalgeneration.ChaosGame;
-import edu.ntnu.stud.io.ChaosGameFileHandler;
+import edu.ntnu.stud.models.ChaosGameHandling.ChaosGameDescription;
+import edu.ntnu.stud.models.ChaosGameHandling.ChaosGame;
+import edu.ntnu.stud.models.ChaosGameHandling.ChaosGameFileHandler;
 import edu.ntnu.stud.models.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class UserInterface {
     private final HashMap<Integer,Runnable> menuItems = new HashMap<>();

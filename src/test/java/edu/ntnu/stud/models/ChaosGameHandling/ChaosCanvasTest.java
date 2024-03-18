@@ -1,5 +1,6 @@
-package edu.ntnu.stud.graphics;
+package edu.ntnu.stud.models.ChaosGameHandling;
 
+import edu.ntnu.stud.models.ChaosGameHandling.ChaosCanvas;
 import edu.ntnu.stud.models.Vector2D;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;

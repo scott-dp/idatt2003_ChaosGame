@@ -1,4 +1,4 @@
-package edu.ntnu.stud.exceptions;
+package edu.ntnu.stud.models.exceptions;
 
 public class EmptyFileException extends RuntimeException {
   public EmptyFileException() {

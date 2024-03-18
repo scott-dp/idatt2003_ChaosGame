@@ -1,6 +1,7 @@
-package edu.ntnu.stud.config;
+package edu.ntnu.stud.models.ChaosGameHandling;
 
 import edu.ntnu.stud.models.*;
+import edu.ntnu.stud.models.ChaosGameHandling.ChaosGameDescription;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;

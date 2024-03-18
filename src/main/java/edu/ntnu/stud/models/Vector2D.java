@@ -1,6 +1,6 @@
 package edu.ntnu.stud.models;
 
-import edu.ntnu.stud.utils.ChaosGameUtils;
+import edu.ntnu.stud.models.utils.ChaosGameUtils;
 
 /**
  * The Vector2D class represents a two-dimensional vector.
