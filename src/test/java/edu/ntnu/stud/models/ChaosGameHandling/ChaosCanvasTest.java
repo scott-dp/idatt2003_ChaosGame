@@ -35,6 +35,16 @@ public class ChaosCanvasTest {
   }
   @Nested
   class NegativeTests {
-    //TODO make negative tests
+    @Test
+    void testInvalidCanvasWidthInConstructor() {
+      assertThrows(IllegalArgumentException.class, () -> new ChaosCanvas(-1, 1, point, point));
+      assertThrows(IllegalArgumentException.class, () -> new ChaosCanvas(0, 1, point, point));
+    }
+
+    @Test
+    void testInvalidCanvasHeightInConstructor() {
+      assertThrows(IllegalArgumentException.class, () -> new ChaosCanvas(1, -1, point, point));
+      assertThrows(IllegalArgumentException.class, () -> new ChaosCanvas(1, 0, point, point));
+    }
   }
 }

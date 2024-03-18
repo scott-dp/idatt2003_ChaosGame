@@ -26,6 +26,7 @@ public class ChaosCanvas {
    * @param maxCoords  The maximum coordinates of the fractal in the plane.
    */
   public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) throws IllegalArgumentException{
+    //TODO add verification to min and max coords (make sure that min is smaller than max)
     this.width = ChaosGameUtils.validatePositiveInteger(width);
     this.height = ChaosGameUtils.validatePositiveInteger(height);
     this.minCoords = minCoords;
@@ -41,7 +42,7 @@ public class ChaosCanvas {
    * @return The canvas value at the specified point.
    */
   public int getPixel(Vector2D point) {
-    //TODO verification of values in point argument and make negative tests
+    //TODO verification of values in point argument (check if the point is between min and max?) and make negative tests
     Vector2D transformedPoint = transformCoordsToIndices.transform(point);
     int x = (int) transformedPoint.getX0();
     int y = (int) transformedPoint.getX1();
@@ -54,7 +55,7 @@ public class ChaosCanvas {
    * @param point The coordinates of the point in the plane.
    */
   public void putPixel(Vector2D point) {
-    //TODO verification of values in point argument and make negative tests
+    //TODO verification of values in point argument (check if the point is between min and max?) and make negative tests
     Vector2D transformedPoint = transformCoordsToIndices.transform(point);
     int x = (int) transformedPoint.getX0();
     int y = (int) transformedPoint.getX1();
