@@ -1,13 +1,9 @@
-package edu.ntnu.stud.io;
+package edu.ntnu.stud.models.ChaosGameHandling;
 
-import edu.ntnu.stud.config.ChaosGameDescription;
-import edu.ntnu.stud.exceptions.EmptyFileException;
-import edu.ntnu.stud.models.AffineTransform2D;
-import edu.ntnu.stud.models.Complex;
-import edu.ntnu.stud.models.JuliaTransform;
-import edu.ntnu.stud.models.Matrix2x2;
-import edu.ntnu.stud.models.Transform2D;
-import edu.ntnu.stud.models.Vector2D;
+import edu.ntnu.stud.models.*;
+import edu.ntnu.stud.models.ChaosGameHandling.ChaosGameDescription;
+import edu.ntnu.stud.models.exceptions.EmptyFileException;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;

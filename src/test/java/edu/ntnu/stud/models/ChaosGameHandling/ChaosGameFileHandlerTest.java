@@ -1,7 +1,8 @@
-package edu.ntnu.stud.io;
+package edu.ntnu.stud.models.ChaosGameHandling;
 
-import edu.ntnu.stud.config.ChaosGameDescription;
-import edu.ntnu.stud.exceptions.EmptyFileException;
+import edu.ntnu.stud.models.ChaosGameHandling.ChaosGameDescription;
+import edu.ntnu.stud.models.ChaosGameHandling.ChaosGameFileHandler;
+import edu.ntnu.stud.models.exceptions.EmptyFileException;
 import edu.ntnu.stud.models.*;
 import org.junit.jupiter.api.*;
 
@@ -21,8 +22,8 @@ public class ChaosGameFileHandlerTest {
   @BeforeEach
   void setUp() {
     fileHandler = new ChaosGameFileHandler();
-    pathAffine = "src/main/resources/Affine.txt";
-    pathJulia = "src/main/resources/Julia.txt";
+    pathAffine = "src/test/resources/testResources/Affine.txt";
+    pathJulia = "src/test/resources/testResources/Julia.txt";
   }
 
   @Nested
@@ -51,7 +52,7 @@ public class ChaosGameFileHandlerTest {
 
     @Test
     void testWriteAffineTransformToFile() throws IOException {
-      String newPath = "src/main/resources/writeAffineTest.txt";
+      String newPath = "src/test/resources/testResources/writeAffineTest.txt";
       ChaosGameDescription description = fileHandler.readFromFile(pathAffine);
       fileHandler.writeToFile(description, newPath);
       ChaosGameDescription newDescription = fileHandler.readFromFile(newPath);
@@ -60,7 +61,7 @@ public class ChaosGameFileHandlerTest {
 
     @Test
     void testWriteJuliaTransformToFile() throws IOException {
-      String newPath = "src/main/resources/writeJuliaTest.txt";
+      String newPath = "src/test/resources/testResources/writeJuliaTest.txt";
       ChaosGameDescription description = fileHandler.readFromFile(pathJulia);
       fileHandler.writeToFile(description, newPath);
       ChaosGameDescription newDescription = fileHandler.readFromFile(newPath);
@@ -72,28 +73,28 @@ public class ChaosGameFileHandlerTest {
   class NegativeTests {
     @Test
     void testNonValidPathToReadFromFile() {
-      assertThrows(FileNotFoundException.class, () -> fileHandler.readFromFile("src/main/main"));
+      assertThrows(FileNotFoundException.class, () -> fileHandler.readFromFile("src/test/main"));
     }
 
     @Test
     void testReadEmptyFile() throws FileNotFoundException {
-      assertThrows(EmptyFileException.class, () -> fileHandler.readFromFile("src/main/resources/empty.txt"));
+      assertThrows(EmptyFileException.class, () -> fileHandler.readFromFile("src/test/resources/testResources/empty.txt"));
     }
 
     @Test
     void testReadIncorrectFormatFile() {
-      assertThrows(NoSuchElementException.class, () -> fileHandler.readFromFile("src/main/resources/incorrectFormat.txt"));
+      assertThrows(NoSuchElementException.class, () -> fileHandler.readFromFile("src/test/resources/testResources/incorrectFormat.txt"));
     }
 
     @Test
     void testWriteToNonExistentDirectory() throws IOException {
       ChaosGameDescription description = fileHandler.readFromFile(pathAffine);
-      assertThrows(IOException.class, () -> fileHandler.writeToFile(description, "src/main/bla/bla"));
+      assertThrows(IOException.class, () -> fileHandler.writeToFile(description, "src/test/bla/bla"));
     }
 
     @Test
     void testWriteNullObjectToFile() {
-      assertThrows(NullPointerException.class, () -> fileHandler.writeToFile(null, "src/main/resources/empty.txt"));
+      assertThrows(NullPointerException.class, () -> fileHandler.writeToFile(null, "src/test/resources/testResources/empty.txt"));
     }
   }
 }

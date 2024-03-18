@@ -1,5 +1,6 @@
-package edu.ntnu.stud.utils;
+package edu.ntnu.stud.models.utils;
 
+import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 

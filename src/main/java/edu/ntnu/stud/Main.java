@@ -1,8 +1,7 @@
 package edu.ntnu.stud;
 
-import edu.ntnu.stud.config.ChaosGameDescription;
-import edu.ntnu.stud.fractalgeneration.ChaosGame;
-import edu.ntnu.stud.graphics.ChaosCanvas;
+import edu.ntnu.stud.models.ChaosGameHandling.ChaosGameDescription;
+import edu.ntnu.stud.models.ChaosGameHandling.ChaosGame;
 import edu.ntnu.stud.models.AffineTransform2D;
 import edu.ntnu.stud.models.Matrix2x2;
 import edu.ntnu.stud.models.Transform2D;
