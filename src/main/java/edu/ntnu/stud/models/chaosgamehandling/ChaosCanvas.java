@@ -5,6 +5,8 @@ import edu.ntnu.stud.models.Matrix2x2;
 import edu.ntnu.stud.models.Vector2D;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 
+import java.util.Vector;
+
 /**
  * Represents a canvas for chaos game visualization with methods to manipulate pixels and canvas.
  */
@@ -30,6 +32,7 @@ public class ChaosCanvas {
     //TODO add verification to min and max coords (make sure that min is smaller than max)
     this.width = ChaosGameUtils.validatePositiveInteger(width);
     this.height = ChaosGameUtils.validatePositiveInteger(height);
+    ChaosGameUtils.validateMinAndMaxCoords(minCoords, maxCoords);
     this.minCoords = minCoords;
     this.maxCoords = maxCoords;
     this.canvas = new int[height][width];
