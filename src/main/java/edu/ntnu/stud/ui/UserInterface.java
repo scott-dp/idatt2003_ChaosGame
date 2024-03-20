@@ -1,8 +1,8 @@
 package edu.ntnu.stud.ui;
 
-import edu.ntnu.stud.models.ChaosGameHandling.ChaosGameDescription;
-import edu.ntnu.stud.models.ChaosGameHandling.ChaosGame;
-import edu.ntnu.stud.models.ChaosGameHandling.ChaosGameFileHandler;
+import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
+import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
+import edu.ntnu.stud.models.chaosgamehandling.ChaosGameFileHandler;
 import edu.ntnu.stud.models.*;
 
 import java.util.ArrayList;

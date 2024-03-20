@@ -1,4 +1,4 @@
-package edu.ntnu.stud.models.ChaosGameHandling;
+package edu.ntnu.stud.models.chaosgamehandling;
 
 import edu.ntnu.stud.models.AffineTransform2D;
 import edu.ntnu.stud.models.Matrix2x2;
@@ -25,7 +25,8 @@ public class ChaosCanvas {
    * @param minCoords  The minimum coordinates of the fractal in the plane.
    * @param maxCoords  The maximum coordinates of the fractal in the plane.
    */
-  public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) throws IllegalArgumentException{
+  public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords)
+      throws IllegalArgumentException {
     //TODO add verification to min and max coords (make sure that min is smaller than max)
     this.width = ChaosGameUtils.validatePositiveInteger(width);
     this.height = ChaosGameUtils.validatePositiveInteger(height);

@@ -1,7 +1,6 @@
-package edu.ntnu.stud.models.ChaosGameHandling;
+package edu.ntnu.stud.models.chaosgamehandling;
 
 import edu.ntnu.stud.models.Vector2D;
-
 import java.util.Random;
 
 /**

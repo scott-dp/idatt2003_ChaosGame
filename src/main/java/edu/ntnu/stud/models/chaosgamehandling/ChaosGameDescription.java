@@ -1,10 +1,9 @@
-package edu.ntnu.stud.models.ChaosGameHandling;
+package edu.ntnu.stud.models.chaosgamehandling;
 
 import edu.ntnu.stud.models.AffineTransform2D;
 import edu.ntnu.stud.models.JuliaTransform;
 import edu.ntnu.stud.models.Transform2D;
 import edu.ntnu.stud.models.Vector2D;
-
 import java.util.List;
 
 /**
@@ -70,7 +69,8 @@ public class ChaosGameDescription {
 
       info.append(transforms.get(0).toString());
     } else {
-      throw new IllegalArgumentException("Unknown transform type: " + transforms.get(0).getClass().getSimpleName());
+      throw new IllegalArgumentException("Unknown transform type: "
+          + transforms.get(0).getClass().getSimpleName());
     }
     return info.toString();
   }
