@@ -1,7 +1,5 @@
-package edu.ntnu.stud.models.ChaosGameHandling;
+package edu.ntnu.stud.models.chaosgamehandling;
 
-import edu.ntnu.stud.models.ChaosGameHandling.ChaosGameDescription;
-import edu.ntnu.stud.models.ChaosGameHandling.ChaosGameFileHandler;
 import edu.ntnu.stud.models.exceptions.EmptyFileException;
 import edu.ntnu.stud.models.*;
 import org.junit.jupiter.api.*;

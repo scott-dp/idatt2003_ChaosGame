@@ -1,9 +1,12 @@
-package edu.ntnu.stud.models.ChaosGameHandling;
+package edu.ntnu.stud.models.chaosgamehandling;
 
-import edu.ntnu.stud.models.*;
-import edu.ntnu.stud.models.ChaosGameHandling.ChaosGameDescription;
+import edu.ntnu.stud.models.AffineTransform2D;
+import edu.ntnu.stud.models.Complex;
+import edu.ntnu.stud.models.JuliaTransform;
+import edu.ntnu.stud.models.Matrix2x2;
+import edu.ntnu.stud.models.Transform2D;
+import edu.ntnu.stud.models.Vector2D;
 import edu.ntnu.stud.models.exceptions.EmptyFileException;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,7 +42,8 @@ public class ChaosGameFileHandler {
    * @return A ChaosGameDescription object constructed from the file contents.
    * @throws FileNotFoundException If the file does not exist or is not accessible.
    */
-  public ChaosGameDescription readFromFile(String path) throws FileNotFoundException, EmptyFileException, NoSuchElementException {
+  public ChaosGameDescription readFromFile(String path)
+      throws FileNotFoundException, EmptyFileException, NoSuchElementException {
     ChaosGameDescription newDescription = null;
     File file = new File(path);
     try (Scanner scanner = new Scanner(file)) {
@@ -59,7 +63,8 @@ public class ChaosGameFileHandler {
         } else if ("Julia".equals(transformType)) {
           newDescription = new ChaosGameDescription(min, max, parseJuliaFile(scanner));
         } else {
-          throw new IllegalArgumentException("No valid transform type found. Found: " + transformType);
+          throw new IllegalArgumentException("No valid transform type found. Found: "
+              + transformType);
         }
       }
     } catch (FileNotFoundException e) {
@@ -104,7 +109,8 @@ public class ChaosGameFileHandler {
     double nextDouble;
 
     if (nextToken.isBlank()) {
-      nextDouble = parseNextDouble(scanner);//recursive call so that a blank/empty string is never parsed
+      nextDouble = parseNextDouble(scanner);
+      //recursive call so that a blank/empty string is never parsed
     } else {
       nextDouble = Double.parseDouble(nextToken);
     }
@@ -137,7 +143,8 @@ public class ChaosGameFileHandler {
    * @param path The path to the file to be written.
    * @throws IOException If the file cannot be written to.
    */
-  public void writeToFile(ChaosGameDescription description, String path) throws IOException, NullPointerException {
+  public void writeToFile(ChaosGameDescription description, String path)
+      throws IOException, NullPointerException {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
       writer.write(description.toString());
     } catch (IOException e) {

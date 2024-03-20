@@ -1,5 +1,7 @@
 package edu.ntnu.stud.models.utils;
 
+import edu.ntnu.stud.models.Vector2D;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -47,5 +49,9 @@ public class ChaosGameUtils {
     } else {
       return num;
     }
+  }
+
+  public static void validateMinAndMaxCoords(Vector2D min, Vector2D max) {
+    //TODO validate min and max
   }
 }
