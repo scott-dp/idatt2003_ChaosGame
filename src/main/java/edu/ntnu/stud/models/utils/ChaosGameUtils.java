@@ -1,5 +1,6 @@
 package edu.ntnu.stud.models.utils;
 
+import edu.ntnu.stud.models.JuliaTransform;
 import edu.ntnu.stud.models.Vector2D;
 
 import java.math.BigDecimal;
@@ -51,7 +52,49 @@ public class ChaosGameUtils {
     }
   }
 
+  /**
+   * Validates that min coordinate is smaller than max coordinate in ChaosCanvas constructor.
+   *
+   * @param min the minimum coordinate
+   * @param max the maximum coordinate
+   */
   public static void validateMinAndMaxCoords(Vector2D min, Vector2D max) {
-    //TODO validate min and max
+    if (min.equals(max)) {
+      throw new IllegalArgumentException("Min and max coords of the fractal are the same");
+    } else if (min.getX0() >= max.getX0() || min.getX1() >= max.getX1()) {
+      throw new IllegalArgumentException("Min has to be smaller than max. Min is "
+          + min + ", max is " + max);
+    }
+  }
+
+  /**
+   * Validates the sign field taken in the constructor for the construction of a {@link JuliaTransform} object.
+   * Throws an IllegalArgumentException if the sign is anything else than 1 or -1
+   *
+   * @param sign the field being validated
+   * @return the sign param if it has e legal value
+   */
+  public static int validateSignField(int sign) {
+    if (sign == 1 || sign == -1) {
+      return sign;
+    }
+    throw new IllegalArgumentException("Sign field for julia transform has to be 1 or -1, but is " + sign);
+  }
+
+  /**
+   * Validates that point param given to getPixel and putPixel is a point in the canvas.
+   *
+   * @param point point to be checked if it is between min and max coords
+   * @param min minimum coordinate
+   * @param max maximum coordinate
+   */
+  public static void verifyPointBetweenMinAndMax(Vector2D point, Vector2D min, Vector2D max) {
+    if (point.getX0() < min.getX0() || point.getX1() < min.getX1()) {
+      //Point is smaller than min
+      throw new IllegalArgumentException("Point has to be between min and max coordinates");
+    } else if (point.getX0() > max.getX0() || point.getX1() > max.getX1()) {
+      //Point is greater than max
+      throw new IllegalArgumentException("Point has to be between min and max coordinates");
+    }
   }
 }

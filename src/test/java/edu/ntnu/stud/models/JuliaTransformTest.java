@@ -24,7 +24,7 @@ public class JuliaTransformTest {
   }
 
   @Nested
-  class positiveTests {
+  class PositiveTests {
     @Test
     void testTransform() {
       Vector2D transformedPoint = juliaTransform1.transform(vector2D);
@@ -39,6 +39,16 @@ public class JuliaTransformTest {
       assertNotEquals(juliaTransform1, complex1);
       assertEquals(juliaTransform1, juliaTransform2);
       assertNotEquals(juliaTransform1, juliaTransform3);
+    }
+  }
+
+  @Nested
+  class NegativeTests {
+    @Test
+    void testValidationOfSignField() {
+      assertThrows(IllegalArgumentException.class, () -> new JuliaTransform(new Complex(1, 1), -2));
+      assertThrows(IllegalArgumentException.class, () -> new JuliaTransform(new Complex(1, 1), 3));
+      assertThrows(IllegalArgumentException.class, () -> new JuliaTransform(new Complex(1, 1), 0));
     }
   }
 }

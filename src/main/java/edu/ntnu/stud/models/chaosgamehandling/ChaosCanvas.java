@@ -29,7 +29,6 @@ public class ChaosCanvas {
    */
   public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords)
       throws IllegalArgumentException {
-    //TODO add verification to min and max coords (make sure that min is smaller than max)
     this.width = ChaosGameUtils.validatePositiveInteger(width);
     this.height = ChaosGameUtils.validatePositiveInteger(height);
     ChaosGameUtils.validateMinAndMaxCoords(minCoords, maxCoords);
@@ -39,6 +38,18 @@ public class ChaosCanvas {
     transformCoordsToIndices = setTransformCoordsMatrix();
   }
 
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public int[][] getCanvas() {
+    return canvas;
+  }
+
   /**
    * Retrieves the canvas (2D table) value at a specified point on the plane.
    *
@@ -46,7 +57,7 @@ public class ChaosCanvas {
    * @return The canvas value at the specified point.
    */
   public int getPixel(Vector2D point) {
-    //TODO verification of values in point argument (check if the point is between min and max?) and make negative tests
+    ChaosGameUtils.verifyPointBetweenMinAndMax(point, minCoords, maxCoords);
     Vector2D transformedPoint = transformCoordsToIndices.transform(point);
     int x = (int) transformedPoint.getX0();
     int y = (int) transformedPoint.getX1();
@@ -59,7 +70,7 @@ public class ChaosCanvas {
    * @param point The coordinates of the point in the plane.
    */
   public void putPixel(Vector2D point) {
-    //TODO verification of values in point argument (check if the point is between min and max?) and make negative tests
+    ChaosGameUtils.verifyPointBetweenMinAndMax(point, minCoords, maxCoords);
     Vector2D transformedPoint = transformCoordsToIndices.transform(point);
     int x = (int) transformedPoint.getX0();
     int y = (int) transformedPoint.getX1();
