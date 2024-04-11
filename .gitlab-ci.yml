@@ -15,7 +15,4 @@ build-job:
 unit-test-job:
   stage: test
   script:
-    - mvn test jacoco:report
-  artifacts:
-    paths:
-      - target/site/jacoco
+    - mvn test
