@@ -4,18 +4,23 @@ import edu.ntnu.stud.models.chaosgamehandling.ChaosCanvas;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class ChaosGameView {
-  ChaosGame game;
+  private final ChaosGame game;
 
 
   public ChaosGameView(ChaosGame game) {
     this.game = game;
   }
 
-  public void showFractal(Stage stage) {
+  public ChaosGame getGame() {
+    return game;
+  }
+
+  public void showFractal(StackPane layout) {
     ChaosCanvas fractalCanvas = game.getCanvas();
     int[][] fractalList = fractalCanvas.getCanvas();
     Canvas canvas = new Canvas(fractalCanvas.getWidth(), fractalCanvas.getHeight());
@@ -24,9 +29,12 @@ public class ChaosGameView {
 
     for (int i = 0; i < fractalList.length; i++) {
       for (int j = 0; j < fractalList[i].length; j++) {
-        gc.fillRect(i, j, 1, 1);
+        if (fractalList[i][j] == 1) {
+          gc.fillRect(j, i, 1, 1);
+        }
       }
     }
 
+    layout.getChildren().add(canvas);
   }
 }
