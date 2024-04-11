@@ -75,30 +75,14 @@ public class ChaosGameDescriptionFactory {
    * @param c the complex number to be used in the Julia set formula
    * @return a {@link ChaosGameDescription} instance
    */
-  public static ChaosGameDescription createPositiveJuliaSet(Complex c) {
+  public static ChaosGameDescription createJuliaSet(Complex c) {
     transforms = new ArrayList<>();
-    Vector2D min = new Vector2D(-1.5, -1.5);
-    Vector2D max = new Vector2D(1.5, 1.5);
-    Transform2D julia = new JuliaTransform(c, 1);
-    transforms.add(julia);
-    return new ChaosGameDescription(min, max, transforms);
-  }
-
-  /**
-   * A static method that creates a Julia set chaos game description.
-   * with predefined transforms and min and max points.
-   * The Julia set is created with a negative sign.
-   * The complex number used in the Julia set formula is passed as a parameter.
-   *
-   * @param c the complex number to be used in the Julia set formula
-   * @return a {@link ChaosGameDescription} instance
-   */
-  public static ChaosGameDescription createNegativeJuliaSet(Complex c) {
-    transforms = new ArrayList<>();
-    Vector2D min = new Vector2D(-1.5, -1.5);
-    Vector2D max = new Vector2D(1.5, 1.5);
-    Transform2D julia = new JuliaTransform(c, -1);
-    transforms.add(julia);
+    Vector2D min = new Vector2D(-1.6, -1);
+    Vector2D max = new Vector2D(1.6, 1);
+    Transform2D julia1 = new JuliaTransform(c, 1);
+    Transform2D julia2 = new JuliaTransform(c, -1);
+    transforms.add(julia1);
+    transforms.add(julia2);
     return new ChaosGameDescription(min, max, transforms);
   }
 }

@@ -70,10 +70,14 @@ public class ChaosCanvas {
    * @param point The coordinates of the point in the plane.
    */
   public void putPixel(Vector2D point) {
-    ChaosGameUtils.verifyPointBetweenMinAndMax(point, minCoords, maxCoords);
     Vector2D transformedPoint = transformCoordsToIndices.transform(point);
     int x = (int) transformedPoint.getX0();
     int y = (int) transformedPoint.getX1();
+    try {
+      ChaosGameUtils.verifyPointBetweenMinAndMax(point, minCoords, maxCoords);
+    } catch (IllegalArgumentException e) {
+      return;
+    }
     canvas[x][y] = 1;
   }
 
