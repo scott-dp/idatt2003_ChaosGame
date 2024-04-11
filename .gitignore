@@ -4,16 +4,7 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-.idea/sonarlint/
-.idea/misc.xml/
-<<<<<<< HEAD
-
-=======
->>>>>>> f1e1e45838ce746858f76ed10a5f21180d7f5050
+.idea/
 *.iws
 *.iml
 *.ipr
