@@ -1,14 +1,16 @@
-package edu.ntnu.stud.graphics;
+package edu.ntnu.stud.models.chaosgamehandling;
 
 import edu.ntnu.stud.models.AffineTransform2D;
 import edu.ntnu.stud.models.Matrix2x2;
 import edu.ntnu.stud.models.Vector2D;
+import edu.ntnu.stud.models.utils.ChaosGameUtils;
+
+import java.util.Vector;
 
 /**
  * Represents a canvas for chaos game visualization with methods to manipulate pixels and canvas.
  */
 public class ChaosCanvas {
-  //TODO make unit tests for this class
   private final int[][] canvas;
   private final int width;
   private final int height;
@@ -25,14 +27,27 @@ public class ChaosCanvas {
    * @param minCoords  The minimum coordinates of the fractal in the plane.
    * @param maxCoords  The maximum coordinates of the fractal in the plane.
    */
-  public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) {
-    //TODO add validation of width, height by using util methods
-    this.width = width;
-    this.height = height;
+  public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords)
+      throws IllegalArgumentException {
+    this.width = ChaosGameUtils.validatePositiveInteger(width);
+    this.height = ChaosGameUtils.validatePositiveInteger(height);
+    ChaosGameUtils.validateMinAndMaxCoords(minCoords, maxCoords);
     this.minCoords = minCoords;
     this.maxCoords = maxCoords;
     this.canvas = new int[height][width];
     transformCoordsToIndices = setTransformCoordsMatrix();
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public int[][] getCanvas() {
+    return canvas;
   }
 
   /**
@@ -42,6 +57,7 @@ public class ChaosCanvas {
    * @return The canvas value at the specified point.
    */
   public int getPixel(Vector2D point) {
+    ChaosGameUtils.verifyPointBetweenMinAndMax(point, minCoords, maxCoords);
     Vector2D transformedPoint = transformCoordsToIndices.transform(point);
     int x = (int) transformedPoint.getX0();
     int y = (int) transformedPoint.getX1();
@@ -54,11 +70,15 @@ public class ChaosCanvas {
    * @param point The coordinates of the point in the plane.
    */
   public void putPixel(Vector2D point) {
-    System.out.println("point: " + point.getX0() + " " + point.getX1());
     Vector2D transformedPoint = transformCoordsToIndices.transform(point);
     int x = (int) transformedPoint.getX0();
     int y = (int) transformedPoint.getX1();
-    canvas[y][x] = 1;
+    try {
+      ChaosGameUtils.verifyPointBetweenMinAndMax(point, minCoords, maxCoords);
+    } catch (IllegalArgumentException e) {
+      return;
+    }
+    canvas[x][y] = 1;
   }
 
   /**
@@ -75,7 +95,7 @@ public class ChaosCanvas {
 
   /**
    * Creates and returns an AffineTransform2D object representing the transformation
-   * that transforms coordinates from the plane to the int[][] grid
+   * that transforms coordinates from the plane to the int[][] grid.
    *
    * @return AffineTransform2D object representing the 2D transformation
    */
@@ -93,7 +113,12 @@ public class ChaosCanvas {
     return new AffineTransform2D(transformMatrix, transformVector);
   }
 
+  /**
+   * Goes through every element in the canvas and prints it to the terminal to show
+   * a fractal.
+   */
   public void showCanvas() {
+    //TODO use forEach()?
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         if (canvas[i][j] == 1) {

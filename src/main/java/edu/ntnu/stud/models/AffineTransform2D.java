@@ -38,4 +38,14 @@ public class AffineTransform2D implements Transform2D {
 
     return result.add(vector);
   }
+
+  /**
+   * Creates a String that represents this Affine transform.
+   *
+   * @return the String that represents this transform
+   */
+  @Override
+  public String toString() {
+    return matrix.toString() + ", " + vector.toString();
+  }
 }

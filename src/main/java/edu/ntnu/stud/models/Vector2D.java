@@ -1,6 +1,6 @@
 package edu.ntnu.stud.models;
 
-import edu.ntnu.stud.utils.ChaosGameUtils;
+import edu.ntnu.stud.models.utils.ChaosGameUtils;
 
 /**
  * The Vector2D class represents a two-dimensional vector.
@@ -70,6 +70,16 @@ public class Vector2D {
   }
 
   /**
+   * Creates a String that represents a Vector2D object.
+   *
+   * @return the String that represents the object
+   */
+  @Override
+  public String toString() {
+    return x0 + ", " + x1;
+  }
+
+  /**
    * Checks if the parameter {@code o} is equal to this instance of {@code Vector2D}.
    *
    * @param o object to check for equality to {@code this}
@@ -87,5 +97,4 @@ public class Vector2D {
     return ChaosGameUtils.areDoublesEqual(getX0(), vector.getX0())
         && ChaosGameUtils.areDoublesEqual(getX1(), vector.getX1());
   }
-
 }

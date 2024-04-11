@@ -16,4 +16,7 @@ public interface Transform2D {
    * @return The transformed vector.
    */
   Vector2D transform(Vector2D point);
+
+  @Override
+  String toString();
 }

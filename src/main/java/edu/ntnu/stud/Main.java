@@ -1,31 +1,30 @@
 package edu.ntnu.stud;
 
-import edu.ntnu.stud.config.ChaosGameDescription;
-import edu.ntnu.stud.fractalgeneration.ChaosGame;
-import edu.ntnu.stud.graphics.ChaosCanvas;
-import edu.ntnu.stud.models.AffineTransform2D;
-import edu.ntnu.stud.models.Matrix2x2;
-import edu.ntnu.stud.models.Transform2D;
-import edu.ntnu.stud.models.Vector2D;
+import edu.ntnu.stud.models.ChaosGameDescriptionFactory;
+import edu.ntnu.stud.models.Complex;
+import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
+import edu.ntnu.stud.views.ChaosGameView;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Main {
+public class Main extends Application {
   public static void main(String[] args) {
-    Vector2D min = new Vector2D(1, 0);
-    Vector2D max = new Vector2D(0, 1);
-    Transform2D sierpinski1 = new AffineTransform2D(new Matrix2x2(0.5, 0, 0, 0.5), new Vector2D(0, 0));
-    Transform2D sierpinski2 = new AffineTransform2D(new Matrix2x2(0.5, 0, 0, 0.5), new Vector2D(0.5, 0));
-    Transform2D sierpinski3 = new AffineTransform2D(new Matrix2x2(0.5, 0, 0, 0.5), new Vector2D(0.25, 0.5));
-    List<Transform2D> transform2DList = new ArrayList<>();
-    transform2DList.add(sierpinski1);
-    transform2DList.add(sierpinski2);
-    transform2DList.add(sierpinski3);
+    launch(args);
+  }
 
-    ChaosGameDescription description = new ChaosGameDescription(min, max, transform2DList);
-    ChaosGame game = new ChaosGame(description, 100, 100);
-    game.runSteps(5000);
-    game.getCanvas().showCanvas();
+  @Override
+  public void start(Stage stage) throws Exception {
+    ChaosGame sierpinskiGame = new ChaosGame(ChaosGameDescriptionFactory.createJuliaSet(new Complex(-.74543, .11301)), 400, 400);
+    ChaosGameView gameView = new ChaosGameView(sierpinskiGame);
+    gameView.getGame().runSteps(1000000);
+
+    StackPane layout = new StackPane();
+    gameView.showFractal(layout);
+
+    Scene scene = new Scene(layout, 400, 400);
+    stage.setScene(scene);
+    stage.show();
   }
 }

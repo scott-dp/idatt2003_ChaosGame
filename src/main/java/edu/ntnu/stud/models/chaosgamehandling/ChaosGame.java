@@ -1,9 +1,6 @@
-package edu.ntnu.stud.fractalgeneration;
+package edu.ntnu.stud.models.chaosgamehandling;
 
-import edu.ntnu.stud.config.ChaosGameDescription;
-import edu.ntnu.stud.graphics.ChaosCanvas;
 import edu.ntnu.stud.models.Vector2D;
-import edu.ntnu.stud.utils.ChaosGameUtils;
 import java.util.Random;
 
 /**

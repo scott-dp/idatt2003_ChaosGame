@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class Matrix2x2Test {
+  //TODO test toString
   private Matrix2x2 matrix;
   private Vector2D vector;
 

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class Vector2DTest {
+  //TODO test toString
   private Vector2D vector2D1;
   private Vector2D vector2D2;
   private Vector2D vector2D3;

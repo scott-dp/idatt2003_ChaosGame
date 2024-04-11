@@ -1,7 +1,7 @@
 package edu.ntnu.stud.models;
 
 
-import edu.ntnu.stud.utils.ChaosGameUtils;
+import edu.ntnu.stud.models.utils.ChaosGameUtils;
 
 /**
  * Represents a 2x2 matrix and provides a method to multiply it by a 2D vector.
@@ -42,5 +42,11 @@ public class Matrix2x2 {
   public Vector2D multiply(Vector2D vector) {
     return new Vector2D(a00 * vector.getX0() + a01 * vector.getX1(), a10
         * vector.getX0() + a11 * vector.getX1());
+  }
+
+  //TODO add javadoc here
+  @Override
+  public String toString() {
+    return a00 + ", " + a01 + ", " + a10 + ", " + a11;
   }
 }
