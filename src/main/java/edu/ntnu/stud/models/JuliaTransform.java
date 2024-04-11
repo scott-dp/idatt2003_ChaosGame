@@ -17,11 +17,13 @@ public class JuliaTransform implements Transform2D {
 
   /**
    * Constructs a {@code JuliaTransform} with a specified complex point and sign.
+   * Throws an {@link IllegalArgumentException} if the sign value is invalid.
    *
    * @param point the complex point to subtract from input points during the transformation
    * @param sign  the sign to apply to the transformed point, typically 1 or -1
    */
-  public JuliaTransform(Complex point, int sign) {
+  public JuliaTransform(Complex point, int sign)
+      throws IllegalArgumentException {
     this.constantPoint = point;
     this.sign = ChaosGameUtils.validateSignField(sign);
   }
