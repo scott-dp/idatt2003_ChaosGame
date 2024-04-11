@@ -1,30 +1,21 @@
 image: maven:latest
 
-
 stages:          # List of stages for jobs, and their order of execution
   - build
   - test
-  - deploy
-
 
 build-job:
   stage: build
   script:
     - mvn clean package
+  artifacts:
+    paths:
+      - target/
 
 unit-test-job:
   stage: test
   script:
-    - mvn test
-
-lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
-  script:
-    - echo "Linting code... This will take about 10 seconds."
-
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  environment: production
-  script:
-    - echo "Deploying application..."
-    - echo "Application successfully deployed."
+    - mvn test jacoco:report
+  artifacts:
+    paths:
+      - target/site/jacoco
