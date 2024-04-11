@@ -39,6 +39,18 @@ public class ChaosCanvas {
     transformCoordsToIndices = setTransformCoordsMatrix();
   }
 
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public int[][] getCanvas() {
+    return canvas;
+  }
+
   /**
    * Retrieves the canvas (2D table) value at a specified point on the plane.
    *
