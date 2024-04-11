@@ -97,5 +97,4 @@ public class Vector2D {
     return ChaosGameUtils.areDoublesEqual(getX0(), vector.getX0())
         && ChaosGameUtils.areDoublesEqual(getX1(), vector.getX1());
   }
-
 }

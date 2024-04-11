@@ -29,7 +29,6 @@ public class ChaosCanvas {
    */
   public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords)
       throws IllegalArgumentException {
-    //TODO add verification to min and max coords (make sure that min is smaller than max)
     this.width = ChaosGameUtils.validatePositiveInteger(width);
     this.height = ChaosGameUtils.validatePositiveInteger(height);
     ChaosGameUtils.validateMinAndMaxCoords(minCoords, maxCoords);

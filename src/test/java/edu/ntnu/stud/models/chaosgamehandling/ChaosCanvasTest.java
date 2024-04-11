@@ -45,5 +45,13 @@ public class ChaosCanvasTest {
       assertThrows(IllegalArgumentException.class, () -> new ChaosCanvas(1, -1, point, point));
       assertThrows(IllegalArgumentException.class, () -> new ChaosCanvas(1, 0, point, point));
     }
+
+    @Test
+    void testInvalidMinAndMaxCoordsInConstructor() {
+      assertThrows(IllegalArgumentException.class, () -> new ChaosCanvas(1, 1, new Vector2D(1, 1), new Vector2D(1,1)));
+      assertThrows(IllegalArgumentException.class, () -> new ChaosCanvas(1, 1, new Vector2D(1, 1), new Vector2D(0,1)));
+      assertThrows(IllegalArgumentException.class, () -> new ChaosCanvas(1, 1, new Vector2D(1, 1), new Vector2D(1,0)));
+      assertThrows(IllegalArgumentException.class, () -> new ChaosCanvas(1, 1, new Vector2D(1, 1), new Vector2D(0, 0)));
+    }
   }
 }

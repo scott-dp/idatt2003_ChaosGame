@@ -52,8 +52,19 @@ public class ChaosGameUtils {
     }
   }
 
+  /**
+   * Validates that min coordinate is smaller than max coordinate in ChaosCanvas constructor.
+   *
+   * @param min the minimum coordinate
+   * @param max the maximum coordinate
+   */
   public static void validateMinAndMaxCoords(Vector2D min, Vector2D max) {
-    //TODO validate min and max
+    if (min.equals(max)) {
+      throw new IllegalArgumentException("Min and max coords of the fractal are the same");
+    } else if (min.getX0() >= max.getX0() || min.getX1() >= max.getX1()) {
+      throw new IllegalArgumentException("Min has to be smaller than max. Min is "
+          + min + ", max is " + max);
+    }
   }
 
   /**
