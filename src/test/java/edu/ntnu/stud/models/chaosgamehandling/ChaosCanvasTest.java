@@ -55,7 +55,7 @@ public class ChaosCanvasTest {
     }
 
     @Test
-    void testInvalidPointInGetPixel() {
+    void testInvalidPointInPutPixel() {
       assertThrows(IllegalArgumentException.class, () -> canvas.putPixel(new Vector2D(-1, -1)));
       assertThrows(IllegalArgumentException.class, () -> canvas.putPixel(new Vector2D(0, -1)));
       assertThrows(IllegalArgumentException.class, () -> canvas.putPixel(new Vector2D(-1, -1)));
@@ -64,6 +64,17 @@ public class ChaosCanvasTest {
       assertThrows(IllegalArgumentException.class, () -> canvas.putPixel(new Vector2D(2, 2)));
       assertThrows(IllegalArgumentException.class, () -> canvas.putPixel(new Vector2D(1, -1)));
       assertThrows(IllegalArgumentException.class, () -> canvas.putPixel(new Vector2D(-1, 1)));
+    }
+    @Test
+    void testInvalidPointInGetPixel() {
+      assertThrows(IllegalArgumentException.class, () -> canvas.getPixel(new Vector2D(-1, -1)));
+      assertThrows(IllegalArgumentException.class, () -> canvas.getPixel(new Vector2D(0, -1)));
+      assertThrows(IllegalArgumentException.class, () -> canvas.getPixel(new Vector2D(-1, -1)));
+      assertThrows(IllegalArgumentException.class, () -> canvas.getPixel(new Vector2D(2, 0)));
+      assertThrows(IllegalArgumentException.class, () -> canvas.getPixel(new Vector2D(0, 2)));
+      assertThrows(IllegalArgumentException.class, () -> canvas.getPixel(new Vector2D(2, 2)));
+      assertThrows(IllegalArgumentException.class, () -> canvas.getPixel(new Vector2D(1, -1)));
+      assertThrows(IllegalArgumentException.class, () -> canvas.getPixel(new Vector2D(-1, 1)));
     }
   }
 }
