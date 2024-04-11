@@ -52,6 +52,7 @@
         <configuration>
           <excludes>
             <exclude>**/module-info.class</exclude>
+            <exclude>**/Transform2D.class</exclude>
           </excludes>
         </configuration>
         <executions>
