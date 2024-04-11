@@ -1,5 +1,7 @@
 package edu.ntnu.stud.models;
 
+import edu.ntnu.stud.models.utils.ChaosGameUtils;
+
 /**
  * Implements a transformation based on Julia sets for 2D points.
  * This class provides a method to transform a {@link Vector2D} point using a Julia set formula.
@@ -10,7 +12,6 @@ package edu.ntnu.stud.models;
  */
 
 public class JuliaTransform implements Transform2D {
-  //TODO add javadocs to overridden methods
   private final Complex constantPoint;
   private final int sign;
 
@@ -21,9 +22,8 @@ public class JuliaTransform implements Transform2D {
    * @param sign  the sign to apply to the transformed point, typically 1 or -1
    */
   public JuliaTransform(Complex point, int sign) {
-    //TODO validate sign field
     this.constantPoint = point;
-    this.sign = sign;
+    this.sign = ChaosGameUtils.validateSignField(sign);
   }
 
   public Complex getConstantPoint() {
@@ -56,11 +56,23 @@ public class JuliaTransform implements Transform2D {
     return new Complex(sign * newComplexPoint.getX0(), sign * newComplexPoint.getX1());
   }
 
+  /**
+   * Constructs a String that describes this Julia transform.
+   *
+   * @return the String that represents this object
+   */
   @Override
   public String toString() {
     return constantPoint.toString();
   }
 
+  /**
+   * Method to check if an object o is equal to this JuliaTransform object. Checks if the
+   * objects are of the same class and then checks if their fields are equal.
+   *
+   * @param o the other object being compared to this
+   * @return true if they are equal, false if they are not
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o) {

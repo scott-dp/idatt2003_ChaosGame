@@ -1,5 +1,6 @@
 package edu.ntnu.stud.models.utils;
 
+import edu.ntnu.stud.models.JuliaTransform;
 import edu.ntnu.stud.models.Vector2D;
 
 import java.math.BigDecimal;
@@ -53,5 +54,19 @@ public class ChaosGameUtils {
 
   public static void validateMinAndMaxCoords(Vector2D min, Vector2D max) {
     //TODO validate min and max
+  }
+
+  /**
+   * Validates the sign field taken in the constructor for the construction of a {@link JuliaTransform} object.
+   * Throws an IllegalArgumentException if the sign is anything else than 1 or -1
+   *
+   * @param sign the field being validated
+   * @return the sign param if it has e legal value
+   */
+  public static int validateSignField(int sign) {
+    if (sign == 1 || sign == -1) {
+      return sign;
+    }
+    throw new IllegalArgumentException("Sign field for julia transform has to be 1 or -1, but is " + sign);
   }
 }

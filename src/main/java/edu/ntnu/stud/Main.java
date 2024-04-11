@@ -1,17 +1,12 @@
 package edu.ntnu.stud;
 
-import edu.ntnu.stud.models.*;
-import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
+import edu.ntnu.stud.models.ChaosGameDescriptionFactory;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
-import edu.ntnu.stud.ui.UserInterface;
 import edu.ntnu.stud.views.ChaosGameView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main extends Application {
   public static void main(String[] args) {
