@@ -80,4 +80,21 @@ public class ChaosGameUtils {
     }
     throw new IllegalArgumentException("Sign field for julia transform has to be 1 or -1, but is " + sign);
   }
+
+  /**
+   * Validates that point param given to getPixel and putPixel is a point in the canvas.
+   *
+   * @param point point to be checked if it is between min and max coords
+   * @param min minimum coordinate
+   * @param max maximum coordinate
+   */
+  public static void verifyPointBetweenMinAndMax(Vector2D point, Vector2D min, Vector2D max) {
+    if (point.getX0() < min.getX0() || point.getX1() < min.getX1()) {
+      //Point is smaller than min
+      throw new IllegalArgumentException("Point has to be between min and max coordinates");
+    } else if (point.getX0() > max.getX0() || point.getX1() > max.getX1()) {
+      //Point is greater than max
+      throw new IllegalArgumentException("Point has to be between min and max coordinates");
+    }
+  }
 }

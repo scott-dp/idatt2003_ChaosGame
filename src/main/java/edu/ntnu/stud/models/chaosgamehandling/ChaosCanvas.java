@@ -58,6 +58,7 @@ public class ChaosCanvas {
    */
   public int getPixel(Vector2D point) {
     //TODO verification of values in point argument (check if the point is between min and max?) and make negative tests
+    ChaosGameUtils.verifyPointBetweenMinAndMax(point, minCoords, maxCoords);
     Vector2D transformedPoint = transformCoordsToIndices.transform(point);
     int x = (int) transformedPoint.getX0();
     int y = (int) transformedPoint.getX1();
@@ -71,6 +72,7 @@ public class ChaosCanvas {
    */
   public void putPixel(Vector2D point) {
     //TODO verification of values in point argument (check if the point is between min and max?) and make negative tests
+    ChaosGameUtils.verifyPointBetweenMinAndMax(point, minCoords, maxCoords);
     Vector2D transformedPoint = transformCoordsToIndices.transform(point);
     int x = (int) transformedPoint.getX0();
     int y = (int) transformedPoint.getX1();
