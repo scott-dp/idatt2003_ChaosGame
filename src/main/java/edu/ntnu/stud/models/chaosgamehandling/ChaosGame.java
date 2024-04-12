@@ -75,7 +75,7 @@ public class ChaosGame {
    *
    * @return The ChaosCanvas where the fractal pattern is rendered.
    */
-  public ChaosCanvas getCanvas() {
+  public ChaosCanvas getChaosCanvas() {
     return canvas;
   }
 
@@ -87,11 +87,14 @@ public class ChaosGame {
    * @param steps The number of steps to run the game for.
    */
   public void runSteps(int steps) {
+    System.out.println(steps);
+    canvas.clear();
     for (int i = 0; i < steps; i++) {
       int randomIndex = random.nextInt(description.getTransforms().size());
       currentPoint = description.getTransforms().get(randomIndex).transform(currentPoint);
 
       canvas.putPixel(currentPoint);
     }
+    updateObservers();
   }
 }

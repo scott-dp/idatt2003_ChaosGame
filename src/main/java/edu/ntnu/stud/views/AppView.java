@@ -14,36 +14,41 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class AppView extends Application {
-
-
   private ChaosGame game;
   private ChaosGameView gameView;
+  private Slider slider;
+  VBox mainLayout = new VBox();
 
   @Override
   public void start(Stage stage) throws Exception {
     game = new ChaosGame(ChaosGameDescriptionFactory.getJuliaSetDescription2(), 400, 400);
-    gameView = new ChaosGameView(game, new VBox());
+    gameView = new ChaosGameView(game);
 
-    // Assuming ChaosGame has a method to add observers:
     game.addObserver(gameView);
 
     gameView.update();
-    BorderPane root = new BorderPane();
 
-    // Set the menu bar and the main game layout in the border pane
-    root.setTop(createMenuBar());
-    root.setCenter(gameView.getMainLayout()); // Changed to setCenter
+    slider = new Slider();
+    slider.setMin(0);
+    slider.setMax(100000);
+    slider.setShowTickMarks(true);
+    slider.setShowTickLabels(true);
+    slider.setMajorTickUnit(10000);
 
-    // You might want to set a larger scene size if the menu bar is not showing correctly
+    setMainLayout();
+
     stage.setScene(new Scene(getMainLayout(), 400, 450));
     stage.show();
   }
 
-  public VBox getMainLayout() {
-    VBox mainLayout = new VBox();
+  public void setMainLayout() {
+    mainLayout = new VBox();
     mainLayout.getChildren().add(createMenuBar());
-    mainLayout.getChildren().add(gameView.getMainLayout());
+    mainLayout.getChildren().add(gameView.getCanvas());
     mainLayout.getChildren().add(bottomLayout());
+  }
+
+  public VBox getMainLayout() {
     return mainLayout;
   }
 
@@ -58,31 +63,18 @@ public class AppView extends Application {
 
   public HBox bottomLayout() {
     HBox bottomLayout = new HBox(10);
-    bottomLayout.getChildren().add(runStepsSlider());
+    bottomLayout.getChildren().add(slider);
     bottomLayout.getChildren().add(runButton());
     return bottomLayout;
   }
 
-  public Slider runStepsSlider() {
-    Slider slider = new Slider();
-    slider.setMin(0);
-    slider.setMax(10000);
-    slider.setValue(10000);
-    slider.setShowTickLabels(true);
-    slider.setShowTickMarks(true);
-    slider.setMajorTickUnit(10000);
-    slider.setMinorTickCount(1000);
-    slider.setBlockIncrement(1000);
-    return slider;
-  }
-
   public Button runButton(){
     Button runButton = new Button("Run");
-    runButton.setOnAction(e -> game.runSteps((int) runStepsSlider().getValue()));
+    runButton.setOnAction(e -> game.runSteps((int) slider.getValue()));
     return runButton;
   }
 
-  public void launchApp() {
-    launch();
+  public void launchApp(String[] args) {
+    launch(args);
   }
 }

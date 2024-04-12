@@ -222,6 +222,6 @@ public class UserInterface {
             return;
         }
         System.out.println("Showing canvas");
-        game.getCanvas().showCanvas();
+        game.getChaosCanvas().showCanvas();
     }
 }
