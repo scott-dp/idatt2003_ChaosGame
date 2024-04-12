@@ -29,6 +29,7 @@ public class ChaosGameView {
     GraphicsContext gc = canvas.getGraphicsContext2D();
     gc.setFill(Color.BLACK);
 
+    //TODO streams lamba
     for (int i = 0; i < fractalList.length; i++) {
       for (int j = 0; j < fractalList[i].length; j++) {
         if (fractalList[i][j] == 1) {

@@ -15,7 +15,7 @@ public class Main extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
-    ChaosGame sierpinskiGame = new ChaosGame(ChaosGameDescriptionFactory.getJuliaSetDescription4(), 400, 400);
+    ChaosGame sierpinskiGame = new ChaosGame(ChaosGameDescriptionFactory.getJuliaSetDescription1(), 400, 400);
     ChaosGameView gameView = new ChaosGameView(sierpinskiGame);
     gameView.getGame().runSteps(100000);
 

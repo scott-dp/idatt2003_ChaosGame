@@ -1,6 +1,10 @@
 package edu.ntnu.stud.models.chaosgamehandling;
 
 import edu.ntnu.stud.models.Vector2D;
+import edu.ntnu.stud.models.interfaces.ChaosGameObserver;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -19,6 +23,7 @@ public class ChaosGame {
   private final ChaosGameDescription description;
   private Vector2D currentPoint;
   private final Random random;
+  private final List<ChaosGameObserver> observerList = new ArrayList<>();
 
   /**
    * Constructs a ChaosGame instance with the specified game description and canvas dimensions.
@@ -33,6 +38,36 @@ public class ChaosGame {
     this.canvas =
         new ChaosCanvas(width, height, description.getMinCoords(), description.getMaxCoords());
     this.random = new Random();
+  }
+
+  /**
+   * Updates all observers of this ChaosGame that there has been a change in the ChaosGame.
+   */
+  public void updateObservers() {
+    observerList.forEach(ChaosGameObserver::update);
+  }
+
+  /**
+   * Method to add an observer to the observerList that will be notified
+   * when there is a change in this ChaosGame.
+   *
+   * @param observer the observer being added to observerList
+   */
+  public void addObserver(ChaosGameObserver observer) {
+    if (!observerList.contains(observer)) {
+      observerList.add(observer);
+    }
+  }
+
+  /**
+   * Method to remove an observer from the observerList.
+   *
+   * @param observer the observer to be removed.
+   */
+  public void removeObserver(ChaosGameObserver observer) {
+    if (observerList.contains(observer)) {
+      observerList.remove(observer);
+    }
   }
 
   /**
