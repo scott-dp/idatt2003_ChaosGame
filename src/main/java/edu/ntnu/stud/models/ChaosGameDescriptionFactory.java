@@ -67,20 +67,56 @@ public class ChaosGameDescriptionFactory {
   }
 
   /**
-   * A static method that creates a Julia set chaos game description.
-   * with predefined transforms and min and max points.
-   * The Julia set is created with a positive sign.
+   * Makes a julia set {@link ChaosGameDescription} with a specific constant.
+   *
+   * @return the {@link ChaosGameDescription} instance with a specific constant for the Julia set
+   */
+  public static ChaosGameDescription getJuliaSetDescription1() {
+    return makeJuliaSet(new Complex(-.74543, .11301));
+  }
+
+  /**
+   * Makes a julia set {@link ChaosGameDescription} with a specific constant.
+   *
+   * @return the {@link ChaosGameDescription} instance with a specific constant for the Julia set
+   */
+  public static ChaosGameDescription getJuliaSetDescription2() {
+    return makeJuliaSet(new Complex(-1.234, .11301));
+  }
+
+  /**
+   * Makes a julia set {@link ChaosGameDescription} with a specific constant.
+   *
+   * @return the {@link ChaosGameDescription} instance with a specific constant for the Julia set
+   */
+  public static ChaosGameDescription getJuliaSetDescription3() {
+    return makeJuliaSet(new Complex(-.1234, .81301));
+  }
+
+  /**
+   * Makes a julia set {@link ChaosGameDescription} with a specific constant.
+   *
+   * @return the {@link ChaosGameDescription} instance with a specific constant for the Julia set
+   */
+  public static ChaosGameDescription getJuliaSetDescription4() {
+    return makeJuliaSet(new Complex(-.2234, 1.11301));
+  }
+
+  /**
+   * A static method that creates a Julia set chaos game description with predefined min and max coords.
    * The complex number used in the Julia set formula is passed as a parameter.
    *
    * @param c the complex number to be used in the Julia set formula
    * @return a {@link ChaosGameDescription} instance
    */
-  public static ChaosGameDescription createJuliaSet(Complex c) {
+  public static ChaosGameDescription makeJuliaSet(Complex c) {
     transforms = new ArrayList<>();
     Vector2D min = new Vector2D(-1.6, -1);
     Vector2D max = new Vector2D(1.6, 1);
+
     Transform2D julia1 = new JuliaTransform(c, 1);
     Transform2D julia2 = new JuliaTransform(c, -1);
+
     transforms.add(julia1);
     transforms.add(julia2);
     return new ChaosGameDescription(min, max, transforms);
