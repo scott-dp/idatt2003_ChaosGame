@@ -68,6 +68,12 @@ public class ChaosGame {
     observerList.remove(observer);
   }
 
+  /**
+   * Modifier method to set a new ChaosGameDescription, which means that a new ChaosCanvas
+   * also needs to be set.
+   *
+   * @param description the new description being represented
+   */
   public void setNewChaosGame(ChaosGameDescription description) {
     this.description = description;
     this.canvas = new ChaosCanvas(canvas.getWidth(), canvas.getHeight(),

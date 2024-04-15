@@ -23,7 +23,7 @@ public class AppView extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
-    ChaosGame game = new ChaosGame(ChaosGameDescriptionFactory.getJuliaSetDescription2(), 450, 450);
+    ChaosGame game = new ChaosGame(ChaosGameDescriptionFactory.createBarnsleyDescription(), 450, 450);
     ChaosGameView gameView = new ChaosGameView(game);
 
     chaosGameController = new ChaosGameController(game, gameView);
