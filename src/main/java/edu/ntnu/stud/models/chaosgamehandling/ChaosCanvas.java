@@ -5,6 +5,9 @@ import edu.ntnu.stud.models.Matrix2x2;
 import edu.ntnu.stud.models.Vector2D;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Represents a canvas for chaos game visualization with methods to manipulate pixels and canvas.
  */
@@ -74,6 +77,7 @@ public class ChaosCanvas {
     try {
       ChaosGameUtils.verifyPointBetweenMinAndMax(point, minCoords, maxCoords);
     } catch (IllegalArgumentException e) {
+      //Pixel is out of canvas width or height
       return;
     }
     canvas[x][y] = 1;
@@ -83,12 +87,7 @@ public class ChaosCanvas {
    * Clears the entire canvas by resetting all values to 0.
    */
   public void clear() {
-    //TODO use .forEach()?
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        canvas[i][j] = 0;
-      }
-    }
+    Arrays.stream(canvas).forEach(row -> Arrays.fill(row, 0));
   }
 
   /**
@@ -116,7 +115,6 @@ public class ChaosCanvas {
    * a fractal.
    */
   public void showCanvas() {
-    //TODO use forEach()?
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         if (canvas[i][j] == 1) {
