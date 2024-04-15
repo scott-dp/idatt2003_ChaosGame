@@ -5,10 +5,7 @@ import edu.ntnu.stud.models.ChaosGameDescriptionFactory;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -23,7 +20,7 @@ public class AppView extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
-    ChaosGame game = new ChaosGame(ChaosGameDescriptionFactory.createBarnsleyDescription(),
+    ChaosGame game = new ChaosGame(ChaosGameDescriptionFactory.createSierpinskiDescription(),
         450, 450);
     ChaosGameView gameView = new ChaosGameView(game);
 
@@ -61,8 +58,38 @@ public class AppView extends Application {
     Menu fileMenu = new Menu("File");
     Menu emptyFractalMenu = new Menu("New Empty Fractal");
     Menu predefinedMenu = new Menu("Predefined Fractal");
+    createPredefinedMenu(predefinedMenu);
     Menu editMenu = new Menu("Edit Current fractal");
     menuBar.getMenus().addAll(fileMenu, emptyFractalMenu, predefinedMenu, editMenu);
+  }
+
+  public void createPredefinedMenu(Menu predefinedMenu) {
+    MenuItem barnsleyFernItem = new MenuItem("Barnsley Fern");
+    barnsleyFernItem.setOnAction(actionEvent ->
+        chaosGameController.setChaosGame(ChaosGameDescriptionFactory.createBarnsleyDescription()));
+
+    MenuItem sierpinskiTriangleItem = new MenuItem("Sierpinski Triangle");
+    sierpinskiTriangleItem.setOnAction(actionEvent ->
+        chaosGameController.setChaosGame(ChaosGameDescriptionFactory.createSierpinskiDescription()));
+
+    MenuItem juliaSet1Item = new MenuItem("Julia set 1");
+    juliaSet1Item.setOnAction(actionEvent ->
+        chaosGameController.setChaosGame(ChaosGameDescriptionFactory.getJuliaSetDescription1()));
+
+    MenuItem juliaSet2Item = new MenuItem("Julia set 2");
+    juliaSet2Item.setOnAction(actionEvent ->
+        chaosGameController.setChaosGame(ChaosGameDescriptionFactory.getJuliaSetDescription2()));
+
+    MenuItem juliaSet3Item = new MenuItem("Julia set 3");
+    juliaSet3Item.setOnAction(actionEvent ->
+        chaosGameController.setChaosGame(ChaosGameDescriptionFactory.getJuliaSetDescription3()));
+
+    MenuItem juliaSet4Item = new MenuItem("Julia set 4");
+    juliaSet4Item.setOnAction(actionEvent ->
+        chaosGameController.setChaosGame(ChaosGameDescriptionFactory.getJuliaSetDescription4()));
+
+    predefinedMenu.getItems().addAll(barnsleyFernItem, sierpinskiTriangleItem,
+        juliaSet1Item, juliaSet2Item, juliaSet3Item, juliaSet4Item);
   }
 
   public void createBottomLayout() {
