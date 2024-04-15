@@ -28,9 +28,7 @@ public class AppView extends Application {
     ChaosGameView gameView = new ChaosGameView(game);
 
     chaosGameController = new ChaosGameController(game, gameView);
-
-    game.addObserver(gameView);
-    gameView.update();
+    chaosGameController.addObserver(gameView);
 
     createSlider();
     createMenuBar();
@@ -61,9 +59,10 @@ public class AppView extends Application {
   public void createMenuBar() {
     menuBar = new MenuBar();
     Menu fileMenu = new Menu("File");
-    Menu predefinedMenu = new Menu("Predefined");
-    Menu editMenu = new Menu("Edit");
-    menuBar.getMenus().addAll(fileMenu, predefinedMenu, editMenu);
+    Menu emptyFractalMenu = new Menu("New Empty Fractal");
+    Menu predefinedMenu = new Menu("Predefined Fractal");
+    Menu editMenu = new Menu("Edit Current fractal");
+    menuBar.getMenus().addAll(fileMenu, emptyFractalMenu, predefinedMenu, editMenu);
   }
 
   public void createBottomLayout() {

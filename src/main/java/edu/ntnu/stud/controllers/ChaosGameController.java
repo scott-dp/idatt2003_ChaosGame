@@ -2,6 +2,7 @@ package edu.ntnu.stud.controllers;
 
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
+import edu.ntnu.stud.models.interfaces.ChaosGameObserver;
 import edu.ntnu.stud.views.ChaosGameView;
 
 /**
@@ -40,6 +41,10 @@ public class ChaosGameController {
    */
   public void runSteps(int steps) {
     this.chaosGame.runSteps(steps);
+  }
+
+  public void addObserver(ChaosGameObserver observer) {
+    chaosGame.addObserver(observer);
   }
 
 
