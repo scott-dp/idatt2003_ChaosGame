@@ -13,7 +13,7 @@ public class Main{
   static AppView appView;
   public static void main(String[] args) {
     appView = new AppView();
-    appView.launchApp();
+    appView.launchApp(args);
   }
 
 }

@@ -19,8 +19,8 @@ import java.util.Random;
  * @see ChaosCanvas
  */
 public class ChaosGame {
-  private final ChaosCanvas canvas;
-  private final ChaosGameDescription description;
+  private ChaosCanvas canvas;
+  private ChaosGameDescription description;
   private Vector2D currentPoint;
   private final Random random;
   private final List<ChaosGameObserver> observerList = new ArrayList<>();
@@ -65,9 +65,14 @@ public class ChaosGame {
    * @param observer the observer to be removed.
    */
   public void removeObserver(ChaosGameObserver observer) {
-    if (observerList.contains(observer)) {
-      observerList.remove(observer);
-    }
+    observerList.remove(observer);
+  }
+
+  public void setNewChaosGame(ChaosGameDescription description) {
+    this.description = description;
+    this.canvas = new ChaosCanvas(canvas.getWidth(), canvas.getHeight(),
+        description.getMinCoords(), description.getMaxCoords());
+    updateObservers();
   }
 
   /**
@@ -75,7 +80,7 @@ public class ChaosGame {
    *
    * @return The ChaosCanvas where the fractal pattern is rendered.
    */
-  public ChaosCanvas getCanvas() {
+  public ChaosCanvas getChaosCanvas() {
     return canvas;
   }
 
@@ -87,11 +92,13 @@ public class ChaosGame {
    * @param steps The number of steps to run the game for.
    */
   public void runSteps(int steps) {
+    canvas.clear();
     for (int i = 0; i < steps; i++) {
       int randomIndex = random.nextInt(description.getTransforms().size());
       currentPoint = description.getTransforms().get(randomIndex).transform(currentPoint);
 
       canvas.putPixel(currentPoint);
     }
+    updateObservers();
   }
 }
