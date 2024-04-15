@@ -23,7 +23,8 @@ public class AppView extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
-    ChaosGame game = new ChaosGame(ChaosGameDescriptionFactory.createBarnsleyDescription(), 450, 450);
+    ChaosGame game = new ChaosGame(ChaosGameDescriptionFactory.createBarnsleyDescription(),
+        450, 450);
     ChaosGameView gameView = new ChaosGameView(game);
 
     chaosGameController = new ChaosGameController(game, gameView);
@@ -71,7 +72,7 @@ public class AppView extends Application {
     bottomLayout.getChildren().add(runButton);
   }
 
-  public void createRunButton(){
+  public void createRunButton() {
     runButton = new Button("Run");
     runButton.setOnAction(e -> chaosGameController.runSteps((int) slider.getValue()));
   }

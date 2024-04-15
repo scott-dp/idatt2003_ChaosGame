@@ -53,7 +53,8 @@ public class ChaosGameFileHandler {
       while (scanner.hasNext()) {
         String transformType = scanner.next().trim();
 
-        //nevn i rapporten at det ble feil med \n chars osv og dermed måtte parseNextDouble implementeres med \n i regexen
+        //nevn i rapporten at det ble feil med \n chars osv
+        // og dermed måtte parseNextDouble implementeres med \n i regexen
         Vector2D min = new Vector2D(parseNextDouble(scanner), parseNextDouble(scanner));
         Vector2D max = new Vector2D(parseNextDouble(scanner), parseNextDouble(scanner));
 

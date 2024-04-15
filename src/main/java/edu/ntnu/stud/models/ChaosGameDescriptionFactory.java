@@ -103,8 +103,8 @@ public class ChaosGameDescriptionFactory {
   }
 
   /**
-   * A static method that creates a Julia set chaos game description with predefined min and max coords.
-   * The complex number used in the Julia set formula is passed as a parameter.
+   * A static method that creates a Julia set chaos game description with predefined min and
+   * max coords. The complex number used in the Julia set formula is passed as a parameter.
    *
    * @param c the complex number to be used in the Julia set formula
    * @return a {@link ChaosGameDescription} instance

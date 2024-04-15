@@ -2,7 +2,6 @@ package edu.ntnu.stud.models.utils;
 
 import edu.ntnu.stud.models.JuliaTransform;
 import edu.ntnu.stud.models.Vector2D;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -44,7 +43,7 @@ public class ChaosGameUtils {
    * @param num the number to be validated
    * @return the number if it is a positive integer
    */
-  public static int validatePositiveInteger(int num) throws IllegalArgumentException{
+  public static int validatePositiveInteger(int num) throws IllegalArgumentException {
     if (num < 1) {
       throw new IllegalArgumentException("Integer " + num + " has to be greater than 0");
     } else {
@@ -68,8 +67,9 @@ public class ChaosGameUtils {
   }
 
   /**
-   * Validates the sign field taken in the constructor for the construction of a {@link JuliaTransform} object.
-   * Throws an IllegalArgumentException if the sign is anything else than 1 or -1
+   * Validates the sign field taken in the constructor for the construction of a
+   * {@link JuliaTransform} object. Throws an IllegalArgumentException if the sign is anything
+   * else than 1 or -1.
    *
    * @param sign the field being validated
    * @return the sign param if it has e legal value
@@ -78,7 +78,8 @@ public class ChaosGameUtils {
     if (sign == 1 || sign == -1) {
       return sign;
     }
-    throw new IllegalArgumentException("Sign field for julia transform has to be 1 or -1, but is " + sign);
+    throw new IllegalArgumentException("Sign field for julia "
+        + "transform has to be 1 or -1, but is " + sign);
   }
 
   /**

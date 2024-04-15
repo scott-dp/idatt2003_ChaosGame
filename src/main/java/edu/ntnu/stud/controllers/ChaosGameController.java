@@ -5,7 +5,7 @@ import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
 import edu.ntnu.stud.views.ChaosGameView;
 
 /**
- * Represents the controller that is used to decouple {@link ChaosGame} and {@link ChaosGameView}
+ * Represents the controller that is used to decouple {@link ChaosGame} and {@link ChaosGameView}.
  */
 public class ChaosGameController {
   ChaosGame chaosGame;

@@ -5,8 +5,6 @@ import edu.ntnu.stud.models.Matrix2x2;
 import edu.ntnu.stud.models.Vector2D;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 
-import java.util.Vector;
-
 /**
  * Represents a canvas for chaos game visualization with methods to manipulate pixels and canvas.
  */
