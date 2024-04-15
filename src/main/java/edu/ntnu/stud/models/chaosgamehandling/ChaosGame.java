@@ -20,7 +20,7 @@ import java.util.Random;
  */
 public class ChaosGame {
   private final ChaosCanvas canvas;
-  private final ChaosGameDescription description;
+  private ChaosGameDescription description;
   private Vector2D currentPoint;
   private final Random random;
   private final List<ChaosGameObserver> observerList = new ArrayList<>();
@@ -68,6 +68,11 @@ public class ChaosGame {
     if (observerList.contains(observer)) {
       observerList.remove(observer);
     }
+  }
+
+  public void setDescription(ChaosGameDescription description) {
+    this.description = description;
+    updateObservers();
   }
 
   /**
