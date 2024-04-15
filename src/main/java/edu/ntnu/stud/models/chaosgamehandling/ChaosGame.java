@@ -19,7 +19,7 @@ import java.util.Random;
  * @see ChaosCanvas
  */
 public class ChaosGame {
-  private final ChaosCanvas canvas;
+  private ChaosCanvas canvas;
   private ChaosGameDescription description;
   private Vector2D currentPoint;
   private final Random random;
@@ -65,13 +65,13 @@ public class ChaosGame {
    * @param observer the observer to be removed.
    */
   public void removeObserver(ChaosGameObserver observer) {
-    if (observerList.contains(observer)) {
-      observerList.remove(observer);
-    }
+    observerList.remove(observer);
   }
 
-  public void setDescription(ChaosGameDescription description) {
+  public void setNewChaosGame(ChaosGameDescription description) {
     this.description = description;
+    this.canvas = new ChaosCanvas(canvas.getWidth(), canvas.getHeight(),
+        description.getMinCoords(), description.getMaxCoords());
     updateObservers();
   }
 
@@ -92,7 +92,6 @@ public class ChaosGame {
    * @param steps The number of steps to run the game for.
    */
   public void runSteps(int steps) {
-    System.out.println(steps);
     canvas.clear();
     for (int i = 0; i < steps; i++) {
       int randomIndex = random.nextInt(description.getTransforms().size());

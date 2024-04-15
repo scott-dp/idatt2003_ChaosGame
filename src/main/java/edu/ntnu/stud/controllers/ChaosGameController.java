@@ -13,11 +13,20 @@ public class ChaosGameController {
     this.chaosGameView = view;
   }
 
-  public void setChaosGameDescription(ChaosGameDescription description) {
-    this.chaosGame.setDescription(description);
+  public void setChaosGame(ChaosGameDescription description) {
+    this.chaosGame.setNewChaosGame(description);
+
   }
 
   public void runSteps(int steps) {
     this.chaosGame.runSteps(steps);
+  }
+
+  public ChaosGame getChaosGame() {
+    return chaosGame;
+  }
+
+  public ChaosGameView getChaosGameView() {
+    return chaosGameView;
   }
 }

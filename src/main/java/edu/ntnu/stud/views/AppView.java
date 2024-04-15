@@ -1,5 +1,6 @@
 package edu.ntnu.stud.views;
 
+import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.ChaosGameDescriptionFactory;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
 import javafx.application.Application;
@@ -13,8 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class AppView extends Application {
-  private ChaosGame game;
-  private ChaosGameView gameView;
+  private ChaosGameController chaosGameController;
   private Slider slider;
   MenuBar menuBar;
   VBox mainLayout;
@@ -23,8 +23,10 @@ public class AppView extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
-    game = new ChaosGame(ChaosGameDescriptionFactory.getJuliaSetDescription2(), 450, 450);
-    gameView = new ChaosGameView(game);
+    ChaosGame game = new ChaosGame(ChaosGameDescriptionFactory.getJuliaSetDescription2(), 450, 450);
+    ChaosGameView gameView = new ChaosGameView(game);
+
+    chaosGameController = new ChaosGameController(game, gameView);
 
     game.addObserver(gameView);
     gameView.update();
@@ -42,7 +44,7 @@ public class AppView extends Application {
   public void setMainLayout() {
     mainLayout = new VBox();
     mainLayout.getChildren().add(menuBar);
-    mainLayout.getChildren().add(gameView.getCanvas());
+    mainLayout.getChildren().add(chaosGameController.getChaosGameView().getCanvas());
     mainLayout.getChildren().add(bottomLayout);
   }
 
@@ -71,7 +73,7 @@ public class AppView extends Application {
 
   public void createRunButton(){
     runButton = new Button("Run");
-    runButton.setOnAction(e -> game.runSteps((int) slider.getValue()));
+    runButton.setOnAction(e -> chaosGameController.runSteps((int) slider.getValue()));
   }
 
   public void launchApp(String[] args) {
