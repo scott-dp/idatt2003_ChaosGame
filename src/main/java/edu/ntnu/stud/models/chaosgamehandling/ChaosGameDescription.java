@@ -49,7 +49,7 @@ public class ChaosGameDescription {
    * @return the correctly formatted string that is added to a file
    */
   @Override
-  public String toString() throws IllegalArgumentException{
+  public String toString() throws IllegalArgumentException {
     StringBuilder info = new StringBuilder();
 
     if (transforms.get(0) instanceof AffineTransform2D) {

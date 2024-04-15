@@ -2,7 +2,6 @@ package edu.ntnu.stud.models.chaosgamehandling;
 
 import edu.ntnu.stud.models.Vector2D;
 import edu.ntnu.stud.models.interfaces.ChaosGameObserver;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -68,6 +67,12 @@ public class ChaosGame {
     observerList.remove(observer);
   }
 
+  /**
+   * Modifier method to set a new ChaosGameDescription, which means that a new ChaosCanvas
+   * also needs to be set.
+   *
+   * @param description the new description being represented
+   */
   public void setNewChaosGame(ChaosGameDescription description) {
     this.description = description;
     this.canvas = new ChaosCanvas(canvas.getWidth(), canvas.getHeight(),
