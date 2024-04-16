@@ -6,5 +6,6 @@ module idatt2003_2024_mappe_chaosgame {
   exports edu.ntnu.stud.models;
   exports edu.ntnu.stud.models.chaosgamehandling;
   exports edu.ntnu.stud.models.interfaces;
+  exports edu.ntnu.stud.models.exceptions;
   exports edu.ntnu.stud.views to javafx.graphics;
 }
