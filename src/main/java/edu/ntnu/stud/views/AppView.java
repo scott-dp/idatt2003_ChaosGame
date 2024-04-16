@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class AppView extends Application {
-  private ChaosGameController chaosGameController;
+  private static ChaosGameController chaosGameController;
   private Slider slider;
   MenuBar menuBar;
   VBox mainLayout;
@@ -59,8 +59,19 @@ public class AppView extends Application {
     Menu emptyFractalMenu = new Menu("New Empty Fractal");
     Menu predefinedMenu = new Menu("Predefined Fractal");
     createPredefinedMenu(predefinedMenu);
+    createEmptyFractalMenu(emptyFractalMenu);
     Menu editMenu = new Menu("Edit Current fractal");
     menuBar.getMenus().addAll(fileMenu, emptyFractalMenu, predefinedMenu, editMenu);
+  }
+
+  public void createEmptyFractalMenu(Menu emptyFractalMenu) {
+    MenuItem affineTransform = new MenuItem("Affine Transform");
+    affineTransform.setOnAction(event ->
+    {
+      AddAffineTransformView affineTransformView = new AddAffineTransformView();
+      affineTransformView.showStage();
+    });
+    emptyFractalMenu.getItems().add(affineTransform);
   }
 
   public void createPredefinedMenu(Menu predefinedMenu) {
@@ -105,5 +116,9 @@ public class AppView extends Application {
 
   public void launchApp(String[] args) {
     launch(args);
+  }
+
+  public static ChaosGameController getChaosGameController() {
+    return chaosGameController;
   }
 }
