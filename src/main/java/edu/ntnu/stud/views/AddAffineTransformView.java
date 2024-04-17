@@ -19,6 +19,22 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * View class for adding new AffineTransform based transformation
+ * to the ChaosGame fractal.
+ * <p>
+ * This class provides a GUI for adding new AffineTransform2D transformations
+ * to the ChaosGame fractal. The user can input the matrix and vector
+ * of the transformation, as well as the min and max coordinates of the fractal.
+ * </p>
+ *
+ * @see ChaosGameController
+ * @see AffineTransform2D
+ * @see ChaosGameDescription
+ *
+ * @version 1.0
+ * @author Scott du Plessis, Stanislovas Mockus
+ */
 public class AddAffineTransformView {
 
     private final ChaosGameController chaosGameController = AppView.getChaosGameController();
@@ -46,10 +62,21 @@ public class AddAffineTransformView {
     private TextField maxX0;
     private TextField maxX1;
 
+    /**
+     * Method that sets the scene of the stage.
+     */
     public void setScene(){
         this.scene.setRoot(setMainLayout());
     }
 
+    /**
+     * Method that sets the main layout of the scene.
+     * The layout consists of a horizontal container that holds two vertical containers,
+     * used for entering the matrix and vector of the transformation, and the min and max coordinates
+     * of the fractal.
+     *
+     * @return VBox mainLayout
+     */
     public VBox setMainLayout(){
         VBox mainLayout = new VBox(10);
 
@@ -67,6 +94,13 @@ public class AddAffineTransformView {
         return mainLayout;
     }
 
+    /**
+     * Method that creates a horizontal container for entering the matrix of the transformation.
+     * The matrix layout consists of two horizontal containers, within a vertical container.
+     * The horizontal containers hold text-fields which represent the matrix elements, in their respective positions.
+     *
+     * @return HBox matrixHorizontal
+     */
     public HBox enterMatrix(){
         HBox matrixHorizontal = new HBox(10);
         Label matrixLabel = new Label("Matrix: ");
@@ -90,6 +124,13 @@ public class AddAffineTransformView {
         return matrixHorizontal;
     }
 
+    /**
+     * Method that creates a horizontal container for entering the vector of the transformation.
+     * The vector layout consists of a horizontal container, within a vertical container.
+     * The horizontal containers hold text-fields which represent the vector elements, in their respective positions.
+     * The vector layout is then added to the main layout.
+     * @return HBox vectorHorizontalContainer
+     */
     public HBox enterVector() {
         HBox vectorHorizontalContainer = new HBox(10);
         Label vectorLabel = new Label("Vector: ");
@@ -105,6 +146,13 @@ public class AddAffineTransformView {
         return vectorHorizontalContainer;
     }
 
+    /**
+     * A method that creates a horizontal container for entering the min coordinates of the fractal.
+     * The min coordinates layout consists of a horizontal container, within a vertical container.
+     * The horizontal container holds text-fields which represent the min coordinates of the fractal.
+     *
+     * @return HBox minCoordsContainer
+     */
     public HBox enterMinCoords(){
         HBox minCoordsContainer = new HBox(10);
         Label minCoordsLabel = new Label("Min Coords: ");
@@ -120,6 +168,13 @@ public class AddAffineTransformView {
         return minCoordsContainer;
     }
 
+    /**
+     * A method that creates a horizontal container for entering the max coordinates of the fractal.
+     * The max coordinates layout consists of a horizontal container, within a vertical container.
+     * The horizontal container holds text-fields which represent the max coordinates of the fractal.
+     *
+     * @return HBox maxCoordsContainer
+     */
     public HBox enterMaxCoords(){
         HBox maxCoordsContainer = new HBox(10);
         Label maxCoordsLabel = new Label("Max Coords: ");
@@ -135,16 +190,32 @@ public class AddAffineTransformView {
         return maxCoordsContainer;
     }
 
+    /**
+     * Method that creates a button that adds the affine transformation to the list of transformations.
+     * When clicked the button calls {@link #createTransformation()} and {@link #clearTextFields()}.
+     * in order to add the transformation to the list and clear the text-fields, so that new numbers can be entered.
+     * The button also calls {@link #showAddedAlert()} to show a confirmation message to the user.
+     *
+     * @return Button addTransformButton
+     */
     public Button addTransformButton(){
         Button addTransformButton = new Button("Add Affine Transform");
         addTransformButton.setOnAction(e -> {
             createTransformation();
             clearTextFields();
-            showAlert();
+            showAddedAlert();
         });
         return addTransformButton;
     }
 
+    /**
+     * Method that creates a button that saves the transformations and closes the stage.
+     * When clicked the button calls {@link ChaosGameController#setChaosGame(ChaosGameDescription)} to set the chaos game
+     * with the new transformations that the user has added. And the min and max coordinates that the user has entered.
+     * The button then closes the stage.
+     *
+     * @return Button saveButton
+     */
     public Button saveButton(){
         Button saveButton = new Button("Save");
         saveButton.setOnAction(e -> {
@@ -154,18 +225,37 @@ public class AddAffineTransformView {
         return saveButton;
     }
 
+    /**
+     * Method that shows the stage.
+     * The method calls {@link #setScene()} to set the scene of the stage.
+     * The method then sets the scene of the stage and shows the stage.
+     */
     public void showStage(){
         setScene();
         stage.setScene(scene);
         stage.show();
     }
 
+    /**
+     * Method that gets the values from the textboxes of the matrix and the vector.
+     * And creates a new affine transformation using these values.
+     * The Transformation is then added to the list of transformations {@code affineTransforms}
+     */
     public void createTransformation(){
         AffineTransform2D newTransformation;
-        double a = Double.parseDouble(a0.getText());
-        double b = Double.parseDouble(a1.getText());
-        double c = Double.parseDouble(b0.getText());
-        double d = Double.parseDouble(b1.getText());
+        double a;
+        double b;
+        double c;
+        double d;
+        try {
+            a = Double.parseDouble(a0.getText());
+            b = Double.parseDouble(a1.getText());
+            c = Double.parseDouble(b0.getText());
+            d = Double.parseDouble(b1.getText());
+        } catch (NumberFormatException e) {
+            showInvalidInputAlert("Matrix elements must be numbers");
+            return;
+        }
 
         Matrix2x2 newMatrix = new Matrix2x2(a,b,c,d);
 
@@ -179,18 +269,38 @@ public class AddAffineTransformView {
         affineTransforms.add(newTransformation);
     }
 
+    /**
+     * Method that returns the list of transforms.
+     *
+     * @return affineTransforms, list with Transform2D objects.
+     */
     public List<Transform2D> getTransformList(){
         return affineTransforms;
     }
 
+    /**
+     * method that parses the values in the minimum coordinates text fields,
+     * and creates a new Vector2D object.
+     * @return Vector2D object representing the minimum coordinates
+     */
     public Vector2D getMinCoords(){
         return new Vector2D(Double.parseDouble(minX0.getText()),Double.parseDouble(minX1.getText()));
     }
 
+    /**
+     * method that parses the values in the maximum coordinates text fields,
+     * and creates a new Vector2D object.
+     * @return Vector2D object representing the maximum coordinates
+     */
     public Vector2D getMaxCoords(){
         return new Vector2D(Double.parseDouble(maxX0.getText()),Double.parseDouble(maxX1.getText()));
     }
 
+    /**
+     * Method that clears the text-fields after a transformation has been added.
+     * The text-fields are set to empty strings, and the min and max coordinates text-fields are disabled.
+     * So that the user can't add a new transformation without entering new min and max coordinates.
+     */
     public void clearTextFields() {
         a0.clear();
         a1.clear();
@@ -204,7 +314,11 @@ public class AddAffineTransformView {
         maxX1.setDisable(true);
     }
 
-    private void showAlert() {
+    /**
+     * Method that shows an alert to the user after a transformation has been added.
+     * The alert is a confirmation message that the transformation has been added.
+     */
+    private void showAddedAlert() {
         // Create an alert
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Confirmation");
@@ -214,4 +328,14 @@ public class AddAffineTransformView {
         // Display the alert and wait for it to be dismissed
         alert.showAndWait();
     }
+
+    public void showInvalidInputAlert(String errorMessage) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Error");
+        alert.setHeaderText(null); // No header
+        alert.setContentText(errorMessage);
+
+        alert.showAndWait();
+    }
+
 }
