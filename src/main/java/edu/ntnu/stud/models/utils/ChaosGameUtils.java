@@ -2,6 +2,8 @@ package edu.ntnu.stud.models.utils;
 
 import edu.ntnu.stud.models.JuliaTransform;
 import edu.ntnu.stud.models.Vector2D;
+import javafx.scene.control.Alert;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -97,5 +99,19 @@ public class ChaosGameUtils {
       //Point is greater than max
       throw new IllegalArgumentException("Point has to be between min and max coordinates");
     }
+  }
+
+  /**
+   * Method that shows an alert to the user if the input is invalid.
+   *
+   * @param errorMessage the error message to be displayed
+   */
+  public static void showErrorAlert(String errorMessage) {
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Error");
+    alert.setHeaderText(null);
+    alert.setContentText(errorMessage);
+
+    alert.showAndWait();
   }
 }

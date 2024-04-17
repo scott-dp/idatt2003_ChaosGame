@@ -6,8 +6,10 @@ import edu.ntnu.stud.models.Matrix2x2;
 import edu.ntnu.stud.models.Transform2D;
 import edu.ntnu.stud.models.Vector2D;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
+import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -201,12 +203,17 @@ public class AddAffineTransformView {
    */
   public Button addTransformButton() {
     Button addTransformButton = new Button("Add Affine Transform");
-    addTransformButton.setOnAction(e -> {
-      createTransformation();
-      clearTextFields();
-      showAddedAlert();
-    });
+    addTransformButton.setOnAction(this::addAffineTransformAction);
     return addTransformButton;
+  }
+
+  public void addAffineTransformAction(ActionEvent actionEvent) {
+    if (!isInputValid()) {
+      ChaosGameUtils.showErrorAlert("Input is invalid");
+      return;
+    }
+    createTransformation();
+    clearTextFields();
   }
 
   /**
@@ -220,12 +227,19 @@ public class AddAffineTransformView {
    */
   public Button saveButton() {
     Button saveButton = new Button("Save");
-    saveButton.setOnAction(e -> {
-      chaosGameController.setChaosGame(
-          new ChaosGameDescription(getMinCoords(), getMaxCoords(), getTransformList()));
-      stage.close();
-    });
+    saveButton.setOnAction(this::saveAffineTransformsAction);
     return saveButton;
+  }
+
+  public void saveAffineTransformsAction(ActionEvent actionEvent) {
+    if (!isInputValid()) {
+      ChaosGameUtils.showErrorAlert("Input is invalid");
+      return;
+    }
+    createTransformation();
+    chaosGameController.setChaosGame(
+        new ChaosGameDescription(getMinCoords(), getMaxCoords(), getTransformList()));
+    stage.close();
   }
 
   /**
@@ -246,31 +260,39 @@ public class AddAffineTransformView {
    * The Transformation is then added to the list of transformations {@code affineTransforms}
    */
   public void createTransformation() {
-    AffineTransform2D newTransformation;
-    double a;
-    double b;
-    double c;
-    double d;
+    Matrix2x2 newMatrix = new Matrix2x2(Double.parseDouble(a0.getText()),
+        Double.parseDouble(a1.getText()), Double.parseDouble(b0.getText()),
+        Double.parseDouble(b1.getText()));
+
+    Vector2D newVector = new Vector2D(
+        Double.parseDouble(x0.getText()), Double.parseDouble(x1.getText()));
+
+    affineTransforms.add(new AffineTransform2D(newMatrix, newVector));
+
+    showAddedAlert();
+  }
+
+  public boolean isInputValid() {
     try {
-      a = Double.parseDouble(a0.getText());
-      b = Double.parseDouble(a1.getText());
-      c = Double.parseDouble(b0.getText());
-      d = Double.parseDouble(b1.getText());
+      Double.parseDouble(a0.getText());
+      Double.parseDouble(a1.getText());
+      Double.parseDouble(b0.getText());
+      Double.parseDouble(b1.getText());
+      Double.parseDouble(x0.getText());
+      Double.parseDouble(x1.getText());
+      double minX0parsed = Double.parseDouble(minX0.getText());
+      double minX1parsed = Double.parseDouble(minX1.getText());
+      double maxX0parsed = Double.parseDouble(maxX0.getText());
+      double maxX1parsed = Double.parseDouble(maxX1.getText());
+      ChaosGameUtils.validateMinAndMaxCoords(
+          new Vector2D(minX0parsed, minX1parsed), new Vector2D(maxX0parsed, maxX1parsed));
+      return true;
     } catch (NumberFormatException e) {
-      showInvalidInputAlert("Matrix elements must be numbers");
-      return;
+      return false;
+    } catch (IllegalArgumentException e) {
+      ChaosGameUtils.showErrorAlert(e.getMessage());
+      return false;
     }
-
-    Matrix2x2 newMatrix = new Matrix2x2(a, b, c, d);
-
-    double x = Double.parseDouble(x0.getText());
-    double y = Double.parseDouble(x1.getText());
-
-    Vector2D newVector = new Vector2D(x, y);
-
-    newTransformation = new AffineTransform2D(newMatrix, newVector);
-
-    affineTransforms.add(newTransformation);
   }
 
   /**
@@ -329,25 +351,10 @@ public class AddAffineTransformView {
     // Create an alert
     Alert alert = new Alert(AlertType.INFORMATION);
     alert.setTitle("Confirmation");
-    alert.setHeaderText(null); // No header
+    alert.setHeaderText(null);
     alert.setContentText("Transformation added");
 
     // Display the alert and wait for it to be dismissed
     alert.showAndWait();
   }
-
-  /**
-   * Method that shows an alert to the user if the input is invalid.
-   *
-   * @param errorMessage the error message to be displayed
-   */
-  public void showInvalidInputAlert(String errorMessage) {
-    Alert alert = new Alert(AlertType.INFORMATION);
-    alert.setTitle("Error");
-    alert.setHeaderText(null); // No header
-    alert.setContentText(errorMessage);
-
-    alert.showAndWait();
-  }
-
 }
