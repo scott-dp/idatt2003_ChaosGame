@@ -1,6 +1,7 @@
 package edu.ntnu.stud.models;
 
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
+
 import java.util.ArrayList;
 
 /**

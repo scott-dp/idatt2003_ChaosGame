@@ -4,6 +4,7 @@ import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameFileHandler;
 import edu.ntnu.stud.models.*;
+import edu.ntnu.stud.models.Transform2D;
 
 import java.util.ArrayList;
 import java.util.HashMap;

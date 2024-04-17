@@ -10,6 +10,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * The main view class for the ChaosGame application.
+ */
 public class AppView extends Application {
   private static ChaosGameController chaosGameController;
   private Slider slider;
@@ -18,6 +21,12 @@ public class AppView extends Application {
   HBox bottomLayout;
   Button runButton;
 
+  /**
+   * Initializes objects and layout and starts the application.
+   *
+   * @param stage the stage to be shown
+   * @throws Exception if the application cannot be started
+   */
   @Override
   public void start(Stage stage) throws Exception {
     ChaosGame game = new ChaosGame(ChaosGameDescriptionFactory.createSierpinskiDescription(),
@@ -37,6 +46,9 @@ public class AppView extends Application {
     stage.show();
   }
 
+  /**
+   * Sets the main layout of the application.
+   */
   public void setMainLayout() {
     mainLayout = new VBox();
     mainLayout.getChildren().add(menuBar);
@@ -44,6 +56,9 @@ public class AppView extends Application {
     mainLayout.getChildren().add(bottomLayout);
   }
 
+  /**
+   * Creates the slider used to control the number of steps in the chaos game.
+   */
   public void createSlider() {
     slider = new Slider();
     slider.setMin(0);
@@ -53,6 +68,9 @@ public class AppView extends Application {
     slider.setMajorTickUnit(10000);
   }
 
+  /**
+   * Creates the menu bar for the application and adds menu items to it.
+   */
   public void createMenuBar() {
     menuBar = new MenuBar();
     Menu fileMenu = new Menu("File");
@@ -64,16 +82,26 @@ public class AppView extends Application {
     menuBar.getMenus().addAll(fileMenu, emptyFractalMenu, predefinedMenu, editMenu);
   }
 
+  /**
+   * Creates the {@link MenuItem} objects for adding and creating empty Affine and Julia fractals.
+   *
+   * @param emptyFractalMenu the menu where the menu items are added
+   */
   public void createEmptyFractalMenu(Menu emptyFractalMenu) {
-    MenuItem affineTransform = new MenuItem("Affine Transform");
-    affineTransform.setOnAction(event ->
-    {
+    MenuItem affineTransformItem = new MenuItem("Affine Transform");
+    MenuItem juliaTransformItem = new MenuItem("Julia transform");
+    affineTransformItem.setOnAction(event -> {
       AddAffineTransformView affineTransformView = new AddAffineTransformView();
       affineTransformView.showStage();
     });
-    emptyFractalMenu.getItems().add(affineTransform);
+    emptyFractalMenu.getItems().addAll(affineTransformItem, juliaTransformItem);
   }
 
+  /**
+   * Creates the {@link MenuItem} objects for adding and creating predefined fractals.
+   *
+   * @param predefinedMenu the menu where the menu items are added
+   */
   public void createPredefinedMenu(Menu predefinedMenu) {
     MenuItem barnsleyFernItem = new MenuItem("Barnsley Fern");
     barnsleyFernItem.setOnAction(actionEvent ->
@@ -81,7 +109,8 @@ public class AppView extends Application {
 
     MenuItem sierpinskiTriangleItem = new MenuItem("Sierpinski Triangle");
     sierpinskiTriangleItem.setOnAction(actionEvent ->
-        chaosGameController.setChaosGame(ChaosGameDescriptionFactory.createSierpinskiDescription()));
+        chaosGameController.setChaosGame(
+            ChaosGameDescriptionFactory.createSierpinskiDescription()));
 
     MenuItem juliaSet1Item = new MenuItem("Julia set 1");
     juliaSet1Item.setOnAction(actionEvent ->
@@ -103,17 +132,30 @@ public class AppView extends Application {
         juliaSet1Item, juliaSet2Item, juliaSet3Item, juliaSet4Item);
   }
 
+  /**
+   * Creates the bottom layout of the application containing slider to choose amount of steps
+   * and run button.
+   */
   public void createBottomLayout() {
     bottomLayout = new HBox(10);
     bottomLayout.getChildren().add(slider);
     bottomLayout.getChildren().add(runButton);
   }
 
+  /**
+   * Creates the run button and sets the action to run the chaos game for the amount of steps
+   * specified by the slider.
+   */
   public void createRunButton() {
     runButton = new Button("Run");
     runButton.setOnAction(e -> chaosGameController.runSteps((int) slider.getValue()));
   }
 
+  /**
+   * Launches the application.
+   *
+   * @param args the command line arguments
+   */
   public void launchApp(String[] args) {
     launch(args);
   }

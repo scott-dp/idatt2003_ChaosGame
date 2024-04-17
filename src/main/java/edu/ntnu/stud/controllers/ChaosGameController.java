@@ -2,7 +2,7 @@ package edu.ntnu.stud.controllers;
 
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
-import edu.ntnu.stud.models.interfaces.ChaosGameObserver;
+import edu.ntnu.stud.models.observer.ChaosGameObserver;
 import edu.ntnu.stud.views.ChaosGameView;
 
 /**
@@ -40,6 +40,7 @@ public class ChaosGameController {
    * @param steps the amount of steps being run to create the fractal
    */
   public void runSteps(int steps) {
+
     this.chaosGame.runSteps(steps);
   }
 
