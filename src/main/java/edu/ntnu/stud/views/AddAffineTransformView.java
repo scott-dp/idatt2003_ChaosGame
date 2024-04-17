@@ -209,7 +209,7 @@ public class AddAffineTransformView {
 
   public void addAffineTransformAction(ActionEvent actionEvent) {
     if (!isInputValid()) {
-      showInvalidInputAlert("Input is invalid");
+      ChaosGameUtils.showErrorAlert("Input is invalid");
       return;
     }
     createTransformation();
