@@ -1,5 +1,7 @@
 package edu.ntnu.stud.models;
 
+import edu.ntnu.stud.models.Vector2D;
+
 /**
  * The Transform2D interface represents a 2D transformation.
  * <p>

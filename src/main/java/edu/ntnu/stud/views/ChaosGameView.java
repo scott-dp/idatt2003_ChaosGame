@@ -1,11 +1,14 @@
 package edu.ntnu.stud.views;
 
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
-import edu.ntnu.stud.models.interfaces.ChaosGameObserver;
+import edu.ntnu.stud.models.observer.ChaosGameObserver;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * View class to show
+ */
 public class ChaosGameView implements ChaosGameObserver {
   private final ChaosGame game;
   Canvas canvas;

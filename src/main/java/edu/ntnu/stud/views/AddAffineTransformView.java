@@ -15,12 +15,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddAffineTransformView {
-
     private final ChaosGameController chaosGameController = AppView.getChaosGameController();
 
     private final ArrayList<Transform2D> affineTransforms = new ArrayList<>();
