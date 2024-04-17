@@ -3,7 +3,9 @@ package edu.ntnu.stud.views;
 import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.ChaosGameDescriptionFactory;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
+import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -148,7 +150,16 @@ public class AppView extends Application {
    */
   public void createRunButton() {
     runButton = new Button("Run");
-    runButton.setOnAction(e -> chaosGameController.runSteps((int) slider.getValue()));
+    runButton.setOnAction(this::runButtonAction);
+  }
+
+  public void runButtonAction(ActionEvent actionEvent) {
+    try {
+      chaosGameController.runSteps((int) slider.getValue());
+    } catch (NumberFormatException e) {
+      ChaosGameUtils.showErrorAlert("Couldn't generate fractal out " +
+          "of the given transforms because the point did not converge");
+    }
   }
 
   /**

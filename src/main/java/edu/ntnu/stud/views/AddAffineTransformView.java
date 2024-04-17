@@ -233,7 +233,7 @@ public class AddAffineTransformView {
 
   public void saveAffineTransformsAction(ActionEvent actionEvent) {
     if (!isInputValid()) {
-      showInvalidInputAlert("Input is invalid");
+      ChaosGameUtils.showErrorAlert("Input is invalid");
       return;
     }
     createTransformation();
@@ -290,7 +290,7 @@ public class AddAffineTransformView {
     } catch (NumberFormatException e) {
       return false;
     } catch (IllegalArgumentException e) {
-      showInvalidInputAlert(e.getMessage());
+      ChaosGameUtils.showErrorAlert(e.getMessage());
       return false;
     }
   }
@@ -351,25 +351,10 @@ public class AddAffineTransformView {
     // Create an alert
     Alert alert = new Alert(AlertType.INFORMATION);
     alert.setTitle("Confirmation");
-    alert.setHeaderText(null); // No header
+    alert.setHeaderText(null);
     alert.setContentText("Transformation added");
 
     // Display the alert and wait for it to be dismissed
     alert.showAndWait();
   }
-
-  /**
-   * Method that shows an alert to the user if the input is invalid.
-   *
-   * @param errorMessage the error message to be displayed
-   */
-  public void showInvalidInputAlert(String errorMessage) {
-    Alert alert = new Alert(AlertType.INFORMATION);
-    alert.setTitle("Error");
-    alert.setHeaderText(null); // No header
-    alert.setContentText(errorMessage);
-
-    alert.showAndWait();
-  }
-
 }
