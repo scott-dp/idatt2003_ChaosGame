@@ -277,12 +277,12 @@ public class AddAffineTransformView {
    * The Transformation is then added to the list of transformations {@code affineTransforms}
    */
   public void addTransformToList() {
-    Matrix2x2 newMatrix = new Matrix2x2(Double.parseDouble(a00.getText().trim()),
-        Double.parseDouble(a01.getText().trim()), Double.parseDouble(a10.getText().trim()),
-        Double.parseDouble(a11.getText().trim()));
+    Matrix2x2 newMatrix = new Matrix2x2(Double.parseDouble(a00.getText()),
+        Double.parseDouble(a01.getText()), Double.parseDouble(a10.getText()),
+        Double.parseDouble(a11.getText()));
 
     Vector2D newVector = new Vector2D(
-        Double.parseDouble(x0.getText().trim()), Double.parseDouble(x1.getText().trim()));
+        Double.parseDouble(x0.getText()), Double.parseDouble(x1.getText()));
 
     affineTransforms.add(new AffineTransform2D(newMatrix, newVector));
 
@@ -333,7 +333,7 @@ public class AddAffineTransformView {
    * @return Vector2D object representing the minimum coordinates
    */
   public Vector2D getMinCoords() {
-    return new Vector2D(Double.parseDouble(minX0.getText().trim()), Double.parseDouble(minX1.getText().trim()));
+    return new Vector2D(Double.parseDouble(minX0.getText()), Double.parseDouble(minX1.getText()));
   }
 
   /**
@@ -343,7 +343,7 @@ public class AddAffineTransformView {
    * @return Vector2D object representing the maximum coordinates
    */
   public Vector2D getMaxCoords() {
-    return new Vector2D(Double.parseDouble(maxX0.getText().trim()), Double.parseDouble(maxX1.getText().trim()));
+    return new Vector2D(Double.parseDouble(maxX0.getText()), Double.parseDouble(maxX1.getText()));
   }
 
   /**
