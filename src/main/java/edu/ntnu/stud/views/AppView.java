@@ -96,6 +96,10 @@ public class AppView extends Application {
       AddAffineTransformView affineTransformView = new AddAffineTransformView();
       affineTransformView.showStage();
     });
+    juliaTransformItem.setOnAction(event -> {
+      EditJuliaTransformView juliaTransformView = new EditJuliaTransformView();
+      juliaTransformView.showStage();
+    });
     emptyFractalMenu.getItems().addAll(affineTransformItem, juliaTransformItem);
   }
 
