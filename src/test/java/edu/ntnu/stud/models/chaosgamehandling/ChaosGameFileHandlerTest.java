@@ -2,6 +2,7 @@ package edu.ntnu.stud.models.chaosgamehandling;
 
 import edu.ntnu.stud.models.exceptions.EmptyFileException;
 import edu.ntnu.stud.models.*;
+import edu.ntnu.stud.models.Transform2D;
 import org.junit.jupiter.api.*;
 
 import java.io.FileNotFoundException;
