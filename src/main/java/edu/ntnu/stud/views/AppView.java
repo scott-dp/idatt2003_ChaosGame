@@ -92,16 +92,20 @@ public class AppView extends Application {
     Menu predefinedMenu = new Menu("Predefined Fractal");
     createPredefinedMenu(predefinedMenu);
     Menu editMenu = new Menu("Edit Current fractal");
-    editMenu.setOnAction(e -> {
-      if (chaosGameController.getChaosGame().getDescription().getTransforms().get(0).getClass() == JuliaTransform.class) {
-        EditJuliaTransformView editJuliaTransformView = new EditJuliaTransformView();
-        editJuliaTransformView.showStage();
-      } else if (chaosGameController.getChaosGame().getDescription().getTransforms().get(0).getClass() == AffineTransform2D.class) {
-        EditAffineTransformView editAffineTransformView = new EditAffineTransformView();
-        editAffineTransformView.showStage();
-      }
-    });
+    editMenu.setOnAction(this::editMenuAction);
     menuBar.getMenus().addAll(fileMenu, emptyFractalMenu, predefinedMenu, editMenu);
+  }
+
+  public void editMenuAction(ActionEvent actionEvent) {
+    if (chaosGameController.getChaosGame().getDescription().getTransforms().get(0).getClass() == JuliaTransform.class) {
+      EditJuliaTransformView editJuliaTransformView = new EditJuliaTransformView();
+      editJuliaTransformView.showStage();
+    } else if (chaosGameController.getChaosGame().getDescription().getTransforms().get(0).getClass() == AffineTransform2D.class) {
+      EditAffineTransformView editAffineTransformView = new EditAffineTransformView();
+      editAffineTransformView.showStage();
+    } else {
+      ChaosGameUtils.showErrorAlert("No fractal chosen");
+    }
   }
 
   public void createFileMenu(Menu fileMenu) {
