@@ -3,6 +3,7 @@ package edu.ntnu.stud.views;
 import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.ChaosGameDescriptionFactory;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
+import edu.ntnu.stud.models.chaosgamehandling.ChaosGameFileHandler;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -12,11 +13,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /**
  * The main view class for the ChaosGame application.
  */
 public class AppView extends Application {
   private static ChaosGameController chaosGameController;
+  private ChaosGameFileHandler fileHandler = new ChaosGameFileHandler();
   private Slider slider;
   MenuBar menuBar;
   VBox mainLayout;
@@ -76,12 +80,37 @@ public class AppView extends Application {
   public void createMenuBar() {
     menuBar = new MenuBar();
     Menu fileMenu = new Menu("File");
+    createFileMenu(fileMenu);
     Menu emptyFractalMenu = new Menu("New Empty Fractal");
     Menu predefinedMenu = new Menu("Predefined Fractal");
     createPredefinedMenu(predefinedMenu);
     createEmptyFractalMenu(emptyFractalMenu);
     Menu editMenu = new Menu("Edit Current fractal");
     menuBar.getMenus().addAll(fileMenu, emptyFractalMenu, predefinedMenu, editMenu);
+  }
+
+  public void createFileMenu(Menu fileMenu) {
+    MenuItem saveFractal = new MenuItem("Save fractal");
+    MenuItem loadFractal = new MenuItem("Load fractal from file");
+
+    saveFractal.setOnAction(this::saveFractalToFileAction);
+    loadFractal.setOnAction(this::loadFractalFromFileAction);
+
+    fileMenu.getItems().addAll(saveFractal, loadFractal);
+  }
+
+  public void saveFractalToFileAction(ActionEvent actionEvent) {
+    SaveFileView saveFileView = new SaveFileView();
+    try {
+      fileHandler.writeToFile(chaosGameController.getChaosGame().getDescription(),
+          saveFileView.getChosenDirectory());
+    } catch (IOException | NullPointerException e) {
+      ChaosGameUtils.showErrorAlert(e.getMessage());
+    }
+  }
+
+  public void loadFractalFromFileAction(ActionEvent actionEvent) {
+    //TODO make method
   }
 
   /**
