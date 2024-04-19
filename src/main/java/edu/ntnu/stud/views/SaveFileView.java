@@ -2,11 +2,16 @@ package edu.ntnu.stud.views;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class SaveFileView {
   private final DirectoryChooser directoryChooser;
@@ -19,6 +24,22 @@ public class SaveFileView {
   }
 
   public String getChosenDirectory() { //Can return null, make checks
-    return directoryChooser.showDialog(stage).toString().concat("/TestSaveFile.txt");
+    return directoryChooser.showDialog(stage).toString();
+  }
+
+  public String getFileNameFromUser() {
+    Stage setFileNameStage = new Stage();
+    TextField fileNameField = new TextField("File name");
+    Button chooseDirectoryButton = new Button("Choose directory to save file in");
+    AtomicReference<String> fileName = new AtomicReference<>("");
+    chooseDirectoryButton.setOnAction(e -> {
+      fileName.set(fileNameField.getText());
+      setFileNameStage.close();
+    });
+    HBox layout = new HBox(10);
+    layout.getChildren().addAll(fileNameField, chooseDirectoryButton);
+    setFileNameStage.setScene(new Scene(layout));
+    setFileNameStage.showAndWait();
+    return fileName.toString();
   }
 }

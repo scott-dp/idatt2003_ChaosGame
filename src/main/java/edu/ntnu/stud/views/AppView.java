@@ -4,6 +4,7 @@ import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.ChaosGameDescriptionFactory;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameFileHandler;
+import edu.ntnu.stud.models.exceptions.EmptyFileException;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -13,7 +14,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.NoSuchElementException;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * The main view class for the ChaosGame application.
@@ -101,11 +105,14 @@ public class AppView extends Application {
 
   public void saveFractalToFileAction(ActionEvent actionEvent) {
     SaveFileView saveFileView = new SaveFileView();
+    String fileName = saveFileView.getFileNameFromUser();
     try {
       fileHandler.writeToFile(chaosGameController.getChaosGame().getDescription(),
-          saveFileView.getChosenDirectory());
-    } catch (IOException | NullPointerException e) {
+          saveFileView.getChosenDirectory().concat("/" + fileName + ".txt"));
+    } catch (IOException e) {
       ChaosGameUtils.showErrorAlert(e.getMessage());
+    } catch (NullPointerException e) {
+      ChaosGameUtils.showErrorAlert("No directory chosen");
     }
   }
 
@@ -113,8 +120,10 @@ public class AppView extends Application {
     LoadFileView loadFileView = new LoadFileView();
     try {
       chaosGameController.setChaosGame(fileHandler.readFromFile(loadFileView.getChosenFilePath()));
-    } catch (Exception e) {
+    } catch (FileNotFoundException | NoSuchElementException | EmptyFileException e) {
       ChaosGameUtils.showErrorAlert(e.getMessage());
+    } catch (NullPointerException e) {
+      ChaosGameUtils.showErrorAlert("No file chosen");
     }
   }
 
