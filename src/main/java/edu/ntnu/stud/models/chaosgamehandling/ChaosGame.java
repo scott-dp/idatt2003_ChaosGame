@@ -46,6 +46,10 @@ public class ChaosGame {
     observerList.forEach(ChaosGameObserver::update);
   }
 
+  public ChaosGameDescription getDescription() {
+    return description;
+  }
+
   /**
    * Method to add an observer to the observerList that will be notified
    * when there is a change in this ChaosGame.
