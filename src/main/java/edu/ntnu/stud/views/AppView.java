@@ -110,7 +110,12 @@ public class AppView extends Application {
   }
 
   public void loadFractalFromFileAction(ActionEvent actionEvent) {
-    //TODO make method
+    LoadFileView loadFileView = new LoadFileView();
+    try {
+      chaosGameController.setChaosGame(fileHandler.readFromFile(loadFileView.getChosenFilePath()));
+    } catch (Exception e) {
+      ChaosGameUtils.showErrorAlert(e.getMessage());
+    }
   }
 
   /**

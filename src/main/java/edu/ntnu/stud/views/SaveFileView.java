@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import java.io.File;
 
 public class SaveFileView {
-  private final static ChaosGameController chaosGameController = AppView.getChaosGameController();
   private final DirectoryChooser directoryChooser;
   private final Stage stage;
 
