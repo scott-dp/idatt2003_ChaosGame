@@ -23,12 +23,13 @@ public class SaveFileView {
     stage = new Stage();
   }
 
-  public String getChosenDirectory() { //Can return null, make checks
+  public String getChosenDirectory() {
     return directoryChooser.showDialog(stage).toString();
   }
 
   public String getFileNameFromUser() {
     Stage setFileNameStage = new Stage();
+    setFileNameStage.setTitle("Enter filename to save fractal in");
     TextField fileNameField = new TextField("File name");
     Button chooseDirectoryButton = new Button("Choose directory to save file in");
     AtomicReference<String> fileName = new AtomicReference<>("");
