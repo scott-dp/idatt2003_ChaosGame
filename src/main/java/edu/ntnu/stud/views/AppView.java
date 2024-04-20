@@ -1,7 +1,9 @@
 package edu.ntnu.stud.views;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
+import edu.ntnu.stud.models.AffineTransform2D;
 import edu.ntnu.stud.models.ChaosGameDescriptionFactory;
+import edu.ntnu.stud.models.JuliaTransform;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameFileHandler;
 import edu.ntnu.stud.models.exceptions.EmptyFileException;
@@ -86,11 +88,30 @@ public class AppView extends Application {
     Menu fileMenu = new Menu("File");
     createFileMenu(fileMenu);
     Menu emptyFractalMenu = new Menu("New Empty Fractal");
+    createEmptyFractalMenu(emptyFractalMenu);
     Menu predefinedMenu = new Menu("Predefined Fractal");
     createPredefinedMenu(predefinedMenu);
-    createEmptyFractalMenu(emptyFractalMenu);
-    Menu editMenu = new Menu("Edit Current fractal");
+    Menu editMenu = new Menu("Edit");
+    createEditMenu(editMenu);
     menuBar.getMenus().addAll(fileMenu, emptyFractalMenu, predefinedMenu, editMenu);
+  }
+
+  public void createEditMenu(Menu editMenu) {
+    MenuItem editCurrentFractalItem = new MenuItem("Edit current fractal");
+    editCurrentFractalItem.setOnAction(this::editMenuAction);
+    editMenu.getItems().add(editCurrentFractalItem);
+  }
+
+  public void editMenuAction(ActionEvent actionEvent) {
+    if (chaosGameController.getChaosGame().getDescription().getTransforms().get(0).getClass() == JuliaTransform.class) {
+      EditJuliaTransformView editJuliaTransformView = new EditJuliaTransformView();
+      editJuliaTransformView.showStage();
+    } else if (chaosGameController.getChaosGame().getDescription().getTransforms().get(0).getClass() == AffineTransform2D.class) {
+      EditAffineTransformView editAffineTransformView = new EditAffineTransformView();
+      editAffineTransformView.showStage();
+    } else {
+      ChaosGameUtils.showErrorAlert("No fractal chosen");
+    }
   }
 
   public void createFileMenu(Menu fileMenu) {

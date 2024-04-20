@@ -1,16 +1,11 @@
 package edu.ntnu.stud.views;
 
-import edu.ntnu.stud.controllers.ChaosGameController;
-import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.io.File;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class SaveFileView {
