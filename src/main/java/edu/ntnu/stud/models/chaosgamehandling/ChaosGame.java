@@ -105,8 +105,14 @@ public class ChaosGame {
     for (int i = 0; i < steps; i++) {
       int randomIndex = random.nextInt(description.getTransforms().size());
       currentPoint = description.getTransforms().get(randomIndex).transform(currentPoint);
-
-      canvas.putPixel(currentPoint);
+      try {
+        canvas.putPixel(currentPoint);
+      } catch (IllegalArgumentException e) {
+        //If the point that has been transformed is out of view, we don't want that step to count
+        // so that we only get points in the range of the view
+        System.out.println(e.getMessage());
+        i--;
+      }
     }
     updateObservers();
   }
