@@ -91,8 +91,11 @@ public class AppView extends Application {
     createEmptyFractalMenu(emptyFractalMenu);
     Menu predefinedMenu = new Menu("Predefined Fractal");
     createPredefinedMenu(predefinedMenu);
-    Menu editMenu = new Menu("Edit Current fractal");
-    editMenu.setOnAction(this::editMenuAction);
+    Menu editMenu = new Menu("Edit");
+    //TODO make own method for this below
+    MenuItem editCurrentFractalItem = new MenuItem("Edit current fractal");
+    editCurrentFractalItem.setOnAction(this::editMenuAction);
+    editMenu.getItems().add(editCurrentFractalItem);
     menuBar.getMenus().addAll(fileMenu, emptyFractalMenu, predefinedMenu, editMenu);
   }
 
