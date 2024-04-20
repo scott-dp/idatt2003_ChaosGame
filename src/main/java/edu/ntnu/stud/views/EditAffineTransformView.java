@@ -7,8 +7,9 @@ import edu.ntnu.stud.models.Transform2D;
 import edu.ntnu.stud.models.Vector2D;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
-import java.util.ArrayList;
+
 import java.util.List;
+
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -18,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.transform.Affine;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -37,6 +39,7 @@ import javafx.stage.Stage;
  * @see ChaosGameDescription
  */
 public class EditAffineTransformView {
+  int currentIndex;
   private final ChaosGameController chaosGameController;
 
   private final List<Transform2D> affineTransforms;
@@ -61,6 +64,7 @@ public class EditAffineTransformView {
   private TextField maxX0;
   private TextField maxX1;
   public EditAffineTransformView() {
+    currentIndex = 0;
     chaosGameController = AppView.getChaosGameController();
     affineTransforms = chaosGameController.getChaosGame().getDescription().getTransforms();
     stage = new Stage();
@@ -70,7 +74,28 @@ public class EditAffineTransformView {
    * Method that sets the scene of the stage.
    */
   public void setScene() {
-    this.scene.setRoot(setMainLayout());
+    scene.setRoot(setMainLayout());
+    setAffineTransformScene(affineTransforms.get(0));
+    setCoordsInView(chaosGameController.getChaosGame().getDescription());
+  }
+
+  public void setCoordsInView(ChaosGameDescription description) {
+    minX0.setText(String.valueOf(description.getMinCoords().getX0()));
+    minX1.setText(String.valueOf(description.getMinCoords().getX1()));
+    maxX0.setText(String.valueOf(description.getMaxCoords().getX0()));
+    maxX1.setText(String.valueOf(description.getMaxCoords().getX1()));
+  }
+
+  public void setAffineTransformScene(Transform2D transform) {
+    AffineTransform2D affineTransform = (AffineTransform2D) transform;
+
+    a00.setText(String.valueOf(affineTransform.getMatrix().getA00()));
+    a01.setText(String.valueOf(affineTransform.getMatrix().getA01()));
+    a10.setText(String.valueOf(affineTransform.getMatrix().getA10()));
+    a11.setText(String.valueOf(affineTransform.getMatrix().getA11()));
+
+    x0.setText(String.valueOf(affineTransform.getVector().getX0()));
+    x1.setText(String.valueOf(affineTransform.getVector().getX1()));
   }
 
   /**
@@ -92,16 +117,15 @@ public class EditAffineTransformView {
     coordinatesInput.getChildren().addAll(createMinCoordsInput(), createMaxCoordsInput());
 
     HBox mainHorizontalContainer = new HBox(10);
-    VBox addTransformAndPreviousTransformButtons = createAddTransformAndPreviousTransformButton();
-    VBox saveAndNextTransformButtons = createSaveAndNextTransformButtons();
+
     mainHorizontalContainer.getChildren().addAll(
-        matrixAndVectorInput, coordinatesInput, addTransformAndPreviousTransformButtons, saveAndNextTransformButtons);
+        matrixAndVectorInput, coordinatesInput, createAddTransformAndPreviousTransformButtons(), createSaveAndNextTransformButtons());
 
     mainLayout.getChildren().add(mainHorizontalContainer);
     return mainLayout;
   }
 
-  public VBox createAddTransformAndPreviousTransformButton() {
+  public VBox createAddTransformAndPreviousTransformButtons() {
     VBox buttons = new VBox(addTransformButton(), previousTransformButton());
     buttons.setSpacing(10);
     return buttons;
@@ -115,12 +139,49 @@ public class EditAffineTransformView {
 
   public Button previousTransformButton() {
     Button previousTransformButton = new Button("Previous transform");
+    previousTransformButton.setOnAction(this::previousTransformButtonAction);
     return previousTransformButton;
+  }
+
+  public void previousTransformButtonAction(ActionEvent actionEvent) {
+    AffineTransform2D transform2D;
+    try {
+      transform2D = getTransformFromInput();
+      affineTransforms.set(currentIndex, transform2D);
+      setAffineTransformScene(affineTransforms.get(currentIndex-1));
+      currentIndex--;
+    } catch (NumberFormatException | IndexOutOfBoundsException ignored) {
+    }
+  }
+
+  public AffineTransform2D getTransformFromInput() {
+    if (isInputInvalid()) {
+      ChaosGameUtils.showErrorAlert("Invalid input");
+      throw new NumberFormatException("Invalid input");
+    } else {
+      Matrix2x2 matrix = new Matrix2x2(Double.parseDouble(a00.getText()),
+          Double.parseDouble(a01.getText()), Double.parseDouble(a10.getText()),
+          Double.parseDouble(a11.getText()));
+      Vector2D vector = new Vector2D(Double.parseDouble(x0.getText()), Double.parseDouble(x1.getText()));
+      return new AffineTransform2D(matrix, vector);
+    }
   }
 
   public Button nextTransformButton() {
     Button nextTransformButton = new Button("Next transform");
+    nextTransformButton.setOnAction(this::nextTransformButtonAction);
     return nextTransformButton;
+  }
+
+  public void nextTransformButtonAction(ActionEvent actionEvent) {
+    AffineTransform2D transform2D;
+    try {
+      transform2D = getTransformFromInput();
+      affineTransforms.set(currentIndex, transform2D);
+      setAffineTransformScene(affineTransforms.get(currentIndex+1));
+      currentIndex++;
+    } catch (NumberFormatException | IndexOutOfBoundsException ignored) {
+    }
   }
 
   /**
@@ -137,13 +198,13 @@ public class EditAffineTransformView {
     matrixHorizontal.getChildren().add(matrixLabel);
 
     HBox topNumbersContainer = new HBox(10);
-    a00 = new TextField("0");
-    a01 = new TextField("0");
+    a00 = new TextField();
+    a01 = new TextField();
     topNumbersContainer.getChildren().addAll(a00, a01);
 
     HBox bottomNumbersContainer = new HBox(10);
-    a10 = new TextField("0");
-    a11 = new TextField("0");
+    a10 = new TextField();
+    a11 = new TextField();
     bottomNumbersContainer.getChildren().addAll(a10, a11);
 
     VBox matrixLayout = new VBox();
@@ -167,8 +228,8 @@ public class EditAffineTransformView {
 
     vectorHorizontalContainer.getChildren().add(vectorLabel);
     VBox vectorInputLayout = new VBox(10);
-    x0 = new TextField("0");
-    x1 = new TextField("0");
+    x0 = new TextField();
+    x1 = new TextField();
     vectorInputLayout.getChildren().addAll(x0, x1);
 
     vectorHorizontalContainer.getChildren().add(vectorInputLayout);
@@ -189,8 +250,8 @@ public class EditAffineTransformView {
     minCoordsContainer.getChildren().add(minCoordsLabel);
     VBox minCoordsLayout = new VBox(10);
 
-    minX0 = new TextField("0");
-    minX1 = new TextField("0");
+    minX0 = new TextField();
+    minX1 = new TextField();
 
     minCoordsLayout.getChildren().addAll(minX0, minX1);
 
@@ -211,8 +272,8 @@ public class EditAffineTransformView {
     maxCoordsContainer.getChildren().add(maxCoordsLabel);
     VBox maxCoordsLayout = new VBox(10);
 
-    maxX0 = new TextField("0");
-    maxX1 = new TextField("0");
+    maxX0 = new TextField();
+    maxX1 = new TextField();
 
     maxCoordsLayout.getChildren().addAll(maxX0, maxX1);
 
@@ -220,36 +281,17 @@ public class EditAffineTransformView {
     return maxCoordsContainer;
   }
 
-  /**
-   * Method that creates a button that adds the affine transformation to the list of
-   * transformations. When clicked the button calls {@link #addTransformToList()}
-   * and {@link #clearTextFields()}. In order to add the transformation to the list and
-   * clear the text-fields, so that new numbers can be entered. The button also calls
-   * {@link #showAddedTransformAlert()} to show a confirmation message to the user.
-   *
-   * @return Button addTransformButton
-   */
   public Button addTransformButton() {
     Button addTransformButton = new Button("Add Affine Transform");
     addTransformButton.setOnAction(this::addAffineTransformAction);
     return addTransformButton;
   }
 
-  /**
-   * The action done when the add transform button is clicked.
-   * The method checks if the input is invalid, and if it is, shows an error alert.
-   * If the input is valid, the method calls {@link #addTransformToList()} to add the
-   * transformation to the list of transformations. The method then clears the text-fields.
-   *
-   * @param actionEvent the event that is triggered when the button is clicked
-   */
   public void addAffineTransformAction(ActionEvent actionEvent) {
-    if (isInputInvalid()) {
-      ChaosGameUtils.showErrorAlert("Input is invalid");
-      return;
-    }
-    addTransformToList();
-    clearTextFields();
+    AffineTransform2D tempTransform = new AffineTransform2D(new Matrix2x2(0, 0, 0, 0), new Vector2D(0, 0));
+    setAffineTransformScene(tempTransform);
+    affineTransforms.add(tempTransform);
+    currentIndex = affineTransforms.size() - 1;
   }
 
   /**
@@ -267,23 +309,14 @@ public class EditAffineTransformView {
     return saveButton;
   }
 
-  /**
-   * The action done when the save button is clicked.
-   * The method checks if the input is invalid, and if it is, shows an error alert.
-   * If the input is valid, the method calls {@link #addTransformToList()} to add the
-   * transformation to the list of transformations. The method then sets the chaos game
-   * with the new transformations and min and max coordinates, and closes the stage.
-   *
-   * @param actionEvent the event that is triggered when the button is clicked
-   */
   public void saveButtonAction(ActionEvent actionEvent) {
     if (isInputInvalid()) {
       ChaosGameUtils.showErrorAlert("Input is invalid");
       return;
     }
-    addTransformToList();
+    affineTransforms.set(currentIndex, getTransformFromInput());
     chaosGameController.setChaosGame(
-        new ChaosGameDescription(getMinCoords(), getMaxCoords(), getTransformList()));
+        new ChaosGameDescription(getMinCoords(), getMaxCoords(), affineTransforms));
     stage.close();
   }
 
@@ -297,24 +330,6 @@ public class EditAffineTransformView {
     stage.setScene(scene);
     stage.initModality(Modality.APPLICATION_MODAL);
     stage.show();
-  }
-
-  /**
-   * Method that gets the values from the textboxes of the matrix and the vector.
-   * And creates a new affine transformation using these values.
-   * The Transformation is then added to the list of transformations {@code affineTransforms}
-   */
-  public void addTransformToList() {
-    Matrix2x2 newMatrix = new Matrix2x2(Double.parseDouble(a00.getText()),
-        Double.parseDouble(a01.getText()), Double.parseDouble(a10.getText()),
-        Double.parseDouble(a11.getText()));
-
-    Vector2D newVector = new Vector2D(
-        Double.parseDouble(x0.getText()), Double.parseDouble(x1.getText()));
-
-    affineTransforms.add(new AffineTransform2D(newMatrix, newVector));
-
-    showAddedTransformAlert();
   }
 
   /**
@@ -346,15 +361,6 @@ public class EditAffineTransformView {
   }
 
   /**
-   * Method that returns the list of transforms.
-   *
-   * @return affineTransforms, list with Transform2D objects.
-   */
-  public List<Transform2D> getTransformList() {
-    return affineTransforms;
-  }
-
-  /**
    * method that parses the values in the minimum coordinates text fields,
    * and creates a new Vector2D object.
    *
@@ -372,39 +378,5 @@ public class EditAffineTransformView {
    */
   public Vector2D getMaxCoords() {
     return new Vector2D(Double.parseDouble(maxX0.getText()), Double.parseDouble(maxX1.getText()));
-  }
-
-  /**
-   * Method that clears the text-fields after a transformation has been added.
-   * The text-fields are set to empty strings, and the min and max coordinates
-   * text-fields are disabled. So that the user can't add a new transformation
-   * without entering new min and max coordinates.
-   */
-  public void clearTextFields() {
-    a00.clear();
-    a01.clear();
-    a10.clear();
-    a11.clear();
-    x0.clear();
-    x1.clear();
-    minX0.setDisable(true);
-    minX1.setDisable(true);
-    maxX0.setDisable(true);
-    maxX1.setDisable(true);
-  }
-
-  /**
-   * Method that shows an alert to the user after a transformation has been added.
-   * The alert is a confirmation message that the transformation has been added.
-   */
-  private void showAddedTransformAlert() {
-    // Create an alert
-    Alert alert = new Alert(AlertType.INFORMATION);
-    alert.setTitle("Confirmation");
-    alert.setHeaderText(null);
-    alert.setContentText("Transformation added");
-
-    // Display the alert and wait for it to be dismissed
-    alert.showAndWait();
   }
 }
