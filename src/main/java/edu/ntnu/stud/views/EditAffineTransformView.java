@@ -154,7 +154,7 @@ public class EditAffineTransformView {
     }
   }
 
-  public AffineTransform2D getTransformFromInput() {
+  public AffineTransform2D getTransformFromInput() throws NumberFormatException{
     if (isInputInvalid()) {
       ChaosGameUtils.showErrorAlert("Invalid input");
       throw new NumberFormatException("Invalid input");
@@ -294,15 +294,6 @@ public class EditAffineTransformView {
     currentIndex = affineTransforms.size() - 1;
   }
 
-  /**
-   * Method that creates a button that saves the transformations and closes the stage.
-   * When clicked the button calls {@link ChaosGameController#setChaosGame(ChaosGameDescription)}
-   * to set the chaos game with the new transformations that the user has added.
-   * And the min and max coordinates that the user has entered.
-   * The button then closes the stage.
-   *
-   * @return Button saveButton
-   */
   public Button createSaveButton() {
     Button saveButton = new Button("Save");
     saveButton.setOnAction(this::saveButtonAction);
@@ -314,7 +305,11 @@ public class EditAffineTransformView {
       ChaosGameUtils.showErrorAlert("Input is invalid");
       return;
     }
-    affineTransforms.set(currentIndex, getTransformFromInput());
+    try {
+      affineTransforms.set(currentIndex, getTransformFromInput());
+    } catch (NumberFormatException e){
+      return;
+    }
     chaosGameController.setChaosGame(
         new ChaosGameDescription(getMinCoords(), getMaxCoords(), affineTransforms));
     stage.close();
