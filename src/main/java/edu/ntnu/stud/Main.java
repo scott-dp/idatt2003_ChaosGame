@@ -9,11 +9,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Main{
+public class Main {
   static AppView appView;
+
   public static void main(String[] args) {
     appView = new AppView();
-    appView.launchApp();
+    appView.launchApp(args);
   }
 
 }

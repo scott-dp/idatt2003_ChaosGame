@@ -1,8 +1,7 @@
 package edu.ntnu.stud.models.chaosgamehandling;
 
 import edu.ntnu.stud.models.Vector2D;
-import edu.ntnu.stud.models.interfaces.ChaosGameObserver;
-
+import edu.ntnu.stud.models.observer.ChaosGameObserver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,8 +18,8 @@ import java.util.Random;
  * @see ChaosCanvas
  */
 public class ChaosGame {
-  private final ChaosCanvas canvas;
-  private final ChaosGameDescription description;
+  private ChaosCanvas canvas;
+  private ChaosGameDescription description;
   private Vector2D currentPoint;
   private final Random random;
   private final List<ChaosGameObserver> observerList = new ArrayList<>();
@@ -47,6 +46,10 @@ public class ChaosGame {
     observerList.forEach(ChaosGameObserver::update);
   }
 
+  public ChaosGameDescription getDescription() {
+    return description;
+  }
+
   /**
    * Method to add an observer to the observerList that will be notified
    * when there is a change in this ChaosGame.
@@ -65,9 +68,20 @@ public class ChaosGame {
    * @param observer the observer to be removed.
    */
   public void removeObserver(ChaosGameObserver observer) {
-    if (observerList.contains(observer)) {
-      observerList.remove(observer);
-    }
+    observerList.remove(observer);
+  }
+
+  /**
+   * Modifier method to set a new ChaosGameDescription, which means that a new ChaosCanvas
+   * also needs to be set.
+   *
+   * @param description the new description being represented
+   */
+  public void setNewChaosGame(ChaosGameDescription description) {
+    this.description = description;
+    this.canvas = new ChaosCanvas(canvas.getWidth(), canvas.getHeight(),
+        description.getMinCoords(), description.getMaxCoords());
+    updateObservers();
   }
 
   /**
@@ -75,7 +89,7 @@ public class ChaosGame {
    *
    * @return The ChaosCanvas where the fractal pattern is rendered.
    */
-  public ChaosCanvas getCanvas() {
+  public ChaosCanvas getChaosCanvas() {
     return canvas;
   }
 
@@ -87,11 +101,19 @@ public class ChaosGame {
    * @param steps The number of steps to run the game for.
    */
   public void runSteps(int steps) {
+    canvas.clear();
     for (int i = 0; i < steps; i++) {
       int randomIndex = random.nextInt(description.getTransforms().size());
       currentPoint = description.getTransforms().get(randomIndex).transform(currentPoint);
-
-      canvas.putPixel(currentPoint);
+      try {
+        canvas.putPixel(currentPoint);
+      } catch (IllegalArgumentException e) {
+        //If the point that has been transformed is out of view, we don't want that step to count
+        // so that we only get points in the range of the view
+        System.out.println(e.getMessage());
+        i--;
+      }
     }
+    updateObservers();
   }
 }

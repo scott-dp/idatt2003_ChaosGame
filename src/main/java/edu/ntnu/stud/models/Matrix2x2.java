@@ -32,6 +32,22 @@ public class Matrix2x2 {
     this.a11 = ChaosGameUtils.roundDoubleToSetDecimals(a11, 3);
   }
 
+  public double getA00() {
+    return a00;
+  }
+
+  public double getA01() {
+    return a01;
+  }
+
+  public double getA10() {
+    return a10;
+  }
+
+  public double getA11() {
+    return a11;
+  }
+
   /**
    * Multiplies this matrix by a given {@code Vector2D},
    * and returns the result as a new {@code Vector2D}.

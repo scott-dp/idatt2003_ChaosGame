@@ -2,6 +2,7 @@ package edu.ntnu.stud.models.utils;
 
 import edu.ntnu.stud.models.JuliaTransform;
 import edu.ntnu.stud.models.Vector2D;
+import javafx.scene.control.Alert;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -44,7 +45,7 @@ public class ChaosGameUtils {
    * @param num the number to be validated
    * @return the number if it is a positive integer
    */
-  public static int validatePositiveInteger(int num) throws IllegalArgumentException{
+  public static int validatePositiveInteger(int num) throws IllegalArgumentException {
     if (num < 1) {
       throw new IllegalArgumentException("Integer " + num + " has to be greater than 0");
     } else {
@@ -58,7 +59,7 @@ public class ChaosGameUtils {
    * @param min the minimum coordinate
    * @param max the maximum coordinate
    */
-  public static void validateMinAndMaxCoords(Vector2D min, Vector2D max) {
+  public static void validateMinAndMaxCoords(Vector2D min, Vector2D max) throws IllegalArgumentException {
     if (min.equals(max)) {
       throw new IllegalArgumentException("Min and max coords of the fractal are the same");
     } else if (min.getX0() >= max.getX0() || min.getX1() >= max.getX1()) {
@@ -68,8 +69,9 @@ public class ChaosGameUtils {
   }
 
   /**
-   * Validates the sign field taken in the constructor for the construction of a {@link JuliaTransform} object.
-   * Throws an IllegalArgumentException if the sign is anything else than 1 or -1
+   * Validates the sign field taken in the constructor for the construction of a
+   * {@link JuliaTransform} object. Throws an IllegalArgumentException if the sign is anything
+   * else than 1 or -1.
    *
    * @param sign the field being validated
    * @return the sign param if it has e legal value
@@ -78,7 +80,8 @@ public class ChaosGameUtils {
     if (sign == 1 || sign == -1) {
       return sign;
     }
-    throw new IllegalArgumentException("Sign field for julia transform has to be 1 or -1, but is " + sign);
+    throw new IllegalArgumentException("Sign field for julia "
+        + "transform has to be 1 or -1, but is " + sign);
   }
 
   /**
@@ -96,5 +99,19 @@ public class ChaosGameUtils {
       //Point is greater than max
       throw new IllegalArgumentException("Point has to be between min and max coordinates");
     }
+  }
+
+  /**
+   * Method that shows an alert to the user if the input is invalid.
+   *
+   * @param errorMessage the error message to be displayed
+   */
+  public static void showErrorAlert(String errorMessage) {
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Error");
+    alert.setHeaderText(null);
+    alert.setContentText(errorMessage);
+
+    alert.showAndWait();
   }
 }

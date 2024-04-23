@@ -1,43 +1,45 @@
 package edu.ntnu.stud.views;
 
-import edu.ntnu.stud.models.chaosgamehandling.ChaosCanvas;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
-import edu.ntnu.stud.models.interfaces.ChaosGameObserver;
-import javafx.application.Application;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import edu.ntnu.stud.models.observer.ChaosGameObserver;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
+/**
+ * View class for the ChaosGame class. Implements the {@link ChaosGameObserver} interface.
+ */
 public class ChaosGameView implements ChaosGameObserver {
   private final ChaosGame game;
-  VBox mainLayout;
+  Canvas canvas;
 
-  public ChaosGameView(ChaosGame game, VBox mainLayout) {
+  /**
+   * Constructs an instance of ChaosGameView with a set ChaosGame.
+   *
+   * @param game the ChaosGame object being shown
+   */
+  public ChaosGameView(ChaosGame game) {
     this.game = game;
-    this.mainLayout = mainLayout;
+    this.canvas = new Canvas(game.getChaosCanvas().getWidth(), game.getChaosCanvas().getHeight());
   }
 
   public ChaosGame getGame() {
     return game;
   }
 
-  public VBox getMainLayout() {
-    return mainLayout;
+  public Canvas getCanvas() {
+    return canvas;
   }
 
-  public Canvas makeFractal() {
-    game.runSteps(10000);
-    ChaosCanvas fractalCanvas = game.getCanvas();
-    int[][] fractalList = fractalCanvas.getCanvas();
-    Canvas canvas = new Canvas(fractalCanvas.getWidth(), fractalCanvas.getHeight());
+  /**
+   * Adds the fractal to a {@link GraphicsContext} object.
+   */
+  public void makeFractal() {
+    int[][] fractalList = game.getChaosCanvas().getCanvas();
+
     GraphicsContext gc = canvas.getGraphicsContext2D();
     gc.setFill(Color.BLACK);
+    clearGraphicsContext();
 
     //TODO streams lamba
     for (int i = 0; i < fractalList.length; i++) {
@@ -48,15 +50,28 @@ public class ChaosGameView implements ChaosGameObserver {
       }
     }
 
-    return canvas;
   }
 
-  public void drawLayout (Canvas fractal) {
-    mainLayout.getChildren().add(fractal);
+  /**
+   * Clears the {@link GraphicsContext} object.
+   */
+  public void clearGraphicsContext() {
+    int[][] fractalList = game.getChaosCanvas().getCanvas();
+    GraphicsContext gc = canvas.getGraphicsContext2D();
+
+    for (int i = 0; i < fractalList.length; i++) {
+      for (int j = 0; j < fractalList[i].length; j++) {
+        gc.clearRect(j, i, 1, 1);
+      }
+    }
   }
 
+  /**
+   * Updates the fractal. Is called when a change has been made in the ChaosGame
+   * object that this object is observing.
+   */
   @Override
   public void update() {
-    drawLayout(makeFractal());
+    makeFractal();
   }
 }
