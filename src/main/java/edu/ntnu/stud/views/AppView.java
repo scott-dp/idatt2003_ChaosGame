@@ -1,8 +1,12 @@
 package edu.ntnu.stud.views;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
+import edu.ntnu.stud.models.AffineTransform2D;
 import edu.ntnu.stud.models.ChaosGameDescriptionFactory;
+import edu.ntnu.stud.models.JuliaTransform;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
+import edu.ntnu.stud.models.chaosgamehandling.ChaosGameFileHandler;
+import edu.ntnu.stud.models.exceptions.EmptyFileException;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -12,11 +16,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.NoSuchElementException;
+import java.util.concurrent.atomic.AtomicReference;
+
 /**
  * The main view class for the ChaosGame application.
  */
 public class AppView extends Application {
   private static ChaosGameController chaosGameController;
+  private ChaosGameFileHandler fileHandler = new ChaosGameFileHandler();
   private Slider slider;
   MenuBar menuBar;
   VBox mainLayout;
@@ -76,12 +86,66 @@ public class AppView extends Application {
   public void createMenuBar() {
     menuBar = new MenuBar();
     Menu fileMenu = new Menu("File");
+    createFileMenu(fileMenu);
     Menu emptyFractalMenu = new Menu("New Empty Fractal");
+    createEmptyFractalMenu(emptyFractalMenu);
     Menu predefinedMenu = new Menu("Predefined Fractal");
     createPredefinedMenu(predefinedMenu);
-    createEmptyFractalMenu(emptyFractalMenu);
-    Menu editMenu = new Menu("Edit Current fractal");
+    Menu editMenu = new Menu("Edit");
+    createEditMenu(editMenu);
     menuBar.getMenus().addAll(fileMenu, emptyFractalMenu, predefinedMenu, editMenu);
+  }
+
+  public void createEditMenu(Menu editMenu) {
+    MenuItem editCurrentFractalItem = new MenuItem("Edit current fractal");
+    editCurrentFractalItem.setOnAction(this::editMenuAction);
+    editMenu.getItems().add(editCurrentFractalItem);
+  }
+
+  public void editMenuAction(ActionEvent actionEvent) {
+    if (chaosGameController.getChaosGame().getDescription().getTransforms().get(0).getClass() == JuliaTransform.class) {
+      EditJuliaTransformView editJuliaTransformView = new EditJuliaTransformView();
+      editJuliaTransformView.showStage();
+    } else if (chaosGameController.getChaosGame().getDescription().getTransforms().get(0).getClass() == AffineTransform2D.class) {
+      EditAffineTransformView editAffineTransformView = new EditAffineTransformView();
+      editAffineTransformView.showStage();
+    } else {
+      ChaosGameUtils.showErrorAlert("No fractal chosen");
+    }
+  }
+
+  public void createFileMenu(Menu fileMenu) {
+    MenuItem saveFractal = new MenuItem("Save fractal");
+    MenuItem loadFractal = new MenuItem("Load fractal from file");
+
+    saveFractal.setOnAction(this::saveFractalToFileAction);
+    loadFractal.setOnAction(this::loadFractalFromFileAction);
+
+    fileMenu.getItems().addAll(saveFractal, loadFractal);
+  }
+
+  public void saveFractalToFileAction(ActionEvent actionEvent) {
+    SaveFileView saveFileView = new SaveFileView();
+    String fileName = saveFileView.getFileNameFromUser();
+    try {
+      fileHandler.writeToFile(chaosGameController.getChaosGame().getDescription(),
+          saveFileView.getChosenDirectory().concat("/" + fileName + ".txt"));
+    } catch (IOException e) {
+      ChaosGameUtils.showErrorAlert(e.getMessage());
+    } catch (NullPointerException e) {
+      ChaosGameUtils.showErrorAlert("No directory chosen");
+    }
+  }
+
+  public void loadFractalFromFileAction(ActionEvent actionEvent) {
+    LoadFileView loadFileView = new LoadFileView();
+    try {
+      chaosGameController.setChaosGame(fileHandler.readFromFile(loadFileView.getChosenFilePath()));
+    } catch (FileNotFoundException | NoSuchElementException | EmptyFileException e) {
+      ChaosGameUtils.showErrorAlert(e.getMessage());
+    } catch (NullPointerException e) {
+      ChaosGameUtils.showErrorAlert("No file chosen");
+    }
   }
 
   /**
