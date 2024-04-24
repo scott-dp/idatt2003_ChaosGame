@@ -1,11 +1,9 @@
 package edu.ntnu.stud.views;
 
-import edu.ntnu.stud.controllers.ChaosGameController;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class LoadFileView {
-  private final static ChaosGameController chaosGameController = AppView.getChaosGameController();
   private final FileChooser fileChooser;
   private final Stage stage;
 
