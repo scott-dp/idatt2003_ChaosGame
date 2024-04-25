@@ -41,4 +41,12 @@ public class Complex extends Vector2D {
     return new Complex(realPart, imaginaryPart);
   }
 
+  public double getRealPart() {
+    return getX0();
+  }
+
+  public double getImaginaryPart() {
+    return getX1();
+  }
+
 }
