@@ -18,6 +18,20 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * A class that represents a view for adding a new Julia transform to the chaos game.
+ * <p>
+ * This class provides a GUI so that the user can enter the desired values for the Julia transform.
+ * The user can enter the real and imaginary parts of the complex number, as well as the min and max coordinates.
+ * The user can then save the Julia transform so that it can later be graphically displayed.
+ * </p>
+ *
+ * @version 1.0
+ * @author Stanislovas Mockus, Scott du Plessis
+ * @see JuliaTransform
+ * @see ChaosGameDescription
+ * @see ChaosGameController
+ */
 public class AddJuliaTransformView {
     private final ChaosGameController chaosGameController = AppView.getChaosGameController();
 
@@ -35,7 +49,11 @@ public class AddJuliaTransformView {
     private final Stage stage = new Stage();
     private final Scene scene = new Scene(new VBox());
 
-
+    /**
+     * Method that shows the stage.
+     * The method calls {@link #setScene()} to set the scene of the stage.
+     * The method then sets the scene of the stage and shows the stage.
+     */
     public void showStage() {
         setScene();
         stage.setScene(scene);
@@ -43,10 +61,19 @@ public class AddJuliaTransformView {
         stage.show();
     }
 
+    /**
+     * Method that sets the scene of the stage.
+     */
     public void setScene() {
         this.scene.setRoot(setMainLayout());
     }
 
+    /**
+     * Method that sets the main layout of the Interface.
+     * The layout consists of a vertical container that contains the top row, bottom row and a save button.
+     *
+     * @return mainLayout the main layout container of the interface
+     */
     public VBox setMainLayout() {
         VBox mainLayout = new VBox();
 
@@ -55,6 +82,13 @@ public class AddJuliaTransformView {
         return mainLayout;
     }
 
+    /**
+     * Method that creates the top row container.
+     * The top container consists of a label and a text field for the real part of the complex number.
+     * There is an extra vertical container that contains two text fields for the min coordinates.
+     * This container is then added to the horizontal container.
+     * @return topRowContainer the container for the real part of the complex number and the min coordinates
+     */
     public HBox topRowContainer() {
         HBox topRowContainer = new HBox(10);
 
@@ -73,6 +107,13 @@ public class AddJuliaTransformView {
         return topRowContainer;
     }
 
+    /**
+     * Method that creates the bottom row container.
+     * The bottom container consists of a label and a text field for the imaginary part of the complex number.
+     * There is an extra vertical container that contains two text fields for the max coordinates.
+     * This container is then added to the horizontal container.
+     * @return bottomRowContainer the container for the imaginary part of the complex number and the max coordinates
+     */
     public HBox bottomRowContainer() {
         HBox bottomRowContainer = new HBox(10);
 
@@ -91,6 +132,10 @@ public class AddJuliaTransformView {
         return bottomRowContainer;
     }
 
+    /**
+     *
+     * @return
+     */
     public Button saveButton() {
         Button saveButton = new Button("Save");
         saveButton.setOnAction(e -> {
