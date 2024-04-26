@@ -1,4 +1,4 @@
-package edu.ntnu.stud.models;
+package edu.ntnu.stud.models.transform;
 
 import edu.ntnu.stud.models.mathematics.Matrix2x2;
 import edu.ntnu.stud.models.mathematics.Vector2D;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AffineTransform2DTest {
-    //TODO test toString
 
     private AffineTransform2D identityTransform;
     private AffineTransform2D translationTransform;

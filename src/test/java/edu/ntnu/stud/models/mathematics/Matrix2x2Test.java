@@ -1,4 +1,4 @@
-package edu.ntnu.stud.models;
+package edu.ntnu.stud.models.mathematics;
 
 import edu.ntnu.stud.models.mathematics.Matrix2x2;
 import edu.ntnu.stud.models.mathematics.Vector2D;

@@ -1,4 +1,4 @@
-package edu.ntnu.stud.models;
+package edu.ntnu.stud.models.mathematics;
 
 import edu.ntnu.stud.models.mathematics.Complex;
 import org.junit.jupiter.api.BeforeEach;

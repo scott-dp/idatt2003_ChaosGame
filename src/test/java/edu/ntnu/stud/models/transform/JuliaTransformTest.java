@@ -1,4 +1,4 @@
-package edu.ntnu.stud.models;
+package edu.ntnu.stud.models.transform;
 
 import edu.ntnu.stud.models.mathematics.Complex;
 import edu.ntnu.stud.models.mathematics.Vector2D;
