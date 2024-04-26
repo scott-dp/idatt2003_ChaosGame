@@ -88,4 +88,5 @@ public class JuliaTransform implements Transform2D {
     return getConstantPoint().equals(juliaTransform.getConstantPoint())
         && getSign() == juliaTransform.getSign();
   }
+
 }
