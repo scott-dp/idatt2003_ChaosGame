@@ -101,7 +101,7 @@ public class AddAffineTransformView extends AbstractAffineTransformView {
     }
     addTransformToList();
     chaosGameController.setChaosGame(
-        new ChaosGameDescription(getMinCoords(), getMaxCoords(), getTransformList()));
+        new ChaosGameDescription(getMinCoords(), getMaxCoords(), affineTransforms));
     stage.close();
   }
 
@@ -121,15 +121,6 @@ public class AddAffineTransformView extends AbstractAffineTransformView {
     affineTransforms.add(new AffineTransform2D(newMatrix, newVector));
 
     showAddedTransformAlert();
-  }
-
-  /**
-   * Method that returns the list of transforms.
-   *
-   * @return affineTransforms, list with Transform2D objects.
-   */
-  public List<Transform2D> getTransformList() {
-    return affineTransforms;
   }
 
   /**
