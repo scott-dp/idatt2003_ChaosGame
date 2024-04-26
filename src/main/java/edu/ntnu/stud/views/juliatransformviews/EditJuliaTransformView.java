@@ -1,29 +1,23 @@
-package edu.ntnu.stud.views;
+package edu.ntnu.stud.views.juliatransformviews;
 
-import edu.ntnu.stud.controllers.ChaosGameController;
-import edu.ntnu.stud.models.Complex;
-import edu.ntnu.stud.models.JuliaTransform;
-import edu.ntnu.stud.models.Transform2D;
-import edu.ntnu.stud.models.Vector2D;
+import edu.ntnu.stud.models.mathematics.Complex;
+import edu.ntnu.stud.models.transform.JuliaTransform;
+import edu.ntnu.stud.models.transform.Transform2D;
+import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import javafx.event.ActionEvent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class EditJuliaTransformView extends AbstractJuliaTransformView{
-
+public class EditJuliaTransformView extends AbstractJuliaTransformView {
+  JuliaTransform currentTransform;
   public EditJuliaTransformView() {
     super();
-    JuliaTransform currentTransform = (JuliaTransform) chaosGameController.getChaosGame().getDescription().getTransforms().get(0);
+    currentTransform = (JuliaTransform) chaosGameController.getChaosGame().getDescription().getTransforms().get(0);
   }
 
 
@@ -38,7 +32,7 @@ public class EditJuliaTransformView extends AbstractJuliaTransformView{
   public void setScene() {
     this.scene.setRoot(setMainLayout());
     setCoordsInView();
-    setTransformInView((JuliaTransform) chaosGameController.getChaosGame().getDescription().getTransforms().get(0));
+    setTransformInView(currentTransform);
   }
 
 
@@ -57,7 +51,6 @@ public class EditJuliaTransformView extends AbstractJuliaTransformView{
   public void saveButtonAction(ActionEvent event) {
     if (!isInputValid()) {
       ChaosGameUtils.showErrorAlert("Input is invalid");
-      return;
     } else {
       chaosGameController.setChaosGame(createJuliaDescription());
       stage.close();
@@ -66,7 +59,7 @@ public class EditJuliaTransformView extends AbstractJuliaTransformView{
 
 
   public ChaosGameDescription createJuliaDescription() {
-    ArrayList<Transform2D> transforms = new ArrayList<>();
+    List<Transform2D> transforms = new ArrayList<>();
     transforms.add(new JuliaTransform(createComplex(), 1));
     transforms.add(new JuliaTransform(createComplex(), -1));
     return new ChaosGameDescription(createMinCoordinates(), createMaxCoordinates(), transforms);

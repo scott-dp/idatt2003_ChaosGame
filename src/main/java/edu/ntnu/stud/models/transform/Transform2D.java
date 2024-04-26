@@ -1,6 +1,6 @@
-package edu.ntnu.stud.models;
+package edu.ntnu.stud.models.transform;
 
-import edu.ntnu.stud.models.Vector2D;
+import edu.ntnu.stud.models.mathematics.Vector2D;
 
 /**
  * The Transform2D interface represents a 2D transformation.

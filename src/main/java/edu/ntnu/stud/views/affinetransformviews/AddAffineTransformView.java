@@ -1,14 +1,15 @@
-package edu.ntnu.stud.views;
+package edu.ntnu.stud.views.affinetransformviews;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
-import edu.ntnu.stud.models.AffineTransform2D;
-import edu.ntnu.stud.models.Matrix2x2;
-import edu.ntnu.stud.models.Transform2D;
-import edu.ntnu.stud.models.Vector2D;
+import edu.ntnu.stud.models.transform.AffineTransform2D;
+import edu.ntnu.stud.models.mathematics.Matrix2x2;
+import edu.ntnu.stud.models.transform.Transform2D;
+import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import java.util.ArrayList;
 import java.util.List;
+
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -31,8 +32,6 @@ import javafx.scene.layout.VBox;
  * @see ChaosGameDescription
  */
 public class AddAffineTransformView extends AbstractAffineTransformView {
-  private final List<Transform2D> affineTransforms = new ArrayList<>();
-
   public AddAffineTransformView() {
     super();
   }
@@ -100,7 +99,7 @@ public class AddAffineTransformView extends AbstractAffineTransformView {
     }
     addTransformToList();
     chaosGameController.setChaosGame(
-        new ChaosGameDescription(getMinCoords(), getMaxCoords(), getTransformList()));
+        new ChaosGameDescription(getMinCoords(), getMaxCoords(), affineTransforms));
     stage.close();
   }
 
@@ -120,15 +119,6 @@ public class AddAffineTransformView extends AbstractAffineTransformView {
     affineTransforms.add(new AffineTransform2D(newMatrix, newVector));
 
     showAddedTransformAlert();
-  }
-
-  /**
-   * Method that returns the list of transforms.
-   *
-   * @return affineTransforms, list with Transform2D objects.
-   */
-  public List<Transform2D> getTransformList() {
-    return affineTransforms;
   }
 
   /**

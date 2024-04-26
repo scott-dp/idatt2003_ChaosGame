@@ -1,11 +1,11 @@
 package edu.ntnu.stud.models.chaosgamehandling;
 
-import edu.ntnu.stud.models.AffineTransform2D;
-import edu.ntnu.stud.models.Complex;
-import edu.ntnu.stud.models.JuliaTransform;
-import edu.ntnu.stud.models.Matrix2x2;
-import edu.ntnu.stud.models.Transform2D;
-import edu.ntnu.stud.models.Vector2D;
+import edu.ntnu.stud.models.transform.AffineTransform2D;
+import edu.ntnu.stud.models.mathematics.Complex;
+import edu.ntnu.stud.models.transform.JuliaTransform;
+import edu.ntnu.stud.models.mathematics.Matrix2x2;
+import edu.ntnu.stud.models.transform.Transform2D;
+import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.exceptions.EmptyFileException;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -149,7 +149,6 @@ public class ChaosGameFileHandler {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
       writer.write(description.toString());
     } catch (IOException e) {
-      e.printStackTrace();
       throw new IOException("Could not write to file: " + path);
     } catch (NullPointerException e) {
       throw new NullPointerException("No ChaosGameDescription found");

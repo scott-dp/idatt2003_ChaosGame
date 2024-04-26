@@ -1,4 +1,4 @@
-package edu.ntnu.stud.views;
+package edu.ntnu.stud.views.fileviews;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

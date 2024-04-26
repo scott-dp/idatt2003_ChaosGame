@@ -1,5 +1,8 @@
-package edu.ntnu.stud.models;
+package edu.ntnu.stud.models.transform;
 
+import edu.ntnu.stud.models.mathematics.Complex;
+import edu.ntnu.stud.models.mathematics.Vector2D;
+import edu.ntnu.stud.models.transform.JuliaTransform;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;

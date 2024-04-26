@@ -1,4 +1,4 @@
-package edu.ntnu.stud.views;
+package edu.ntnu.stud.models;
 
 public enum Coordinate {
   MIN,
