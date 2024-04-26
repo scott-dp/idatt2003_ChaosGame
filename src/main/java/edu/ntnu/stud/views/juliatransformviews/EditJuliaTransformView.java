@@ -11,12 +11,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EditJuliaTransformView extends AbstractJuliaTransformView {
-
+  JuliaTransform currentTransform;
   public EditJuliaTransformView() {
     super();
-    JuliaTransform currentTransform = (JuliaTransform) chaosGameController.getChaosGame().getDescription().getTransforms().get(0);
+    currentTransform = (JuliaTransform) chaosGameController.getChaosGame().getDescription().getTransforms().get(0);
   }
 
 
@@ -31,7 +32,7 @@ public class EditJuliaTransformView extends AbstractJuliaTransformView {
   public void setScene() {
     this.scene.setRoot(setMainLayout());
     setCoordsInView();
-    setTransformInView((JuliaTransform) chaosGameController.getChaosGame().getDescription().getTransforms().get(0));
+    setTransformInView(currentTransform);
   }
 
 
@@ -50,7 +51,6 @@ public class EditJuliaTransformView extends AbstractJuliaTransformView {
   public void saveButtonAction(ActionEvent event) {
     if (!isInputValid()) {
       ChaosGameUtils.showErrorAlert("Input is invalid");
-      return;
     } else {
       chaosGameController.setChaosGame(createJuliaDescription());
       stage.close();
@@ -59,7 +59,7 @@ public class EditJuliaTransformView extends AbstractJuliaTransformView {
 
 
   public ChaosGameDescription createJuliaDescription() {
-    ArrayList<Transform2D> transforms = new ArrayList<>();
+    List<Transform2D> transforms = new ArrayList<>();
     transforms.add(new JuliaTransform(createComplex(), 1));
     transforms.add(new JuliaTransform(createComplex(), -1));
     return new ChaosGameDescription(createMinCoordinates(), createMaxCoordinates(), transforms);
