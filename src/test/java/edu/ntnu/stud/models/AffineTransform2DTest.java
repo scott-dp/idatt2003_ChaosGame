@@ -1,5 +1,8 @@
 package edu.ntnu.stud.models;
 
+import edu.ntnu.stud.models.mathematics.Matrix2x2;
+import edu.ntnu.stud.models.mathematics.Vector2D;
+import edu.ntnu.stud.models.transform.AffineTransform2D;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

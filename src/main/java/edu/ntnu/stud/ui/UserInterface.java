@@ -3,8 +3,12 @@ package edu.ntnu.stud.ui;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameFileHandler;
-import edu.ntnu.stud.models.*;
-import edu.ntnu.stud.models.Transform2D;
+import edu.ntnu.stud.models.mathematics.Complex;
+import edu.ntnu.stud.models.mathematics.Matrix2x2;
+import edu.ntnu.stud.models.mathematics.Vector2D;
+import edu.ntnu.stud.models.transform.Transform2D;
+import edu.ntnu.stud.models.transform.AffineTransform2D;
+import edu.ntnu.stud.models.transform.JuliaTransform;
 
 import java.util.ArrayList;
 import java.util.HashMap;

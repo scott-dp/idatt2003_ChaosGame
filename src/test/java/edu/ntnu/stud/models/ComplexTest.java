@@ -1,5 +1,6 @@
 package edu.ntnu.stud.models;
 
+import edu.ntnu.stud.models.mathematics.Complex;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

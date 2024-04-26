@@ -1,9 +1,9 @@
 package edu.ntnu.stud.views;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
-import edu.ntnu.stud.models.AffineTransform2D;
-import edu.ntnu.stud.models.ChaosGameDescriptionFactory;
-import edu.ntnu.stud.models.JuliaTransform;
+import edu.ntnu.stud.models.transform.AffineTransform2D;
+import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescriptionFactory;
+import edu.ntnu.stud.models.transform.JuliaTransform;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameFileHandler;
 import edu.ntnu.stud.models.exceptions.EmptyFileException;

@@ -1,5 +1,7 @@
 package edu.ntnu.stud.models;
 
+import edu.ntnu.stud.models.mathematics.Complex;
+import edu.ntnu.stud.models.mathematics.Vector2D;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 

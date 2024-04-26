@@ -1,12 +1,11 @@
 package edu.ntnu.stud.views.juliatransformviews;
 
-import edu.ntnu.stud.models.Complex;
-import edu.ntnu.stud.models.JuliaTransform;
-import edu.ntnu.stud.models.Transform2D;
-import edu.ntnu.stud.models.Vector2D;
+import edu.ntnu.stud.models.mathematics.Complex;
+import edu.ntnu.stud.models.transform.JuliaTransform;
+import edu.ntnu.stud.models.transform.Transform2D;
+import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
-import edu.ntnu.stud.views.juliatransformviews.AbstractJuliaTransformView;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;

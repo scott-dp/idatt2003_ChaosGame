@@ -2,7 +2,7 @@ package edu.ntnu.stud.views.juliatransformviews;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.Coordinate;
-import edu.ntnu.stud.models.Vector2D;
+import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import edu.ntnu.stud.views.AppView;
 import javafx.event.ActionEvent;
