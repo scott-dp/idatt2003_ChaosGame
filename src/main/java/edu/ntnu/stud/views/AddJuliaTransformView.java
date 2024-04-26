@@ -27,66 +27,66 @@ import java.util.ArrayList;
  * The user can then save the Julia transform so that it can later be graphically displayed.
  * </p>
  *
- * @version 1.0
  * @author Stanislovas Mockus, Scott du Plessis
+ * @version 1.0
  * @see JuliaTransform
  * @see ChaosGameDescription
  * @see ChaosGameController
  */
 public class AddJuliaTransformView extends AbstractJuliaTransformView {
 
-    public AddJuliaTransformView() {
-        super();
+  public AddJuliaTransformView() {
+    super();
+  }
+
+  @Override
+  public void setScene() {
+    scene.setRoot(setMainLayout());
+  }
+
+
+  /**
+   * Method that sets the main layout of the Interface.
+   * The layout consists of a vertical container that contains the top row, bottom row and a save button.
+   *
+   * @return mainLayout the main layout container of the interface
+   */
+  @Override
+  public VBox setMainLayout() {
+    VBox mainLayout = new VBox(10);
+
+    mainLayout.getChildren().addAll(createNumeralInput(), getCoordinatesInput(), createSaveButton());
+
+    return mainLayout;
+  }
+
+  @Override
+  public void saveButtonAction(ActionEvent event) {
+    if (!isInputValid()) {
+      ChaosGameUtils.showErrorAlert("Input is invalid");
+      return;
+    } else {
+      chaosGameController.setChaosGame(createJuliaDescription());
+      stage.close();
     }
+  }
 
-    @Override
-    public void setScene() {
-        scene.setRoot(setMainLayout());
-    }
-
-
-    /**
-     * Method that sets the main layout of the Interface.
-     * The layout consists of a vertical container that contains the top row, bottom row and a save button.
-     *
-     * @return mainLayout the main layout container of the interface
-     */
-    @Override
-    public VBox setMainLayout() {
-        VBox mainLayout = new VBox(10);
-
-        mainLayout.getChildren().addAll(createNumeralInput(),getCoordinatesInput(),createSaveButton());
-
-        return mainLayout;
-    }
-
-    @Override
-    public void saveButtonAction(ActionEvent event) {
-        if (!isInputValid()) {
-            ChaosGameUtils.showErrorAlert("Input is invalid");
-            return;
-        } else {
-            chaosGameController.setChaosGame(createJuliaDescription());
-            stage.close();
-        }
-    }
-
-    public ChaosGameDescription createJuliaDescription() {
-        ArrayList<Transform2D> transforms = new ArrayList<>();
-        transforms.add(new JuliaTransform(createComplex(), 1));
-        transforms.add(new JuliaTransform(createComplex(), -1));
+  public ChaosGameDescription createJuliaDescription() {
+    ArrayList<Transform2D> transforms = new ArrayList<>();
+    transforms.add(new JuliaTransform(createComplex(), 1));
+    transforms.add(new JuliaTransform(createComplex(), -1));
     return new ChaosGameDescription(createMinCoordinates(), createMaxCoordinates(), transforms);
-    }
+  }
 
-    public Complex createComplex() {
-        return new Complex(Double.parseDouble(realPartField.getText()), Double.parseDouble(imaginaryPartField.getText()));
-    }
+  public Complex createComplex() {
+    return new Complex(Double.parseDouble(realPartField.getText()), Double.parseDouble(imaginaryPartField.getText()));
+  }
 
-    public Vector2D createMinCoordinates() {
-       return new Vector2D(Double.parseDouble(minX0.getText()), Double.parseDouble(minX1.getText()));
-    }
+  public Vector2D createMinCoordinates() {
+    return new Vector2D(Double.parseDouble(minX0.getText()), Double.parseDouble(minX1.getText()));
+  }
 
-    public Vector2D createMaxCoordinates() {
-        return new Vector2D(Double.parseDouble(maxX0.getText()), Double.parseDouble(maxX1.getText()));
-    }
+  public Vector2D createMaxCoordinates() {
+    return new Vector2D(Double.parseDouble(maxX0.getText()), Double.parseDouble(maxX1.getText()));
+  }
 }
