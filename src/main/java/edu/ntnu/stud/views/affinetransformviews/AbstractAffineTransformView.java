@@ -3,6 +3,7 @@ package edu.ntnu.stud.views.affinetransformviews;
 import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.Coordinate;
 import edu.ntnu.stud.models.mathematics.Vector2D;
+import edu.ntnu.stud.models.transform.Transform2D;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import edu.ntnu.stud.views.AppView;
 import javafx.event.ActionEvent;
@@ -15,8 +16,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class AbstractAffineTransformView {
   protected final ChaosGameController chaosGameController;
+  protected List<Transform2D> affineTransforms;
+
   protected final Stage stage;
   protected final Scene scene;
 
@@ -39,6 +45,7 @@ public abstract class AbstractAffineTransformView {
   protected TextField maxX1;
 
   protected AbstractAffineTransformView() {
+    affineTransforms = new ArrayList<>();
     chaosGameController = AppView.getChaosGameController();
     this.stage = new Stage();
     this.scene = new Scene(new VBox());

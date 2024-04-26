@@ -32,8 +32,6 @@ import javafx.scene.layout.VBox;
  * @see ChaosGameDescription
  */
 public class AddAffineTransformView extends AbstractAffineTransformView {
-  private final List<Transform2D> affineTransforms = new ArrayList<>();
-
   public AddAffineTransformView() {
     super();
   }

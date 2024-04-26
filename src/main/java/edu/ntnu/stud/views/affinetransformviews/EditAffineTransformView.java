@@ -14,8 +14,6 @@ import java.util.List;
 
 public class EditAffineTransformView extends AbstractAffineTransformView {
   int currentIndex;
-  private final List<Transform2D> affineTransforms;
-
   public EditAffineTransformView() {
     super();
     currentIndex = 0;
