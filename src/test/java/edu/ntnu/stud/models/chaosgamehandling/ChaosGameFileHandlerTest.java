@@ -80,7 +80,7 @@ public class ChaosGameFileHandlerTest {
     }
 
     @Test
-    void testReadEmptyFile() throws FileNotFoundException {
+    void testReadEmptyFile() {
       assertThrows(EmptyFileException.class, () -> fileHandler.readFromFile("src/test/resources/testResources/empty.txt"));
     }
 

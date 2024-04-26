@@ -149,7 +149,6 @@ public class ChaosGameFileHandler {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
       writer.write(description.toString());
     } catch (IOException e) {
-      e.printStackTrace();
       throw new IOException("Could not write to file: " + path);
     } catch (NullPointerException e) {
       throw new NullPointerException("No ChaosGameDescription found");
