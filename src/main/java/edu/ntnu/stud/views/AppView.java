@@ -8,10 +8,12 @@ import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameFileHandler;
 import edu.ntnu.stud.models.exceptions.EmptyFileException;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
+import edu.ntnu.stud.views.affinetransformviews.AbstractAffineTransformView;
 import edu.ntnu.stud.views.affinetransformviews.AddAffineTransformView;
 import edu.ntnu.stud.views.affinetransformviews.EditAffineTransformView;
 import edu.ntnu.stud.views.fileviews.LoadFileView;
 import edu.ntnu.stud.views.fileviews.SaveFileView;
+import edu.ntnu.stud.views.juliatransformviews.AbstractJuliaTransformView;
 import edu.ntnu.stud.views.juliatransformviews.AddJuliaTransformView;
 import edu.ntnu.stud.views.juliatransformviews.EditJuliaTransformView;
 import javafx.application.Application;
@@ -33,7 +35,7 @@ import java.util.NoSuchElementException;
  */
 public class AppView extends Application {
   private static ChaosGameController chaosGameController;
-  private ChaosGameFileHandler fileHandler = new ChaosGameFileHandler();
+  private final ChaosGameFileHandler fileHandler = new ChaosGameFileHandler();
   private Slider slider;
   MenuBar menuBar;
   VBox mainLayout;
@@ -117,10 +119,10 @@ public class AppView extends Application {
 
   public void editMenuAction(ActionEvent actionEvent) {
     if (chaosGameController.getChaosGame().getDescription().getTransforms().get(0).getClass() == JuliaTransform.class) {
-      EditJuliaTransformView editJuliaTransformView = new EditJuliaTransformView();
+      AbstractJuliaTransformView editJuliaTransformView = new EditJuliaTransformView();
       editJuliaTransformView.showStage();
     } else if (chaosGameController.getChaosGame().getDescription().getTransforms().get(0).getClass() == AffineTransform2D.class) {
-      EditAffineTransformView editAffineTransformView = new EditAffineTransformView();
+      AbstractAffineTransformView editAffineTransformView = new EditAffineTransformView();
       editAffineTransformView.showStage();
     } else {
       ChaosGameUtils.showErrorAlert("No fractal chosen");
@@ -170,11 +172,11 @@ public class AppView extends Application {
     MenuItem affineTransformItem = new MenuItem("Affine Transform");
     MenuItem juliaTransformItem = new MenuItem("Julia transform");
     affineTransformItem.setOnAction(event -> {
-      AddAffineTransformView affineTransformView = new AddAffineTransformView();
+      AbstractAffineTransformView affineTransformView = new AddAffineTransformView();
       affineTransformView.showStage();
     });
     juliaTransformItem.setOnAction(event -> {
-      AddJuliaTransformView juliaTransformView = new AddJuliaTransformView();
+      AbstractJuliaTransformView juliaTransformView = new AddJuliaTransformView();
       juliaTransformView.showStage();
     });
     emptyFractalMenu.getItems().addAll(affineTransformItem, juliaTransformItem);
