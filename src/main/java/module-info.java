@@ -1,4 +1,4 @@
-module edu.ntnu.idatt2003_2024_mappe_chaosgame {
+module idatt2003_2024_mappe_chaosgame {
   requires javafx.controls;
   requires javafx.graphics;
 
