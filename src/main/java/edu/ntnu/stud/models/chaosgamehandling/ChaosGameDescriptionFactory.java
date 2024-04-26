@@ -1,6 +1,11 @@
-package edu.ntnu.stud.models;
+package edu.ntnu.stud.models.chaosgamehandling;
 
-import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
+import edu.ntnu.stud.models.mathematics.Complex;
+import edu.ntnu.stud.models.mathematics.Matrix2x2;
+import edu.ntnu.stud.models.mathematics.Vector2D;
+import edu.ntnu.stud.models.transform.AffineTransform2D;
+import edu.ntnu.stud.models.transform.JuliaTransform;
+import edu.ntnu.stud.models.transform.Transform2D;
 
 import java.util.ArrayList;
 

@@ -1,9 +1,9 @@
 package edu.ntnu.stud.models.chaosgamehandling;
 
-import edu.ntnu.stud.models.AffineTransform2D;
-import edu.ntnu.stud.models.JuliaTransform;
-import edu.ntnu.stud.models.Transform2D;
-import edu.ntnu.stud.models.Vector2D;
+import edu.ntnu.stud.models.transform.AffineTransform2D;
+import edu.ntnu.stud.models.transform.JuliaTransform;
+import edu.ntnu.stud.models.transform.Transform2D;
+import edu.ntnu.stud.models.mathematics.Vector2D;
 import java.util.List;
 
 /**

@@ -1,7 +1,7 @@
 package edu.ntnu.stud.models.utils;
 
-import edu.ntnu.stud.models.JuliaTransform;
-import edu.ntnu.stud.models.Vector2D;
+import edu.ntnu.stud.models.transform.JuliaTransform;
+import edu.ntnu.stud.models.mathematics.Vector2D;
 import javafx.scene.control.Alert;
 
 import java.math.BigDecimal;
