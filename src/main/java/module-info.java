@@ -1,4 +1,4 @@
-module idatt2003_2024_mappe_chaosgame {
+module edu.ntnu.idatt2003_2024_mappe_chaosgame {
   requires javafx.controls;
   requires javafx.graphics;
 
@@ -9,4 +9,7 @@ module idatt2003_2024_mappe_chaosgame {
   exports edu.ntnu.stud.models.exceptions;
   exports edu.ntnu.stud.controllers;
   exports edu.ntnu.stud.views to javafx.graphics;
+  exports edu.ntnu.stud.views.affinetransformviews to javafx.graphics;
+  exports edu.ntnu.stud.views.juliatransformviews to javafx.graphics;
+  exports edu.ntnu.stud.views.fileviews to javafx.graphics;
 }

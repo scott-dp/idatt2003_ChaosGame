@@ -1,4 +1,4 @@
-package edu.ntnu.stud.views;
+package edu.ntnu.stud.views.fileviews;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;

@@ -8,8 +8,16 @@ import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameFileHandler;
 import edu.ntnu.stud.models.exceptions.EmptyFileException;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
+import edu.ntnu.stud.views.affinetransformviews.AddAffineTransformView;
+import edu.ntnu.stud.views.affinetransformviews.EditAffineTransformView;
+import edu.ntnu.stud.views.fileviews.LoadFileView;
+import edu.ntnu.stud.views.fileviews.SaveFileView;
+import edu.ntnu.stud.views.juliatransformviews.AddJuliaTransformView;
+import edu.ntnu.stud.views.juliatransformviews.EditJuliaTransformView;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -19,7 +27,6 @@ import javafx.stage.Stage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.NoSuchElementException;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * The main view class for the ChaosGame application.
@@ -37,10 +44,9 @@ public class AppView extends Application {
    * Initializes objects and layout and starts the application.
    *
    * @param stage the stage to be shown
-   * @throws Exception if the application cannot be started
    */
   @Override
-  public void start(Stage stage) throws Exception {
+  public void start(Stage stage) {
     ChaosGame game = new ChaosGame(ChaosGameDescriptionFactory.createSierpinskiDescription(),
         450, 450);
     ChaosGameView gameView = new ChaosGameView(game);
@@ -64,8 +70,15 @@ public class AppView extends Application {
   public void setMainLayout() {
     mainLayout = new VBox();
     mainLayout.getChildren().add(menuBar);
-    mainLayout.getChildren().add(chaosGameController.getChaosGameView().getCanvas());
-    mainLayout.getChildren().add(bottomLayout);
+    HBox row2 = new HBox(10);
+    row2.getChildren().add(chaosGameController.getChaosGameView().getCanvas());
+    row2.setAlignment(Pos.CENTER);
+    row2.setPadding(new Insets(100));
+    mainLayout.getChildren().add(row2);
+    HBox row3 = new HBox(10);
+    row3.getChildren().add(bottomLayout);
+    row3.setAlignment(Pos.CENTER);
+    mainLayout.getChildren().add(row3);
   }
 
   /**

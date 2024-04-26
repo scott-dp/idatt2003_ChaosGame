@@ -1,4 +1,4 @@
-package edu.ntnu.stud.views;
+package edu.ntnu.stud.views.juliatransformviews;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.Complex;
@@ -7,15 +7,9 @@ import edu.ntnu.stud.models.Transform2D;
 import edu.ntnu.stud.models.Vector2D;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
+import edu.ntnu.stud.views.juliatransformviews.AbstractJuliaTransformView;
 import javafx.event.ActionEvent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 

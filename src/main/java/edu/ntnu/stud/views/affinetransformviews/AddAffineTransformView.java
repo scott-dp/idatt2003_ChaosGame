@@ -1,4 +1,4 @@
-package edu.ntnu.stud.views;
+package edu.ntnu.stud.views.affinetransformviews;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.AffineTransform2D;
@@ -9,6 +9,8 @@ import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.ntnu.stud.views.affinetransformviews.AbstractAffineTransformView;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;

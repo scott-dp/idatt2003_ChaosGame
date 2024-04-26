@@ -1,4 +1,4 @@
-package edu.ntnu.stud.views;
+package edu.ntnu.stud.views.affinetransformviews;
 
 import edu.ntnu.stud.models.AffineTransform2D;
 import edu.ntnu.stud.models.Matrix2x2;
@@ -6,6 +6,7 @@ import edu.ntnu.stud.models.Transform2D;
 import edu.ntnu.stud.models.Vector2D;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
+import edu.ntnu.stud.views.affinetransformviews.AbstractAffineTransformView;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;

@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- This is a Maven POM (Project Object Model) file, which contains configuration information for a Maven project. -->
+<!--Fetch predefined pom.xml schema from apache mavens webpage-->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.example</groupId>
+  <!-- Specifies the project's metadata such as groupId, artifactId, and version -->
+  <groupId>edu.ntnu</groupId>
   <artifactId>idatt2003_2024_mappe_ChaosGame</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>2.0</version>
   <name>idatt2003_2024_mappe_ChaosGame</name>
 
   <properties>
+    <!-- Define the character set to use-->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<junit.version>5.9.2</junit.version>  </properties>
+    <!-- version of the unit testing framework JUnit -->
+    <junit.version>5.9.2</junit.version>
+  </properties>
 
   <dependencies>
     <dependency>
+      <!-- Add javafx ui components as a dependency-->
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
       <version>21.0.1</version>
     </dependency>
-    <dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-fxml</artifactId>
-      <version>20.0.1</version>
-    </dependency>
 
     <dependency>
+      <!--Add JUnit as a dependency-->
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <version>5.10.1</version>
@@ -36,6 +39,7 @@
   <build>
     <plugins>
       <plugin>
+        <!-- Add the maven compiler plugin -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.12.1</version>
@@ -46,15 +50,17 @@
       </plugin>
 
       <plugin>
+        <!-- Add javafx maven plugin -->
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.8</version>
         <executions>
           <execution>
-            <!-- Default configuration for running with: mvn clean javafx:run -->
+            <!-- Configuration for running with mvn javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>idatt2003_2024_mappe_chaosgame/edu.ntnu.stud.Main</mainClass>
+              <!-- Define the module of the main class and define main class -->
+              <mainClass>edu.ntnu.idatt2003_2024_mappe_chaosgame/edu.ntnu.stud.Main</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
@@ -67,11 +73,13 @@
       </plugin>
 
       <plugin>
+        <!-- Add maven surefire plugin to run unit tests-->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.3</version>
       </plugin>
       <plugin>
+        <!-- Add the maven javadoc plugin to generate HTML-based view of the javadoc-->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>3.4.1</version>
