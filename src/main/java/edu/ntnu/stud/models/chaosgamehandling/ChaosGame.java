@@ -43,6 +43,7 @@ public class ChaosGame {
    * Updates all observers of this ChaosGame that there has been a change in the ChaosGame.
    */
   public void updateObservers() {
+
     observerList.forEach(ChaosGameObserver::update);
   }
 
@@ -60,15 +61,6 @@ public class ChaosGame {
     if (!observerList.contains(observer)) {
       observerList.add(observer);
     }
-  }
-
-  /**
-   * Method to remove an observer from the observerList.
-   *
-   * @param observer the observer to be removed.
-   */
-  public void removeObserver(ChaosGameObserver observer) {
-    observerList.remove(observer);
   }
 
   /**

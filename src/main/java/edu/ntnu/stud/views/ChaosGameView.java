@@ -6,6 +6,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.util.stream.IntStream;
+
 /**
  * View class for the ChaosGame class. Implements the {@link ChaosGameObserver} interface.
  */
@@ -41,15 +43,10 @@ public class ChaosGameView implements ChaosGameObserver {
     gc.setFill(Color.BLACK);
     clearGraphicsContext();
 
-    //TODO streams lamba
-    for (int i = 0; i < fractalList.length; i++) {
-      for (int j = 0; j < fractalList[i].length; j++) {
-        if (fractalList[i][j] == 1) {
-          gc.fillRect(j, i, 1, 1);
-        }
-      }
-    }
-
+    IntStream.range(0, fractalList.length)
+        .forEach(i -> IntStream.range(0, fractalList[i].length)
+            .filter(j -> fractalList[i][j] == 1)
+            .forEach(j -> gc.fillRect(j, i, 1, 1)));
   }
 
   /**
