@@ -1,7 +1,6 @@
 package edu.ntnu.stud.views.affinetransformviews;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
-import edu.ntnu.stud.controllers.ChaosGameControllerSingleton;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
 import edu.ntnu.stud.models.mathematics.Matrix2x2;
 import edu.ntnu.stud.models.mathematics.Vector2D;
@@ -24,7 +23,6 @@ import javafx.scene.layout.VBox;
  *
  * @author Scott du Plessis, Stanislovas Mockus
  * @version 1.0
- * @see ChaosGameController
  * @see AffineTransform2D
  * @see ChaosGameDescription
  */
@@ -95,7 +93,7 @@ public class AddAffineTransformView extends AbstractAffineTransformView {
       return;
     }
     addTransformToList();
-    ChaosGameControllerSingleton.getInstance().setChaosGameDescription(
+    ChaosGameController.getInstance().setChaosGameDescription(
         new ChaosGameDescription(getMinCoords(), getMaxCoords(), affineTransforms));
     stage.close();
   }
