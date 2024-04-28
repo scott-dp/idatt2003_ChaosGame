@@ -69,7 +69,6 @@ public class ChaosGame {
     if (steps >= 0) {
       stepsAmount = steps;
     }
-    runSteps();
     updateObservers();
   }
 
