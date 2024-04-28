@@ -110,7 +110,6 @@ public class ChaosGame {
       } catch (IllegalArgumentException e) {
         //If the point that has been transformed is out of view, we don't want that step to count
         // so that we only get points in the range of the view
-        System.out.println(e.getMessage());
         i--;
       }
     }

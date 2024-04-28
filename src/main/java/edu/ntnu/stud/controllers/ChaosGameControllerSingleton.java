@@ -1,0 +1,58 @@
+package edu.ntnu.stud.controllers;
+
+import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
+import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
+import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescriptionFactory;
+import edu.ntnu.stud.models.observer.ChaosGameObserver;
+import edu.ntnu.stud.views.ChaosGameView;
+
+public class ChaosGameControllerSingleton {
+  private static ChaosGameControllerSingleton instance;
+  private final ChaosGame chaosGame;
+  private final ChaosGameView chaosGameView;
+
+  private ChaosGameControllerSingleton() {
+    chaosGame = new ChaosGame(ChaosGameDescriptionFactory.createSierpinskiDescription(),
+        450, 450);
+    chaosGameView = new ChaosGameView(chaosGame);
+  }
+
+  public static ChaosGameControllerSingleton getInstance() {
+    if (instance == null) {
+      instance = new ChaosGameControllerSingleton();
+    }
+    return instance;
+  }
+
+  /**
+   * Used to set a new ChaosGame, which basically is another/distinct fractal.
+   *
+   * @param description the description being set
+   */
+  public void setChaosGameDescription(ChaosGameDescription description) {
+    chaosGame.setNewChaosGame(description);
+  }
+
+  /**
+   * Calls the runSteps() methods of the ChaosGame instance saved in this object.
+   * Used to make the fractal visible.
+   *
+   * @param steps the amount of steps being run to create the fractal
+   */
+  public void runSteps(int steps) {
+    this.chaosGame.runSteps(steps);
+  }
+
+  public void addObserver(ChaosGameObserver observer) {
+    chaosGame.addObserver(observer);
+  }
+
+
+  public ChaosGame getChaosGame() {
+    return chaosGame;
+  }
+
+  public ChaosGameView getChaosGameView() {
+    return chaosGameView;
+  }
+}

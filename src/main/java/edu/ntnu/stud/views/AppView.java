@@ -1,6 +1,7 @@
 package edu.ntnu.stud.views;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
+import edu.ntnu.stud.controllers.ChaosGameControllerSingleton;
 import edu.ntnu.stud.models.transform.AffineTransform2D;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescriptionFactory;
 import edu.ntnu.stud.models.transform.JuliaTransform;
@@ -34,7 +35,6 @@ import java.util.NoSuchElementException;
  * The main view class for the ChaosGame application.
  */
 public class AppView extends Application {
-  private static ChaosGameController chaosGameController;
   private final ChaosGameFileHandler fileHandler = new ChaosGameFileHandler();
   private Slider slider;
   MenuBar menuBar;
@@ -49,12 +49,9 @@ public class AppView extends Application {
    */
   @Override
   public void start(Stage stage) {
-    ChaosGame game = new ChaosGame(ChaosGameDescriptionFactory.createSierpinskiDescription(),
-        450, 450);
-    ChaosGameView gameView = new ChaosGameView(game);
 
-    chaosGameController = new ChaosGameController(game, gameView);
-    chaosGameController.addObserver(gameView);
+    ChaosGameControllerSingleton.getInstance().addObserver(
+        ChaosGameControllerSingleton.getInstance().getChaosGameView());
 
     createSlider();
     createMenuBar();
@@ -73,7 +70,7 @@ public class AppView extends Application {
     mainLayout = new VBox();
     mainLayout.getChildren().add(menuBar);
     HBox row2 = new HBox(10);
-    row2.getChildren().add(chaosGameController.getChaosGameView().getCanvas());
+    row2.getChildren().add(ChaosGameControllerSingleton.getInstance().getChaosGameView().getCanvas());
     row2.setAlignment(Pos.CENTER);
     row2.setPadding(new Insets(100));
     mainLayout.getChildren().add(row2);
@@ -118,10 +115,10 @@ public class AppView extends Application {
   }
 
   public void editMenuAction(ActionEvent actionEvent) {
-    if (chaosGameController.getChaosGame().getDescription().getTransforms().get(0).getClass() == JuliaTransform.class) {
+    if (ChaosGameControllerSingleton.getInstance().getChaosGame().getDescription().getTransforms().get(0).getClass() == JuliaTransform.class) {
       AbstractJuliaTransformView editJuliaTransformView = new EditJuliaTransformView();
       editJuliaTransformView.showStage();
-    } else if (chaosGameController.getChaosGame().getDescription().getTransforms().get(0).getClass() == AffineTransform2D.class) {
+    } else if (ChaosGameControllerSingleton.getInstance().getChaosGame().getDescription().getTransforms().get(0).getClass() == AffineTransform2D.class) {
       AbstractAffineTransformView editAffineTransformView = new EditAffineTransformView();
       editAffineTransformView.showStage();
     } else {
@@ -143,7 +140,7 @@ public class AppView extends Application {
     SaveFileView saveFileView = new SaveFileView();
     String fileName = saveFileView.getFileNameFromUser();
     try {
-      fileHandler.writeToFile(chaosGameController.getChaosGame().getDescription(),
+      fileHandler.writeToFile(ChaosGameControllerSingleton.getInstance().getChaosGame().getDescription(),
           saveFileView.getChosenDirectory().concat("/" + fileName + ".txt"));
     } catch (IOException e) {
       ChaosGameUtils.showErrorAlert(e.getMessage());
@@ -155,7 +152,7 @@ public class AppView extends Application {
   public void loadFractalFromFileAction(ActionEvent actionEvent) {
     LoadFileView loadFileView = new LoadFileView();
     try {
-      chaosGameController.setChaosGame(fileHandler.readFromFile(loadFileView.getChosenFilePath()));
+      ChaosGameControllerSingleton.getInstance().setChaosGameDescription(fileHandler.readFromFile(loadFileView.getChosenFilePath()));
     } catch (FileNotFoundException | NoSuchElementException | EmptyFileException e) {
       ChaosGameUtils.showErrorAlert(e.getMessage());
     } catch (NullPointerException e) {
@@ -190,28 +187,28 @@ public class AppView extends Application {
   public void createPredefinedMenu(Menu predefinedMenu) {
     MenuItem barnsleyFernItem = new MenuItem("Barnsley Fern");
     barnsleyFernItem.setOnAction(actionEvent ->
-        chaosGameController.setChaosGame(ChaosGameDescriptionFactory.createBarnsleyDescription()));
+        ChaosGameControllerSingleton.getInstance().setChaosGameDescription(ChaosGameDescriptionFactory.createBarnsleyDescription()));
 
     MenuItem sierpinskiTriangleItem = new MenuItem("Sierpinski Triangle");
     sierpinskiTriangleItem.setOnAction(actionEvent ->
-        chaosGameController.setChaosGame(
+        ChaosGameControllerSingleton.getInstance().setChaosGameDescription(
             ChaosGameDescriptionFactory.createSierpinskiDescription()));
 
     MenuItem juliaSet1Item = new MenuItem("Julia set 1");
     juliaSet1Item.setOnAction(actionEvent ->
-        chaosGameController.setChaosGame(ChaosGameDescriptionFactory.getJuliaSetDescription1()));
+        ChaosGameControllerSingleton.getInstance().setChaosGameDescription(ChaosGameDescriptionFactory.getJuliaSetDescription1()));
 
     MenuItem juliaSet2Item = new MenuItem("Julia set 2");
     juliaSet2Item.setOnAction(actionEvent ->
-        chaosGameController.setChaosGame(ChaosGameDescriptionFactory.getJuliaSetDescription2()));
+        ChaosGameControllerSingleton.getInstance().setChaosGameDescription(ChaosGameDescriptionFactory.getJuliaSetDescription2()));
 
     MenuItem juliaSet3Item = new MenuItem("Julia set 3");
     juliaSet3Item.setOnAction(actionEvent ->
-        chaosGameController.setChaosGame(ChaosGameDescriptionFactory.getJuliaSetDescription3()));
+        ChaosGameControllerSingleton.getInstance().setChaosGameDescription(ChaosGameDescriptionFactory.getJuliaSetDescription3()));
 
     MenuItem juliaSet4Item = new MenuItem("Julia set 4");
     juliaSet4Item.setOnAction(actionEvent ->
-        chaosGameController.setChaosGame(ChaosGameDescriptionFactory.getJuliaSetDescription4()));
+        ChaosGameControllerSingleton.getInstance().setChaosGameDescription(ChaosGameDescriptionFactory.getJuliaSetDescription4()));
 
     predefinedMenu.getItems().addAll(barnsleyFernItem, sierpinskiTriangleItem,
         juliaSet1Item, juliaSet2Item, juliaSet3Item, juliaSet4Item);
@@ -238,7 +235,7 @@ public class AppView extends Application {
 
   public void runButtonAction(ActionEvent actionEvent) {
     try {
-      chaosGameController.runSteps((int) slider.getValue());
+      ChaosGameControllerSingleton.getInstance().runSteps((int) slider.getValue());
     } catch (NumberFormatException e) {
       ChaosGameUtils.showErrorAlert("Couldn't generate fractal out " +
           "of the given transforms because the point did not converge");
