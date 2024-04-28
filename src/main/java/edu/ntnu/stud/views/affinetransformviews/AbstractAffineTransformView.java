@@ -20,9 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractAffineTransformView {
-  protected final ChaosGameController chaosGameController;
   protected List<Transform2D> affineTransforms;
-
   protected final Stage stage;
   protected final Scene scene;
 
@@ -46,7 +44,6 @@ public abstract class AbstractAffineTransformView {
 
   protected AbstractAffineTransformView() {
     affineTransforms = new ArrayList<>();
-    chaosGameController = AppView.getChaosGameController();
     this.stage = new Stage();
     this.scene = new Scene(new VBox());
     a00 = new TextField();

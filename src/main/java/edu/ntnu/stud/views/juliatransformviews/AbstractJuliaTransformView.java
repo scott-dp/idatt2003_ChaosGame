@@ -16,7 +16,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public abstract class AbstractJuliaTransformView {
-    protected final ChaosGameController chaosGameController;
     protected final Stage stage;
     protected final Scene scene;
 
@@ -30,7 +29,6 @@ public abstract class AbstractJuliaTransformView {
     protected TextField maxX1;
 
     protected AbstractJuliaTransformView() {
-        chaosGameController = AppView.getChaosGameController();
         this.stage = new Stage();
         this.scene = new Scene(new VBox());
         imaginaryPartField = new TextField();

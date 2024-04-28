@@ -6,11 +6,19 @@ import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescriptionFactory;
 import edu.ntnu.stud.models.observer.ChaosGameObserver;
 import edu.ntnu.stud.views.ChaosGameView;
 
+/**
+ * A singleton class that represents the controller that is used to decouple
+ * {@link ChaosGame} and {@link ChaosGameView}.
+ */
 public class ChaosGameControllerSingleton {
   private static ChaosGameControllerSingleton instance;
   private final ChaosGame chaosGame;
   private final ChaosGameView chaosGameView;
 
+  /**
+   * Constructs an instance of ChaosGameController with a set ChaosGame
+   * and a set ChaosGameView.
+   */
   private ChaosGameControllerSingleton() {
     chaosGame = new ChaosGame(ChaosGameDescriptionFactory.createSierpinskiDescription(),
         450, 450);

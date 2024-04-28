@@ -1,6 +1,7 @@
 package edu.ntnu.stud.views.affinetransformviews;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
+import edu.ntnu.stud.controllers.ChaosGameControllerSingleton;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
 import edu.ntnu.stud.models.mathematics.Matrix2x2;
 import edu.ntnu.stud.models.mathematics.Vector2D;
@@ -94,7 +95,7 @@ public class AddAffineTransformView extends AbstractAffineTransformView {
       return;
     }
     addTransformToList();
-    chaosGameController.setChaosGame(
+    ChaosGameControllerSingleton.getInstance().setChaosGameDescription(
         new ChaosGameDescription(getMinCoords(), getMaxCoords(), affineTransforms));
     stage.close();
   }

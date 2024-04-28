@@ -1,6 +1,7 @@
 package edu.ntnu.stud.views.juliatransformviews;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
+import edu.ntnu.stud.controllers.ChaosGameControllerSingleton;
 import edu.ntnu.stud.models.mathematics.Complex;
 import edu.ntnu.stud.models.transform.JuliaTransform;
 import edu.ntnu.stud.models.transform.Transform2D;
@@ -59,7 +60,7 @@ public class AddJuliaTransformView extends AbstractJuliaTransformView {
       ChaosGameUtils.showErrorAlert("Input is invalid");
       return;
     } else {
-      chaosGameController.setChaosGame(createJuliaDescription());
+      ChaosGameControllerSingleton.getInstance().setChaosGameDescription(createJuliaDescription());
       stage.close();
     }
   }

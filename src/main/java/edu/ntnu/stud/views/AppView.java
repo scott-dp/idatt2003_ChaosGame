@@ -250,8 +250,4 @@ public class AppView extends Application {
   public void launchApp(String[] args) {
     launch(args);
   }
-
-  public static ChaosGameController getChaosGameController() {
-    return chaosGameController;
-  }
 }
