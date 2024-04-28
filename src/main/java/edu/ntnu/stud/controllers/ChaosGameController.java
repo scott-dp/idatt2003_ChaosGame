@@ -48,7 +48,7 @@ public class ChaosGameController {
    * @param steps the amount of steps being run to create the fractal
    */
   public void runSteps(int steps) {
-    this.chaosGame.runSteps(steps);
+    this.chaosGame.setStepsAmount(steps);
   }
 
   public void addObserver(ChaosGameObserver observer) {
