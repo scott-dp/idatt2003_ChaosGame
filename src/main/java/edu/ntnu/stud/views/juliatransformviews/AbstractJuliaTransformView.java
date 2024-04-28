@@ -1,10 +1,8 @@
 package edu.ntnu.stud.views.juliatransformviews;
 
-import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.Coordinate;
 import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
-import edu.ntnu.stud.views.AppView;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,7 +14,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public abstract class AbstractJuliaTransformView {
-    protected final ChaosGameController chaosGameController;
     protected final Stage stage;
     protected final Scene scene;
 
@@ -30,7 +27,6 @@ public abstract class AbstractJuliaTransformView {
     protected TextField maxX1;
 
     protected AbstractJuliaTransformView() {
-        chaosGameController = AppView.getChaosGameController();
         this.stage = new Stage();
         this.scene = new Scene(new VBox());
         imaginaryPartField = new TextField();

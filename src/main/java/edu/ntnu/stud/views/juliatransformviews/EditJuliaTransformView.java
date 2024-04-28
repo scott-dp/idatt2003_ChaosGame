@@ -1,5 +1,6 @@
 package edu.ntnu.stud.views.juliatransformviews;
 
+import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.mathematics.Complex;
 import edu.ntnu.stud.models.transform.JuliaTransform;
 import edu.ntnu.stud.models.transform.Transform2D;
@@ -17,7 +18,7 @@ public class EditJuliaTransformView extends AbstractJuliaTransformView {
   JuliaTransform currentTransform;
   public EditJuliaTransformView() {
     super();
-    currentTransform = (JuliaTransform) chaosGameController.getChaosGame().getDescription().getTransforms().get(0);
+    currentTransform = (JuliaTransform) ChaosGameController.getInstance().getChaosGame().getDescription().getTransforms().get(0);
   }
 
 
@@ -52,7 +53,7 @@ public class EditJuliaTransformView extends AbstractJuliaTransformView {
     if (!isInputValid()) {
       ChaosGameUtils.showErrorAlert("Input is invalid");
     } else {
-      chaosGameController.setChaosGame(createJuliaDescription());
+      ChaosGameController.getInstance().setChaosGameDescription(createJuliaDescription());
       stage.close();
     }
   }
@@ -78,10 +79,10 @@ public class EditJuliaTransformView extends AbstractJuliaTransformView {
   }
 
   public void setCoordsInView() {
-    minX0.setText(String.valueOf(chaosGameController.getChaosGame().getDescription().getMinCoords().getX0()));
-    minX1.setText(String.valueOf(chaosGameController.getChaosGame().getDescription().getMinCoords().getX1()));
-    maxX0.setText(String.valueOf(chaosGameController.getChaosGame().getDescription().getMaxCoords().getX0()));
-    maxX1.setText(String.valueOf(chaosGameController.getChaosGame().getDescription().getMaxCoords().getX1()));
+    minX0.setText(String.valueOf(ChaosGameController.getInstance().getChaosGame().getDescription().getMinCoords().getX0()));
+    minX1.setText(String.valueOf(ChaosGameController.getInstance().getChaosGame().getDescription().getMinCoords().getX1()));
+    maxX0.setText(String.valueOf(ChaosGameController.getInstance().getChaosGame().getDescription().getMaxCoords().getX0()));
+    maxX1.setText(String.valueOf(ChaosGameController.getInstance().getChaosGame().getDescription().getMaxCoords().getX1()));
   }
 
   public void setTransformInView(JuliaTransform transform) {

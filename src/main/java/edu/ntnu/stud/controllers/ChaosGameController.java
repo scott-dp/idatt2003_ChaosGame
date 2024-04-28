@@ -2,26 +2,34 @@ package edu.ntnu.stud.controllers;
 
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
+import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescriptionFactory;
 import edu.ntnu.stud.models.observer.ChaosGameObserver;
 import edu.ntnu.stud.views.ChaosGameView;
 
 /**
- * Represents the controller that is used to decouple {@link ChaosGame} and {@link ChaosGameView}.
+ * A singleton class that represents the controller that is used to decouple
+ * {@link ChaosGame} and {@link ChaosGameView}.
  */
 public class ChaosGameController {
-  ChaosGame chaosGame;
-  ChaosGameView chaosGameView;
+  private static ChaosGameController instance;
+  private final ChaosGame chaosGame;
+  private final ChaosGameView chaosGameView;
 
   /**
    * Constructs an instance of ChaosGameController with a set ChaosGame
    * and a set ChaosGameView.
-   *
-   * @param game the ChaosGame object being shown
-   * @param view the ChaosGameView that shows a ChaosGame fractal in the GUI
    */
-  public ChaosGameController(ChaosGame game, ChaosGameView view) {
-    this.chaosGame = game;
-    this.chaosGameView = view;
+  private ChaosGameController() {
+    chaosGame = new ChaosGame(ChaosGameDescriptionFactory.createSierpinskiDescription(),
+        450, 450);
+    chaosGameView = new ChaosGameView(chaosGame);
+  }
+
+  public static ChaosGameController getInstance() {
+    if (instance == null) {
+      instance = new ChaosGameController();
+    }
+    return instance;
   }
 
   /**
@@ -29,8 +37,8 @@ public class ChaosGameController {
    *
    * @param description the description being set
    */
-  public void setChaosGame(ChaosGameDescription description) {
-    this.chaosGame.setNewChaosGame(description);
+  public void setChaosGameDescription(ChaosGameDescription description) {
+    chaosGame.setNewChaosGame(description);
   }
 
   /**

@@ -23,7 +23,6 @@ import javafx.scene.layout.VBox;
  *
  * @author Scott du Plessis, Stanislovas Mockus
  * @version 1.0
- * @see ChaosGameController
  * @see AffineTransform2D
  * @see ChaosGameDescription
  */
@@ -94,7 +93,7 @@ public class AddAffineTransformView extends AbstractAffineTransformView {
       return;
     }
     addTransformToList();
-    chaosGameController.setChaosGame(
+    ChaosGameController.getInstance().setChaosGameDescription(
         new ChaosGameDescription(getMinCoords(), getMaxCoords(), affineTransforms));
     stage.close();
   }

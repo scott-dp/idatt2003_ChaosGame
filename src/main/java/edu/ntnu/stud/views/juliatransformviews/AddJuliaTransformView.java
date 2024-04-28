@@ -24,7 +24,6 @@ import java.util.ArrayList;
  * @version 1.0
  * @see JuliaTransform
  * @see ChaosGameDescription
- * @see ChaosGameController
  */
 public class AddJuliaTransformView extends AbstractJuliaTransformView {
 
@@ -59,7 +58,7 @@ public class AddJuliaTransformView extends AbstractJuliaTransformView {
       ChaosGameUtils.showErrorAlert("Input is invalid");
       return;
     } else {
-      chaosGameController.setChaosGame(createJuliaDescription());
+      ChaosGameController.getInstance().setChaosGameDescription(createJuliaDescription());
       stage.close();
     }
   }
