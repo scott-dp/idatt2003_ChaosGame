@@ -22,6 +22,7 @@ public class ChaosGame {
   private ChaosGameDescription description;
   private Vector2D currentPoint;
   private final Random random;
+  private int stepsAmount;
   private final List<ChaosGameObserver> observerList = new ArrayList<>();
 
   /**
@@ -37,12 +38,14 @@ public class ChaosGame {
     this.canvas =
         new ChaosCanvas(width, height, description.getMinCoords(), description.getMaxCoords());
     this.random = new Random();
+    stepsAmount = 0;
   }
 
   /**
    * Updates all observers of this ChaosGame that there has been a change in the ChaosGame.
    */
   public void updateObservers() {
+    runSteps(); //Update the canvas before updating listeners
     observerList.forEach(ChaosGameObserver::update);
   }
 
@@ -62,13 +65,12 @@ public class ChaosGame {
     }
   }
 
-  /**
-   * Method to remove an observer from the observerList.
-   *
-   * @param observer the observer to be removed.
-   */
-  public void removeObserver(ChaosGameObserver observer) {
-    observerList.remove(observer);
+  public void setStepsAmount(int steps) {
+    if (steps >= 0) {
+      stepsAmount = steps;
+    }
+    runSteps();
+    updateObservers();
   }
 
   /**
@@ -98,11 +100,10 @@ public class ChaosGame {
    * transformation is selected from the set provided by the ChaosGameDescription,
    * applied to the current point, and the result is plotted on the canvas.
    *
-   * @param steps The number of steps to run the game for.
    */
-  public void runSteps(int steps) {
+  public void runSteps() {
     canvas.clear();
-    for (int i = 0; i < steps; i++) {
+    for (int i = 0; i < stepsAmount; i++) {
       int randomIndex = random.nextInt(description.getTransforms().size());
       currentPoint = description.getTransforms().get(randomIndex).transform(currentPoint);
       try {
@@ -113,6 +114,5 @@ public class ChaosGame {
         i--;
       }
     }
-    updateObservers();
   }
 }
