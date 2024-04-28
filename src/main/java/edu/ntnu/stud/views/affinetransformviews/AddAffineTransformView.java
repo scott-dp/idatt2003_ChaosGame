@@ -1,15 +1,11 @@
 package edu.ntnu.stud.views.affinetransformviews;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
-import edu.ntnu.stud.models.transform.AffineTransform2D;
-import edu.ntnu.stud.models.mathematics.Matrix2x2;
-import edu.ntnu.stud.models.transform.Transform2D;
-import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
+import edu.ntnu.stud.models.mathematics.Matrix2x2;
+import edu.ntnu.stud.models.mathematics.Vector2D;
+import edu.ntnu.stud.models.transform.AffineTransform2D;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;

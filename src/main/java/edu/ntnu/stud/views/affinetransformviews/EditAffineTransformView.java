@@ -1,16 +1,15 @@
 package edu.ntnu.stud.views.affinetransformviews;
 
-import edu.ntnu.stud.models.transform.AffineTransform2D;
-import edu.ntnu.stud.models.mathematics.Matrix2x2;
-import edu.ntnu.stud.models.transform.Transform2D;
-import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
+import edu.ntnu.stud.models.mathematics.Matrix2x2;
+import edu.ntnu.stud.models.mathematics.Vector2D;
+import edu.ntnu.stud.models.transform.AffineTransform2D;
+import edu.ntnu.stud.models.transform.Transform2D;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import java.util.List;
 
 public class EditAffineTransformView extends AbstractAffineTransformView {
   int currentIndex;
@@ -137,7 +136,7 @@ public class EditAffineTransformView extends AbstractAffineTransformView {
   public void addAffineTransformAction(ActionEvent actionEvent) {
     try {
       affineTransforms.set(currentIndex, getTransformFromInput());
-    } catch (NumberFormatException ignored) {
+    } catch (NumberFormatException e) {
       return;
     }
     AffineTransform2D tempTransform = new AffineTransform2D(new Matrix2x2(0, 0, 0, 0), new Vector2D(0, 0));
