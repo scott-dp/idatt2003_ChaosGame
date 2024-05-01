@@ -73,7 +73,6 @@ public class AppView extends Application {
 
     double totalZoom = scrollDeltaY * zoomFactor;
 
-    // Retrieve old description
     ChaosGameDescription oldDescription = ChaosGameController.getInstance().getChaosGame().getDescription();
     Vector2D oldMin = oldDescription.getMinCoords();
     Vector2D oldMax = oldDescription.getMaxCoords();
@@ -81,7 +80,11 @@ public class AppView extends Application {
     Vector2D newMin = new Vector2D(oldMin.getX0() + totalZoom, oldMin.getX1() + totalZoom);
     Vector2D newMax = new Vector2D(oldMax.getX0() - totalZoom, oldMax.getX1() - totalZoom);
 
-    // Set the new description
+    if ((newMax.getX0() - newMin.getX0()) < 0.2) {
+      //Max zoom so the application doesn't crash
+      return;
+    }
+
     ChaosGameController.getInstance().setChaosGameDescription(
         new ChaosGameDescription(newMin, newMax, oldDescription.getTransforms())
     );
