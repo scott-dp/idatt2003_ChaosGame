@@ -2,6 +2,8 @@ package edu.ntnu.stud.models.chaosgamehandling;
 
 import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.observer.ChaosGameObserver;
+import edu.ntnu.stud.models.utils.ChaosGameUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -105,7 +107,6 @@ public class ChaosGame {
     for (int i = 0; i < stepsAmount; i++) {
       int randomIndex = random.nextInt(description.getTransforms().size());
       currentPoint = description.getTransforms().get(randomIndex).transform(currentPoint);
-
       try {
         canvas.putPixel(currentPoint);
       } catch (IllegalArgumentException e) {

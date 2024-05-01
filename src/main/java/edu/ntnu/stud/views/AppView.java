@@ -18,14 +18,13 @@ import edu.ntnu.stud.views.juliatransformviews.AbstractJuliaTransformView;
 import edu.ntnu.stud.views.juliatransformviews.AddJuliaTransformView;
 import edu.ntnu.stud.views.juliatransformviews.EditJuliaTransformView;
 import javafx.application.Application;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -44,6 +43,7 @@ public class AppView extends Application {
   VBox mainLayout;
   HBox bottomLayout;
   Button runButton;
+  TextField stepsTextField;
 
   /**
    * Initializes objects and layout and starts the application.
@@ -66,13 +66,13 @@ public class AppView extends Application {
     stage.show();
   }
 
+
   public void handleScrollEvent(ScrollEvent scrollEvent) {
-    double zoomFactor = 0.001;
+    double zoomFactor = 0.0001;
     double scrollDeltaY = scrollEvent.getDeltaY();
 
     double totalZoom = scrollDeltaY * zoomFactor;
 
-    // Retrieve old description
     ChaosGameDescription oldDescription = ChaosGameController.getInstance().getChaosGame().getDescription();
     Vector2D oldMin = oldDescription.getMinCoords();
     Vector2D oldMax = oldDescription.getMaxCoords();
@@ -80,7 +80,11 @@ public class AppView extends Application {
     Vector2D newMin = new Vector2D(oldMin.getX0() + totalZoom, oldMin.getX1() + totalZoom);
     Vector2D newMax = new Vector2D(oldMax.getX0() - totalZoom, oldMax.getX1() - totalZoom);
 
-    // Set the new description
+    if ((newMax.getX0() - newMin.getX0()) < 0.2) {
+      //Max zoom so the application doesn't crash
+      return;
+    }
+
     ChaosGameController.getInstance().setChaosGameDescription(
         new ChaosGameDescription(newMin, newMax, oldDescription.getTransforms())
     );
@@ -110,10 +114,26 @@ public class AppView extends Application {
   public void createSlider() {
     slider = new Slider();
     slider.setMin(0);
-    slider.setMax(100000);
+    slider.setMax(10000);
     slider.setShowTickMarks(true);
     slider.setShowTickLabels(true);
-    slider.setMajorTickUnit(10000);
+    slider.setMajorTickUnit(1000);
+    slider.valueProperty().addListener(this::valueChangeInSliderEvent);
+  }
+
+  private void valueChangeInSliderEvent(Observable observable) {
+    int sliderAmount = (int) slider.getValue();
+    stepsTextField.setText(String.valueOf(sliderAmount));
+    runChaosGameSteps(sliderAmount);
+  }
+
+  private void runChaosGameSteps(int steps) {
+    try {
+      ChaosGameController.getInstance().runSteps(steps);
+    } catch (NumberFormatException e) {
+      ChaosGameUtils.showErrorAlert("Couldn't generate fractal out " +
+          "of the given transforms because the point did not converge");
+    }
   }
 
   /**
@@ -244,8 +264,17 @@ public class AppView extends Application {
    */
   public void createBottomLayout() {
     bottomLayout = new HBox(10);
+    Button resetSliderButton = new Button("Reset slider");
+    resetSliderButton.setOnAction(this::resetSliderButtonAction);
+    bottomLayout.getChildren().add(resetSliderButton);
     bottomLayout.getChildren().add(slider);
+    stepsTextField = new TextField();
+    bottomLayout.getChildren().add(stepsTextField);
     bottomLayout.getChildren().add(runButton);
+  }
+
+  private void resetSliderButtonAction(ActionEvent actionEvent) {
+    slider.setMax(10000);
   }
 
   /**
@@ -258,12 +287,18 @@ public class AppView extends Application {
   }
 
   public void runButtonAction(ActionEvent actionEvent) {
+    int steps;
     try {
-      ChaosGameController.getInstance().runSteps((int) slider.getValue());
+      steps = Integer.parseInt(stepsTextField.getText());
     } catch (NumberFormatException e) {
-      ChaosGameUtils.showErrorAlert("Couldn't generate fractal out " +
-          "of the given transforms because the point did not converge");
+      ChaosGameUtils.showErrorAlert("Error parsing steps amount " + e.getMessage());
+      return;
     }
+    if (steps > slider.getMax()) {
+      slider.setMax(steps);
+      slider.setValue(steps);
+    }
+    runChaosGameSteps(steps);
   }
 
   /**
