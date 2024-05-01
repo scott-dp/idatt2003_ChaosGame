@@ -18,14 +18,13 @@ import edu.ntnu.stud.views.juliatransformviews.AbstractJuliaTransformView;
 import edu.ntnu.stud.views.juliatransformviews.AddJuliaTransformView;
 import edu.ntnu.stud.views.juliatransformviews.EditJuliaTransformView;
 import javafx.application.Application;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -114,6 +113,20 @@ public class AppView extends Application {
     slider.setShowTickMarks(true);
     slider.setShowTickLabels(true);
     slider.setMajorTickUnit(10000);
+    slider.valueProperty().addListener(this::valueChangeInSliderEvent);
+  }
+
+  private void valueChangeInSliderEvent(Observable observable) {
+    runChaosGameSteps((int) slider.getValue());
+  }
+
+  private void runChaosGameSteps(int steps) {
+    try {
+      ChaosGameController.getInstance().runSteps(steps);
+    } catch (NumberFormatException e) {
+      ChaosGameUtils.showErrorAlert("Couldn't generate fractal out " +
+          "of the given transforms because the point did not converge");
+    }
   }
 
   /**
@@ -258,12 +271,8 @@ public class AppView extends Application {
   }
 
   public void runButtonAction(ActionEvent actionEvent) {
-    try {
-      ChaosGameController.getInstance().runSteps((int) slider.getValue());
-    } catch (NumberFormatException e) {
-      ChaosGameUtils.showErrorAlert("Couldn't generate fractal out " +
-          "of the given transforms because the point did not converge");
-    }
+    //TODO textfield number runsteps
+    runChaosGameSteps(steps);
   }
 
   /**
