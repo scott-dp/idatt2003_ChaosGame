@@ -43,6 +43,7 @@ public class AppView extends Application {
   VBox mainLayout;
   HBox bottomLayout;
   Button runButton;
+  TextField stepsTextField;
 
   /**
    * Initializes objects and layout and starts the application.
@@ -65,8 +66,9 @@ public class AppView extends Application {
     stage.show();
   }
 
+
   public void handleScrollEvent(ScrollEvent scrollEvent) {
-    double zoomFactor = 0.001;
+    double zoomFactor = 0.0001;
     double scrollDeltaY = scrollEvent.getDeltaY();
 
     double totalZoom = scrollDeltaY * zoomFactor;
@@ -109,15 +111,17 @@ public class AppView extends Application {
   public void createSlider() {
     slider = new Slider();
     slider.setMin(0);
-    slider.setMax(100000);
+    slider.setMax(10000);
     slider.setShowTickMarks(true);
     slider.setShowTickLabels(true);
-    slider.setMajorTickUnit(10000);
+    slider.setMajorTickUnit(1000);
     slider.valueProperty().addListener(this::valueChangeInSliderEvent);
   }
 
   private void valueChangeInSliderEvent(Observable observable) {
-    runChaosGameSteps((int) slider.getValue());
+    int sliderAmount = (int) slider.getValue();
+    stepsTextField.setText(String.valueOf(sliderAmount));
+    runChaosGameSteps(sliderAmount);
   }
 
   private void runChaosGameSteps(int steps) {
@@ -257,8 +261,17 @@ public class AppView extends Application {
    */
   public void createBottomLayout() {
     bottomLayout = new HBox(10);
+    Button resetSliderButton = new Button("Reset slider");
+    resetSliderButton.setOnAction(this::resetSliderButtonAction);
+    bottomLayout.getChildren().add(resetSliderButton);
     bottomLayout.getChildren().add(slider);
+    stepsTextField = new TextField();
+    bottomLayout.getChildren().add(stepsTextField);
     bottomLayout.getChildren().add(runButton);
+  }
+
+  private void resetSliderButtonAction(ActionEvent actionEvent) {
+    slider.setMax(10000);
   }
 
   /**
@@ -271,7 +284,17 @@ public class AppView extends Application {
   }
 
   public void runButtonAction(ActionEvent actionEvent) {
-    //TODO textfield number runsteps
+    int steps;
+    try {
+      steps = Integer.parseInt(stepsTextField.getText());
+    } catch (NumberFormatException e) {
+      ChaosGameUtils.showErrorAlert("Error parsing steps amount " + e.getMessage());
+      return;
+    }
+    if (steps > slider.getMax()) {
+      slider.setMax(steps);
+      slider.setValue(steps);
+    }
     runChaosGameSteps(steps);
   }
 
