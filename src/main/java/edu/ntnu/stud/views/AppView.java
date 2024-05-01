@@ -1,6 +1,8 @@
 package edu.ntnu.stud.views;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
+import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
+import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.transform.AffineTransform2D;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescriptionFactory;
 import edu.ntnu.stud.models.transform.JuliaTransform;
@@ -17,10 +19,13 @@ import edu.ntnu.stud.views.juliatransformviews.AddJuliaTransformView;
 import edu.ntnu.stud.views.juliatransformviews.EditJuliaTransformView;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -61,6 +66,26 @@ public class AppView extends Application {
     stage.show();
   }
 
+  public void handleScrollEvent(ScrollEvent scrollEvent) {
+    double zoomFactor = 0.001;
+    double scrollDeltaY = scrollEvent.getDeltaY();
+
+    double totalZoom = scrollDeltaY * zoomFactor;
+
+    // Retrieve old description
+    ChaosGameDescription oldDescription = ChaosGameController.getInstance().getChaosGame().getDescription();
+    Vector2D oldMin = oldDescription.getMinCoords();
+    Vector2D oldMax = oldDescription.getMaxCoords();
+
+    Vector2D newMin = new Vector2D(oldMin.getX0() + totalZoom, oldMin.getX1() + totalZoom);
+    Vector2D newMax = new Vector2D(oldMax.getX0() - totalZoom, oldMax.getX1() - totalZoom);
+
+    // Set the new description
+    ChaosGameController.getInstance().setChaosGameDescription(
+        new ChaosGameDescription(newMin, newMax, oldDescription.getTransforms())
+    );
+  }
+
   /**
    * Sets the main layout of the application.
    */
@@ -69,6 +94,7 @@ public class AppView extends Application {
     mainLayout.getChildren().add(menuBar);
     HBox row2 = new HBox(10);
     row2.getChildren().add(ChaosGameController.getInstance().getChaosGameView().getCanvas());
+    ChaosGameController.getInstance().getChaosGameView().getCanvas().setOnScroll(this::handleScrollEvent);
     row2.setAlignment(Pos.CENTER);
     row2.setPadding(new Insets(100));
     mainLayout.getChildren().add(row2);

@@ -105,6 +105,7 @@ public class ChaosGame {
     for (int i = 0; i < stepsAmount; i++) {
       int randomIndex = random.nextInt(description.getTransforms().size());
       currentPoint = description.getTransforms().get(randomIndex).transform(currentPoint);
+
       try {
         canvas.putPixel(currentPoint);
       } catch (IllegalArgumentException e) {

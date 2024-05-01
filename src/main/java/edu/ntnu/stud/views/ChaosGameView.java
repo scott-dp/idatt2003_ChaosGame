@@ -25,10 +25,6 @@ public class ChaosGameView implements ChaosGameObserver {
     this.canvas = new Canvas(game.getChaosCanvas().getWidth(), game.getChaosCanvas().getHeight());
   }
 
-  public ChaosGame getGame() {
-    return game;
-  }
-
   public Canvas getCanvas() {
     return canvas;
   }
