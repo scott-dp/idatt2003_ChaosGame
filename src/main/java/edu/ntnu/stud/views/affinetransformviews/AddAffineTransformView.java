@@ -36,6 +36,7 @@ public class AddAffineTransformView extends AbstractAffineTransformView {
    */
   @Override
   public void setScene() {
+    setTransformNumber();
     scene.setRoot(setMainLayout());
   }
 
@@ -73,7 +74,9 @@ public class AddAffineTransformView extends AbstractAffineTransformView {
       ChaosGameUtils.showErrorAlert("Input is invalid");
       return;
     }
+    currentIndex++;
     addTransformToList();
+    setTransformNumber();
     clearTextFields();
   }
 

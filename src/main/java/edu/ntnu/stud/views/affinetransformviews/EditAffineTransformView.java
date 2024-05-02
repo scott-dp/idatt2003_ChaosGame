@@ -13,10 +13,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class EditAffineTransformView extends AbstractAffineTransformView {
-  int currentIndex;
   public EditAffineTransformView() {
     super();
-    currentIndex = 0;
     affineTransforms = ChaosGameController.getInstance().
         getChaosGame().getDescription().getTransforms();
   }
@@ -29,6 +27,7 @@ public class EditAffineTransformView extends AbstractAffineTransformView {
     scene.setRoot(setMainLayout());
     setAffineTransformScene(affineTransforms.get(0));
     setCoordsInView(ChaosGameController.getInstance().getChaosGame().getDescription());
+    setTransformNumber();
   }
 
   public void setCoordsInView(ChaosGameDescription description) {
@@ -100,6 +99,7 @@ public class EditAffineTransformView extends AbstractAffineTransformView {
       affineTransforms.set(currentIndex, transform2D);
       setAffineTransformScene(affineTransforms.get(currentIndex-1));
       currentIndex--;
+      setTransformNumber();
     } catch (NumberFormatException | IndexOutOfBoundsException ignored) {
     }
   }
@@ -130,6 +130,7 @@ public class EditAffineTransformView extends AbstractAffineTransformView {
       affineTransforms.set(currentIndex, transform2D);
       setAffineTransformScene(affineTransforms.get(currentIndex+1));
       currentIndex++;
+      setTransformNumber();
     } catch (NumberFormatException | IndexOutOfBoundsException ignored) {
     }
   }
@@ -145,6 +146,7 @@ public class EditAffineTransformView extends AbstractAffineTransformView {
     setAffineTransformScene(tempTransform);
     affineTransforms.add(tempTransform);
     currentIndex = affineTransforms.size() - 1;
+    setTransformNumber();
   }
 
   @Override

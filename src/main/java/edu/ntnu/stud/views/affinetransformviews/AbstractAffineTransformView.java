@@ -19,6 +19,7 @@ import java.util.List;
 
 public abstract class AbstractAffineTransformView {
   protected List<Transform2D> affineTransforms;
+  protected int currentIndex;
   protected final Stage stage;
   protected final Scene scene;
 
@@ -41,6 +42,7 @@ public abstract class AbstractAffineTransformView {
   protected TextField maxX1;
 
   protected AbstractAffineTransformView() {
+    currentIndex = 0;
     affineTransforms = new ArrayList<>();
     this.stage = new Stage();
     this.scene = new Scene(new VBox());
@@ -242,5 +244,10 @@ public abstract class AbstractAffineTransformView {
     coordinatesInput.getChildren().addAll(createCoordinateInput(minX0, minX1, Coordinate.MIN),
         createCoordinateInput(maxX0, maxX1, Coordinate.MAX));
     return coordinatesInput;
+  }
+
+  public void setTransformNumber() {
+    int transformNumber = currentIndex + 1;
+    stage.setTitle("Transform number " + transformNumber);
   }
 }
