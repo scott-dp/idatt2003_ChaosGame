@@ -70,7 +70,7 @@
             <id>javafx:run-config</id>
             <configuration>
               <!-- Define the module of the main class and define main class -->
-              <mainClass>edu.ntnu.idatt2003_2024_mappe_chaosgame/edu.ntnu.stud.Main</mainClass>
+              <mainClass>idatt2003_2024_mappe_chaosgame/edu.ntnu.stud.Main</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
