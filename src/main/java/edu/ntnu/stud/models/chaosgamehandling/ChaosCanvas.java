@@ -74,7 +74,7 @@ public class ChaosCanvas {
     Vector2D transformedPoint = transformCoordsToIndices.transform(point);
     int x = (int) transformedPoint.getX0();
     int y = (int) transformedPoint.getX1();
-    canvas[x][y] = 1;
+    canvas[x][y] += 1;
   }
 
   /**
