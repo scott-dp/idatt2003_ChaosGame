@@ -98,6 +98,7 @@ public class AppView extends Application {
     mainLayout.getChildren().add(menuBar);
     HBox row2 = new HBox(10);
     row2.getChildren().add(ChaosGameController.getInstance().getChaosGameView().getCanvas());
+    row2.getChildren().add(ChaosGameController.getInstance().getChaosGameView().getColorViewCheckBox());
     ChaosGameController.getInstance().getChaosGameView().getCanvas().setOnScroll(this::handleScrollEvent);
     row2.setAlignment(Pos.CENTER);
     row2.setPadding(new Insets(100));
