@@ -47,7 +47,8 @@ public class ChaosGameView implements ChaosGameObserver {
     if (colorViewCheckBox.isSelected()) {
       for (int i = 0; i < fractalList.length; i++) {
         for (int j = 0; j < fractalList[i].length; j++) {
-          //Denne ga opphav til noen kule fraktaler
+          //Dette ga opphav til noen kule fraktaler
+          // (lar default ikke være med med vilje)
           switch (fractalList[i][j]){
             case 0:
               continue;
