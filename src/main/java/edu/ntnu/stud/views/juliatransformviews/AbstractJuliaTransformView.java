@@ -1,7 +1,12 @@
 package edu.ntnu.stud.views.juliatransformviews;
 
+import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.Coordinate;
+import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
+import edu.ntnu.stud.models.mathematics.Complex;
 import edu.ntnu.stud.models.mathematics.Vector2D;
+import edu.ntnu.stud.models.transform.JuliaTransform;
+import edu.ntnu.stud.models.transform.Transform2D;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -12,6 +17,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public abstract class AbstractJuliaTransformView {
     protected final Stage stage;
@@ -38,14 +45,6 @@ public abstract class AbstractJuliaTransformView {
     }
 
     public abstract void setScene();
-
-    public Vector2D getMinCoords() {
-        return new Vector2D(Double.parseDouble(minX0.getText()), Double.parseDouble(minX1.getText()));
-    }
-
-    public Vector2D getMaxCoords() {
-        return new Vector2D(Double.parseDouble(maxX0.getText()), Double.parseDouble(maxX1.getText()));
-    }
 
   public boolean isInputValid() {
     try {
@@ -91,7 +90,6 @@ public abstract class AbstractJuliaTransformView {
     return coordsContainer;
   }
 
-  public abstract void saveButtonAction(ActionEvent actionEvent);
 
   public Button createSaveButton() {
     Button saveButton = new Button("Save");
@@ -124,5 +122,33 @@ public abstract class AbstractJuliaTransformView {
     coordinatesInput.getChildren().addAll(createCoordinateInput(minX0, minX1, Coordinate.MIN),
             createCoordinateInput(maxX0, maxX1, Coordinate.MAX));
     return coordinatesInput;
+  }
+
+  public void saveButtonAction(ActionEvent event) {
+    if (!isInputValid()) {
+      ChaosGameUtils.showErrorAlert("Input is invalid");
+    } else {
+      ChaosGameController.getInstance().setChaosGameDescription(createJuliaDescription());
+      stage.close();
+    }
+  }
+
+  public ChaosGameDescription createJuliaDescription() {
+    ArrayList<Transform2D> transforms = new ArrayList<>();
+    transforms.add(new JuliaTransform(createComplex(), 1));
+    transforms.add(new JuliaTransform(createComplex(), -1));
+    return new ChaosGameDescription(createMinCoordinates(), createMaxCoordinates(), transforms);
+  }
+
+  public Complex createComplex() {
+    return new Complex(Double.parseDouble(realPartField.getText()), Double.parseDouble(imaginaryPartField.getText()));
+  }
+
+  public Vector2D createMinCoordinates() {
+    return new Vector2D(Double.parseDouble(minX0.getText()), Double.parseDouble(minX1.getText()));
+  }
+
+  public Vector2D createMaxCoordinates() {
+    return new Vector2D(Double.parseDouble(maxX0.getText()), Double.parseDouble(maxX1.getText()));
   }
 }

@@ -21,7 +21,6 @@ public class EditJuliaTransformView extends AbstractJuliaTransformView {
     currentTransform = (JuliaTransform) ChaosGameController.getInstance().getChaosGame().getDescription().getTransforms().get(0);
   }
 
-
   public void showStage() {
     setScene();
     stage.setScene(scene);
@@ -44,38 +43,6 @@ public class EditJuliaTransformView extends AbstractJuliaTransformView {
     mainLayout.getChildren().addAll(createNumeralInput(),getCoordinatesInput(),createSaveButton());
 
     return mainLayout;
-  }
-
-
-
-  @Override
-  public void saveButtonAction(ActionEvent event) {
-    if (!isInputValid()) {
-      ChaosGameUtils.showErrorAlert("Input is invalid");
-    } else {
-      ChaosGameController.getInstance().setChaosGameDescription(createJuliaDescription());
-      stage.close();
-    }
-  }
-
-
-  public ChaosGameDescription createJuliaDescription() {
-    List<Transform2D> transforms = new ArrayList<>();
-    transforms.add(new JuliaTransform(createComplex(), 1));
-    transforms.add(new JuliaTransform(createComplex(), -1));
-    return new ChaosGameDescription(createMinCoordinates(), createMaxCoordinates(), transforms);
-  }
-
-  public Complex createComplex() {
-    return new Complex(Double.parseDouble(realPartField.getText()), Double.parseDouble(imaginaryPartField.getText()));
-  }
-
-  public Vector2D createMinCoordinates() {
-    return new Vector2D(Double.parseDouble(minX0.getText()), Double.parseDouble(minX1.getText()));
-  }
-
-  public Vector2D createMaxCoordinates() {
-    return new Vector2D(Double.parseDouble(maxX0.getText()), Double.parseDouble(maxX1.getText()));
   }
 
   public void setCoordsInView() {
