@@ -8,6 +8,7 @@ import edu.ntnu.stud.models.transform.JuliaTransform;
 import edu.ntnu.stud.models.transform.Transform2D;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Factory class for creating different chaos game descriptions.
@@ -23,8 +24,6 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class ChaosGameDescriptionFactory {
-  static ArrayList<Transform2D> transforms;
-
   /**
    * A static method that creates a Sierpinski chaos game description.
    * with predefined transforms and min and max points.
@@ -32,7 +31,7 @@ public class ChaosGameDescriptionFactory {
    * @return a {@link ChaosGameDescription} instance
    */
   public static ChaosGameDescription createSierpinskiDescription() {
-    transforms = new ArrayList<>();
+    List<Transform2D> transforms = new ArrayList<>();
     Transform2D sierpinski1 =
           new AffineTransform2D(new Matrix2x2(0.5, 0, 0, 0.5), new Vector2D(0, 0));
     Transform2D sierpinski2 =
@@ -47,6 +46,19 @@ public class ChaosGameDescriptionFactory {
     return new ChaosGameDescription(min, max, transforms);
   }
 
+  public static ChaosGameDescription createLevyCurveDescription() {
+    List<Transform2D> transforms = new ArrayList<>();
+
+    Transform2D levy1 = new AffineTransform2D(new Matrix2x2(0.5, 0.5, -0.5, 0.5), new Vector2D(0, 0));
+    Transform2D levy2 = new AffineTransform2D(new Matrix2x2(0.5, -0.5, 0.5, 0.5), new Vector2D(-0.5, -0.5));
+    transforms.add(levy1);
+    transforms.add(levy2);
+    Vector2D min = new Vector2D(-1.53, -1.53);
+    Vector2D max = new Vector2D(0.53, 0.53);
+    return new ChaosGameDescription(min, max, transforms);
+
+  }
+
   /**
    * A static method that creates a Barnsley chaos game description.
    * with predefined transforms and min and max points.
@@ -54,7 +66,7 @@ public class ChaosGameDescriptionFactory {
    * @return a {@link ChaosGameDescription} instance
    */
   public static ChaosGameDescription createBarnsleyDescription() {
-    transforms = new ArrayList<>();
+    List<Transform2D> transforms = new ArrayList<>();
     Transform2D barnsley1 =
           new AffineTransform2D(new Matrix2x2(0, 0, 0, 0.16), new Vector2D(0, 0));
     Transform2D barnsley2 =
@@ -116,7 +128,7 @@ public class ChaosGameDescriptionFactory {
    * @return a {@link ChaosGameDescription} instance
    */
   public static ChaosGameDescription makeJuliaSet(Complex c) {
-    transforms = new ArrayList<>();
+    List<Transform2D> transforms = new ArrayList<>();
     Vector2D min = new Vector2D(-1.6, -1);
     Vector2D max = new Vector2D(1.6, 1);
 

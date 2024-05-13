@@ -104,6 +104,7 @@ public class ChaosGame {
    *
    */
   public void runSteps() {
+
     canvas.clear();
 
     List<Transform2D> transforms = description.getTransforms();

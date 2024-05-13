@@ -239,6 +239,11 @@ public class AppView extends Application {
         ChaosGameController.getInstance().setChaosGameDescription(
             ChaosGameDescriptionFactory.createSierpinskiDescription()));
 
+    MenuItem levyCurveItem = new MenuItem("Levy Curve");
+    levyCurveItem.setOnAction(actionEvent ->
+        ChaosGameController.getInstance().setChaosGameDescription(
+            ChaosGameDescriptionFactory.createLevyCurveDescription()));
+
     MenuItem juliaSet1Item = new MenuItem("Julia set 1");
     juliaSet1Item.setOnAction(actionEvent ->
         ChaosGameController.getInstance().setChaosGameDescription(ChaosGameDescriptionFactory.getJuliaSetDescription1()));
@@ -255,7 +260,7 @@ public class AppView extends Application {
     juliaSet4Item.setOnAction(actionEvent ->
         ChaosGameController.getInstance().setChaosGameDescription(ChaosGameDescriptionFactory.getJuliaSetDescription4()));
 
-    predefinedMenu.getItems().addAll(barnsleyFernItem, sierpinskiTriangleItem,
+    predefinedMenu.getItems().addAll(barnsleyFernItem, sierpinskiTriangleItem, levyCurveItem,
         juliaSet1Item, juliaSet2Item, juliaSet3Item, juliaSet4Item);
   }
 
