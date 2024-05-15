@@ -54,19 +54,20 @@ public class ChaosGameView implements ChaosGameObserver {
       for (int i = 0; i < fractalList.length; i++) {
         for (int j = 0; j < fractalList[i].length; j++) {
           int val = fractalList[i][j];
+          double scaledVal = scale(min, max, val);
           if (val == 0) {
             continue;
           } else if (val == max) {
             gc.setFill(Color.VIOLET);
           } else if (val == min) {
             gc.setFill(Color.RED);
-          } else if (scale(min, max, val) <= 0.1) {
+          } else if (scaledVal <= 0.05) {
             gc.setFill(Color.ORANGE);
-          } else if(scale(min, max, val) <= 0.25) {
+          } else if(scaledVal <= 0.1) {
             gc.setFill(Color.YELLOW);
-          } else if(scale(min, max, val) <= 0.5) {
+          } else if(scaledVal <= 0.15) {
             gc.setFill(Color.GREEN);
-          } else if(scale(min, max, val) <= 0.75) {
+          } else if(scaledVal <= 0.2) {
             gc.setFill(Color.BLUE);
           } else {
             gc.setFill(Color.INDIGO);
