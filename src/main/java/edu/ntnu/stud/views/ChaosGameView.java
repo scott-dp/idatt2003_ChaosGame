@@ -49,25 +49,27 @@ public class ChaosGameView implements ChaosGameObserver {
       int[] minAndMax = findMinAndMaxArrayValue(fractalList);
       int min = minAndMax[0];
       int max = minAndMax[1];
+      System.out.println(min);
+      System.out.println(max);
       for (int i = 0; i < fractalList.length; i++) {
         for (int j = 0; j < fractalList[i].length; j++) {
           int val = fractalList[i][j];
           if (val == 0) {
             continue;
           } else if (val == max) {
-            gc.setFill(Color.BLACK);
+            gc.setFill(Color.VIOLET);
           } else if (val == min) {
-            gc.setFill(Color.grayRgb(100));
-          } else if (scale(min, max, val) <= 0.2) {
-            gc.setFill(Color.grayRgb(80));
-          } else if(scale(min, max, val) <= 0.4) {
-            gc.setFill(Color.grayRgb(50));
-          } else if(scale(min, max, val) <= 0.6) {
-            gc.setFill(Color.grayRgb(35));
-          } else if(scale(min, max, val) <= 0.8) {
-            gc.setFill(Color.grayRgb(20));
+            gc.setFill(Color.RED);
+          } else if (scale(min, max, val) <= 0.1) {
+            gc.setFill(Color.ORANGE);
+          } else if(scale(min, max, val) <= 0.25) {
+            gc.setFill(Color.YELLOW);
+          } else if(scale(min, max, val) <= 0.5) {
+            gc.setFill(Color.GREEN);
+          } else if(scale(min, max, val) <= 0.75) {
+            gc.setFill(Color.BLUE);
           } else {
-            gc.setFill(Color.grayRgb(10));
+            gc.setFill(Color.INDIGO);
           }
           gc.fillRect(j, i, 1, 1);
         }
