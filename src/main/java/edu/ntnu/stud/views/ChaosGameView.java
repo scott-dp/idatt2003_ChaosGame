@@ -57,7 +57,17 @@ public class ChaosGameView implements ChaosGameObserver {
           } else if (val == max) {
             gc.setFill(Color.BLACK);
           } else if (val == min) {
-            gc.setFill(Color.rgb(220, 220, 220));
+            gc.setFill(Color.grayRgb(100));
+          } else if (scale(min, max, val) <= 0.2) {
+            gc.setFill(Color.grayRgb(80));
+          } else if(scale(min, max, val) <= 0.4) {
+            gc.setFill(Color.grayRgb(50));
+          } else if(scale(min, max, val) <= 0.6) {
+            gc.setFill(Color.grayRgb(35));
+          } else if(scale(min, max, val) <= 0.8) {
+            gc.setFill(Color.grayRgb(20));
+          } else {
+            gc.setFill(Color.grayRgb(10));
           }
           gc.fillRect(j, i, 1, 1);
         }
@@ -74,8 +84,13 @@ public class ChaosGameView implements ChaosGameObserver {
     }
   }
 
-  public int scale(int min, int max, int val) {
+  public double scale(int min, int max, int val) {
+    max = max - min;
+    val = val - min;
+    double maxDouble = max;
+    double valDouble = val;
 
+    return valDouble/maxDouble;
   }
 
   public int[] findMinAndMaxArrayValue(int[][] fractalList) {
@@ -90,6 +105,10 @@ public class ChaosGameView implements ChaosGameObserver {
           min = val;
         }
       }
+    }
+
+    if (min != max) {
+      min = 1;
     }
 
     return new int[]{min, max};
