@@ -137,6 +137,18 @@ public class ChaosGameFileHandler {
     return juliaTransformList;
   }
 
+  public int readSteps(String path) throws FileNotFoundException {
+    int steps = 0;
+    try {
+      Scanner scanner = new Scanner(new File(path));
+      steps = Integer.parseInt(scanner.nextLine());
+    } catch (IOException ignored) {}
+    catch (NumberFormatException e) {
+      throw new NumberFormatException("Couldn't parse steps amount from file: " + e.getMessage());
+    }
+    return steps;
+  }
+
   /**
    * Uses a BufferedWriter object to write a ChaosGameDescription object to a text file.
    *
@@ -146,13 +158,13 @@ public class ChaosGameFileHandler {
    */
   public void writeChaosGameToFile(ChaosGameDescription description, String path)
       throws IOException, NullPointerException {
-    writeStringToFile(description.toString(), path);
+    writeStringToFile(path, description.toString());
   }
 
-  public void writeStringToFile(String path, String string)
+  public void writeStringToFile(String path, String content)
       throws IOException, NullPointerException{
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
-      writer.write(string);
+      writer.write(content);
     } catch (IOException e) {
       throw new IOException("Could not write to file: " + path);
     } catch (NullPointerException e) {

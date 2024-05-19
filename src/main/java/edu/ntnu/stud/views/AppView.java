@@ -29,6 +29,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.NoSuchElementException;
@@ -52,7 +53,6 @@ public class AppView extends Application {
    */
   @Override
   public void start(Stage stage) {
-
     ChaosGameController.getInstance().addObserver(
         ChaosGameController.getInstance().getChaosGameView());
 
@@ -61,8 +61,11 @@ public class AppView extends Application {
     createRunButton();
     createBottomLayout();
     setMainLayout();
+    initializeFractalFromConfig();
 
     stage.setScene(new Scene(mainLayout, 450, 450));
+    stage.setMinHeight(800);
+    stage.setMinWidth(1000);
     stage.show();
   }
 
@@ -71,10 +74,8 @@ public class AppView extends Application {
     try {
       fileHandler.writeChaosGameToFile(
           ChaosGameController.getInstance().getChaosGame().getDescription(), "src/main/resources/config/description.txt");
-      fileHandler.writeStringToFile("src/main/resources/config/steps.txt",String.valueOf(slider.getValue()));
-    } catch (IOException ignored) {
-      System.out.println("Couldnt write to file");
-    }
+      fileHandler.writeStringToFile("src/main/resources/config/steps.txt",String.valueOf((int) slider.getValue()));
+    } catch (IOException ignored) {}
     }
 
   public void handleScrollEvent(ScrollEvent scrollEvent) {
@@ -98,6 +99,22 @@ public class AppView extends Application {
     ChaosGameController.getInstance().setChaosGameDescription(
         new ChaosGameDescription(newMin, newMax, oldDescription.getTransforms())
     );
+  }
+
+  public void initializeFractalFromConfig() {
+    File descriptionFile = new File("src/main/resources/config/description.txt");
+    File stepsFile = new File("src/main/resources/config/steps.txt");
+
+    if (descriptionFile.exists() && stepsFile.exists()) {
+      try {
+        ChaosGameDescription configDescription = fileHandler.readFromFile(descriptionFile.getPath());
+        int steps = fileHandler.readSteps(stepsFile.getPath());
+        ChaosGameController.getInstance().setChaosGameDescription(configDescription);
+        runChaosGameSteps(steps);
+      } catch (IOException | NumberFormatException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   /**
