@@ -57,7 +57,7 @@ public class ChaosGameFileHandlerTest {
     void testWriteAffineTransformToFile() throws IOException {
       String newPath = "src/test/resources/testResources/writeAffineTest.txt";
       ChaosGameDescription description = fileHandler.readFromFile(pathAffine);
-      fileHandler.writeToFile(description, newPath);
+      fileHandler.writeChaosGameToFile(description, newPath);
       ChaosGameDescription newDescription = fileHandler.readFromFile(newPath);
       assertEquals(description.toString(), newDescription.toString());
     }
@@ -66,7 +66,7 @@ public class ChaosGameFileHandlerTest {
     void testWriteJuliaTransformToFile() throws IOException {
       String newPath = "src/test/resources/testResources/writeJuliaTest.txt";
       ChaosGameDescription description = fileHandler.readFromFile(pathJulia);
-      fileHandler.writeToFile(description, newPath);
+      fileHandler.writeChaosGameToFile(description, newPath);
       ChaosGameDescription newDescription = fileHandler.readFromFile(newPath);
       assertEquals(description.toString(), newDescription.toString());
     }
@@ -92,12 +92,12 @@ public class ChaosGameFileHandlerTest {
     @Test
     void testWriteToNonExistentDirectory() throws IOException {
       ChaosGameDescription description = fileHandler.readFromFile(pathAffine);
-      assertThrows(IOException.class, () -> fileHandler.writeToFile(description, "src/test/bla/bla"));
+      assertThrows(IOException.class, () -> fileHandler.writeChaosGameToFile(description, "src/test/bla/bla"));
     }
 
     @Test
     void testWriteNullObjectToFile() {
-      assertThrows(NullPointerException.class, () -> fileHandler.writeToFile(null, "src/test/resources/testResources/empty.txt"));
+      assertThrows(NullPointerException.class, () -> fileHandler.writeChaosGameToFile(null, "src/test/resources/testResources/empty.txt"));
     }
   }
 }

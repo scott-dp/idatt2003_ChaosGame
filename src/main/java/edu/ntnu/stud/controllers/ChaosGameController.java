@@ -20,6 +20,7 @@ public class ChaosGameController {
    * and a set ChaosGameView.
    */
   private ChaosGameController() {
+    //Give a not null description in case other actions fail
     chaosGame = new ChaosGame(ChaosGameDescriptionFactory.createSierpinskiDescription(),
         450, 450);
     chaosGameView = new ChaosGameView(chaosGame);

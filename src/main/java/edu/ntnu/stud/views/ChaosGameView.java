@@ -49,8 +49,6 @@ public class ChaosGameView implements ChaosGameObserver {
       int[] minAndMax = findMinAndMaxArrayValue(fractalList);
       int min = minAndMax[0];
       int max = minAndMax[1];
-      System.out.println(min);
-      System.out.println(max);
       for (int i = 0; i < fractalList.length; i++) {
         for (int j = 0; j < fractalList[i].length; j++) {
           int val = fractalList[i][j];
