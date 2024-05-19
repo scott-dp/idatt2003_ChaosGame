@@ -66,6 +66,16 @@ public class AppView extends Application {
     stage.show();
   }
 
+  @Override
+  public void stop() {
+    try {
+      fileHandler.writeChaosGameToFile(
+          ChaosGameController.getInstance().getChaosGame().getDescription(), "src/main/resources/config/description.txt");
+      fileHandler.writeStringToFile("src/main/resources/config/steps.txt",String.valueOf(slider.getValue()));
+    } catch (IOException ignored) {
+      System.out.println("Couldnt write to file");
+    }
+    }
 
   public void handleScrollEvent(ScrollEvent scrollEvent) {
     double zoomFactor = 0.0001;
@@ -185,7 +195,7 @@ public class AppView extends Application {
     SaveFileView saveFileView = new SaveFileView();
     String fileName = saveFileView.getFileNameFromUser();
     try {
-      fileHandler.writeToFile(ChaosGameController.getInstance().getChaosGame().getDescription(),
+      fileHandler.writeChaosGameToFile(ChaosGameController.getInstance().getChaosGame().getDescription(),
           saveFileView.getChosenDirectory().concat("/" + fileName + ".txt"));
     } catch (IOException e) {
       ChaosGameUtils.showErrorAlert(e.getMessage());

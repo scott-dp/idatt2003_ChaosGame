@@ -144,10 +144,15 @@ public class ChaosGameFileHandler {
    * @param path The path to the file to be written.
    * @throws IOException If the file cannot be written to.
    */
-  public void writeToFile(ChaosGameDescription description, String path)
+  public void writeChaosGameToFile(ChaosGameDescription description, String path)
       throws IOException, NullPointerException {
+    writeStringToFile(description.toString(), path);
+  }
+
+  public void writeStringToFile(String path, String string)
+      throws IOException, NullPointerException{
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
-      writer.write(description.toString());
+      writer.write(string);
     } catch (IOException e) {
       throw new IOException("Could not write to file: " + path);
     } catch (NullPointerException e) {
