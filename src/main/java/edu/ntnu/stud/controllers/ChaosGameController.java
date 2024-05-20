@@ -26,6 +26,11 @@ public class ChaosGameController {
     chaosGameView = new ChaosGameView(chaosGame);
   }
 
+  /**
+   * Gets the Singleton instance of the ChaosGameController. Uses lazy initialization.
+   *
+   * @return the singleton instance
+   */
   public static ChaosGameController getInstance() {
     if (instance == null) {
       instance = new ChaosGameController();
@@ -52,6 +57,11 @@ public class ChaosGameController {
     this.chaosGame.setStepsAmount(steps);
   }
 
+  /**
+   * Adds an observer to the {@link ChaosGame} instance which is being shown.
+   *
+   * @param observer the observer to be registered.
+   */
   public void addObserver(ChaosGameObserver observer) {
     chaosGame.addObserver(observer);
   }
