@@ -67,7 +67,7 @@
         <executions>
           <execution>
             <!-- Configuration for running with mvn javafx:run -->
-            <id>javafx:run-config</id>
+            <id>default-cli</id>
             <configuration>
               <!-- Define the module of the main class and define main class -->
               <mainClass>idatt2003_2024_mappe_chaosgame/edu.ntnu.stud.Main</mainClass>
