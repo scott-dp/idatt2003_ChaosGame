@@ -1,4 +1,4 @@
-package edu.ntnu.stud.views;
+package edu.ntnu.stud;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
@@ -37,7 +37,7 @@ import java.util.NoSuchElementException;
 /**
  * The main view class for the ChaosGame application.
  */
-public class AppView extends Application {
+public class App extends Application {
   private final ChaosGameFileHandler fileHandler = new ChaosGameFileHandler();
   private Slider slider;
   MenuBar menuBar;
