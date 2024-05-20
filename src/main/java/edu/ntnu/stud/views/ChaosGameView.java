@@ -76,6 +76,7 @@ public class ChaosGameView implements ChaosGameObserver {
         }
       }
     } else {
+      gc.setFill(Color.BLACK);
       IntStream.range(0, fractalList.length)
           .forEach(i -> IntStream.range(0, fractalList[i].length)
               .filter(j -> fractalList[i][j] > 0)
