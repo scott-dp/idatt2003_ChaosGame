@@ -6,7 +6,6 @@ import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.transform.AffineTransform2D;
 import edu.ntnu.stud.models.transform.JuliaTransform;
 import edu.ntnu.stud.models.transform.Transform2D;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,11 +45,18 @@ public class ChaosGameDescriptionFactory {
     return new ChaosGameDescription(min, max, transforms);
   }
 
+  /**
+   * Creates a {@link ChaosGameDescription} that makes a Levy Curve fractal when run.
+   *
+   * @return a {@link ChaosGameDescription} that represents the Levy Curve
+   */
   public static ChaosGameDescription createLevyCurveDescription() {
     List<Transform2D> transforms = new ArrayList<>();
 
-    Transform2D levy1 = new AffineTransform2D(new Matrix2x2(0.5, 0.5, -0.5, 0.5), new Vector2D(0, 0));
-    Transform2D levy2 = new AffineTransform2D(new Matrix2x2(0.5, -0.5, 0.5, 0.5), new Vector2D(-0.5, -0.5));
+    Transform2D levy1 = new AffineTransform2D(new Matrix2x2(0.5, 0.5, -0.5, 0.5),
+        new Vector2D(0, 0));
+    Transform2D levy2 = new AffineTransform2D(new Matrix2x2(0.5, -0.5, 0.5, 0.5),
+        new Vector2D(-0.5, -0.5));
     transforms.add(levy1);
     transforms.add(levy2);
     Vector2D min = new Vector2D(-1.53, -1.53);
