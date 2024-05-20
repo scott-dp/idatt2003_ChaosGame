@@ -1,6 +1,7 @@
 package edu.ntnu.stud;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
+import edu.ntnu.stud.models.chaosgamehandling.ChaosCanvas;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescriptionFactory;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameFileHandler;
@@ -96,7 +97,10 @@ public class App extends Application {
    */
   public void handleScrollEvent(ScrollEvent scrollEvent) {
     double zoomFactor = 0.0001;
+
     double scrollDeltaY = scrollEvent.getDeltaY();
+    double xPos = scrollEvent.getX();
+    double yPos = scrollEvent.getY();
 
     double totalZoom = scrollDeltaY * zoomFactor;
 
@@ -105,14 +109,22 @@ public class App extends Application {
     Vector2D oldMin = oldDescription.getMinCoords();
     Vector2D oldMax = oldDescription.getMaxCoords();
 
-    Vector2D newMin = new Vector2D(oldMin.getX0() + totalZoom, oldMin.getX1() + totalZoom);
-    Vector2D newMax = new Vector2D(oldMax.getX0() - totalZoom, oldMax.getX1() - totalZoom);
+    ChaosCanvas chaosGameCanvas = ChaosGameController.getInstance().getChaosGame().getChaosCanvas();
+
+    double centerX = oldMin.getX0() +
+        (xPos / chaosGameCanvas.getWidth()) * (oldMax.getX0() - oldMin.getX0());
+    double centerY = oldMin.getX1() +
+        (yPos / chaosGameCanvas.getHeight()) * (oldMax.getX1() - oldMin.getX1());
+
+    Vector2D newMin = new Vector2D(oldMin.getX0() + totalZoom * centerX, oldMin.getX1() + totalZoom * centerY);
+    Vector2D newMax = new Vector2D(oldMax.getX0() - totalZoom * (1 - centerX), oldMax.getX1() - totalZoom * (1 - centerY));
 
     if ((newMax.getX0() - newMin.getX0()) < 0.2) {
       //Max zoom so the application doesn't crash
       return;
     }
 
+    // Set the new coordinates
     ChaosGameController.getInstance().setChaosGameDescription(
         new ChaosGameDescription(newMin, newMax, oldDescription.getTransforms())
     );
