@@ -33,10 +33,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * The main view class for the ChaosGame application.
  */
 public class App extends Application {
+  private final static Logger LOGGER = Logger.getLogger(App.class.getName());
   private final ChaosGameFileHandler fileHandler = new ChaosGameFileHandler();
   private Slider slider;
   MenuBar menuBar;
@@ -80,7 +84,7 @@ public class App extends Application {
       fileHandler.writeStringToFile("src/main/resources/config/steps.txt",
           String.valueOf((int) slider.getValue()));
     } catch (IOException e) {
-      e.printStackTrace();
+      LOGGER.log(Level.INFO, e.getMessage());
     }
   }
 
