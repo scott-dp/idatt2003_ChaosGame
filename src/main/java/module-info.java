@@ -1,6 +1,7 @@
 module idatt2003_2024_mappe_chaosgame {
   requires javafx.controls;
   requires javafx.graphics;
+  requires java.logging;
 
   exports edu.ntnu.stud;
   exports edu.ntnu.stud.models;
