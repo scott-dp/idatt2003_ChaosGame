@@ -162,7 +162,7 @@ public abstract class AbstractAffineTransformView {
    * @return Button saveButton
    */
   public Button createSaveButton() {
-    Button saveButton = new Button("Save");
+    Button saveButton = new Button("Save & Finish");
     saveButton.setOnAction(this::saveButtonAction);
     return saveButton;
   }
