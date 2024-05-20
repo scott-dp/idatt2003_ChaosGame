@@ -3,8 +3,6 @@ package edu.ntnu.stud.models.chaosgamehandling;
 import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.observer.ChaosGameObserver;
 import edu.ntnu.stud.models.transform.Transform2D;
-import edu.ntnu.stud.models.utils.ChaosGameUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -68,11 +66,17 @@ public class ChaosGame {
     }
   }
 
+  /**
+   * Sets the new amount of steps to be run in the current ChaosGame. Updates the observers of
+   * this ChaosGame when the new amount of steps is set.
+   *
+   * @param steps the amount of steps to be run
+   */
   public void setStepsAmount(int steps) {
     if (steps >= 0) {
       stepsAmount = steps;
+      updateObservers();
     }
-    updateObservers();
   }
 
   /**
