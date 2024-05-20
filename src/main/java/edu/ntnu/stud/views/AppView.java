@@ -108,7 +108,7 @@ public class AppView extends Application {
     if (descriptionFile.exists() && stepsFile.exists()) {
       try {
         ChaosGameDescription configDescription = fileHandler.readFromFile(descriptionFile.getPath());
-        int steps = fileHandler.readSteps(stepsFile.getPath());
+        int steps = fileHandler.readIntOnFirstLine(stepsFile.getPath());
         ChaosGameController.getInstance().setChaosGameDescription(configDescription);
         runChaosGameSteps(steps);
         stepsTextField.setText(String.valueOf(steps));
