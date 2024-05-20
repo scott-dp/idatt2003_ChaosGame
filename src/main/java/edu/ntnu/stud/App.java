@@ -83,7 +83,7 @@ public class App extends Application {
           ChaosGameController.getInstance().getChaosGame().getDescription(),
           "src/main/resources/config/description.txt");
       fileHandler.writeStringToFile("src/main/resources/config/steps.txt",
-          String.valueOf((int) slider.getValue()));
+          String.valueOf(stepsTextField.getText()));
     } catch (IOException e) {
       LOGGER.log(Level.INFO, e.getMessage());
     }
