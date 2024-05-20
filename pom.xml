@@ -9,7 +9,7 @@
   <!-- Specifies the project's metadata such as groupId, artifactId, and version -->
   <groupId>edu.ntnu</groupId>
   <artifactId>idatt2003_2024_mappe_ChaosGame</artifactId>
-  <version>2.0</version>
+  <version>4.1</version>
   <name>idatt2003_2024_mappe_ChaosGame</name>
 
   <properties>

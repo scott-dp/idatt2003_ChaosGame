@@ -102,21 +102,4 @@ public class ChaosCanvas {
 
     return new AffineTransform2D(transformMatrix, transformVector);
   }
-
-  /**
-   * Goes through every element in the canvas and prints it to the terminal to show
-   * a fractal.
-   */
-  public void showCanvas() {
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        if (canvas[i][j] == 1) {
-          System.out.print("X");
-        } else {
-          System.out.print(" ");
-        }
-      }
-      System.out.println();
-    }
-  }
 }
