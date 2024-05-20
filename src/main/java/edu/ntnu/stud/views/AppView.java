@@ -111,6 +111,7 @@ public class AppView extends Application {
         int steps = fileHandler.readSteps(stepsFile.getPath());
         ChaosGameController.getInstance().setChaosGameDescription(configDescription);
         runChaosGameSteps(steps);
+        stepsTextField.setText(String.valueOf(steps));
       } catch (IOException | NumberFormatException e) {
         e.printStackTrace();
       }
