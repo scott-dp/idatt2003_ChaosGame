@@ -7,6 +7,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.CheckBox;
 import javafx.scene.paint.Color;
 
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 /**
  * View class for the ChaosGame class. Implements the {@link ChaosGameObserver} interface.
  */
@@ -73,14 +76,10 @@ public class ChaosGameView implements ChaosGameObserver {
         }
       }
     } else {
-      for (int i = 0; i < fractalList.length; i++) {
-        for (int j = 0; j < fractalList[i].length; j++) {
-          if (fractalList[i][j] != 0) {
-            gc.setFill(Color.BLACK);
-            gc.fillRect(j, i, 1, 1);
-          }
-        }
-      }
+      IntStream.range(0, fractalList.length)
+          .forEach(i -> IntStream.range(0, fractalList[i].length)
+              .filter(j -> fractalList[i][j] > 0)
+              .forEach(j -> gc.fillRect(j, i, 1, 1)));
     }
   }
 
