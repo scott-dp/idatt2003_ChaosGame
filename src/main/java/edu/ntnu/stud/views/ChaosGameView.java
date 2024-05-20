@@ -22,10 +22,13 @@ public class ChaosGameView implements ChaosGameObserver {
    */
   public ChaosGameView(ChaosGame game) {
     this.game = game;
+    System.out.println("game");
     this.canvas = new Canvas(game.getChaosCanvas().getWidth(), game.getChaosCanvas().getHeight());
+    System.out.println("Canvas");
     this.colorViewCheckBox = new CheckBox("Enable color view");
-
+    System.out.println("CheckBox");
     colorViewCheckBox.selectedProperty().addListener(observable -> makeFractal());
+    System.out.println("selectedProperty");
   }
 
   public CheckBox getColorViewCheckBox() {

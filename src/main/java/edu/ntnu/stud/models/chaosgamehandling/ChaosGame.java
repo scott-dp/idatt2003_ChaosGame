@@ -15,7 +15,6 @@ import java.util.Random;
  * it covers are configurable.
  *
  * @author Scott du Plessis, Stanislovas Mockus
- * @version 1.0
  */
 public class ChaosGame {
   private ChaosCanvas canvas;
