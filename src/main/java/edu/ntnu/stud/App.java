@@ -2,12 +2,12 @@ package edu.ntnu.stud;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
-import edu.ntnu.stud.models.mathematics.Vector2D;
-import edu.ntnu.stud.models.transform.AffineTransform2D;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescriptionFactory;
-import edu.ntnu.stud.models.transform.JuliaTransform;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameFileHandler;
 import edu.ntnu.stud.models.exceptions.EmptyFileException;
+import edu.ntnu.stud.models.mathematics.Vector2D;
+import edu.ntnu.stud.models.transform.AffineTransform2D;
+import edu.ntnu.stud.models.transform.JuliaTransform;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import edu.ntnu.stud.views.affinetransformviews.AbstractAffineTransformView;
 import edu.ntnu.stud.views.affinetransformviews.AddAffineTransformView;
@@ -17,6 +17,10 @@ import edu.ntnu.stud.views.fileviews.SaveFileView;
 import edu.ntnu.stud.views.juliatransformviews.AbstractJuliaTransformView;
 import edu.ntnu.stud.views.juliatransformviews.AddJuliaTransformView;
 import edu.ntnu.stud.views.juliatransformviews.EditJuliaTransformView;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.NoSuchElementException;
 import javafx.application.Application;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
@@ -28,11 +32,6 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.NoSuchElementException;
 
 /**
  * The main view class for the ChaosGame application.
@@ -69,22 +68,36 @@ public class App extends Application {
     stage.show();
   }
 
+  /**
+   * Saves the last fractal the user viewed to a file when the application is closed.
+   */
   @Override
   public void stop() {
     try {
       fileHandler.writeChaosGameToFile(
-          ChaosGameController.getInstance().getChaosGame().getDescription(), "src/main/resources/config/description.txt");
-      fileHandler.writeStringToFile("src/main/resources/config/steps.txt",String.valueOf((int) slider.getValue()));
-    } catch (IOException ignored) {}
+          ChaosGameController.getInstance().getChaosGame().getDescription(),
+          "src/main/resources/config/description.txt");
+      fileHandler.writeStringToFile("src/main/resources/config/steps.txt",
+          String.valueOf((int) slider.getValue()));
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+  }
 
+  /**
+   * Handles the scroll event on the canvas and zooms in or out depending on the direction of the
+   * scroll.
+   *
+   * @param scrollEvent the scroll event that occurred
+   */
   public void handleScrollEvent(ScrollEvent scrollEvent) {
     double zoomFactor = 0.0001;
     double scrollDeltaY = scrollEvent.getDeltaY();
 
     double totalZoom = scrollDeltaY * zoomFactor;
 
-    ChaosGameDescription oldDescription = ChaosGameController.getInstance().getChaosGame().getDescription();
+    ChaosGameDescription oldDescription = ChaosGameController.getInstance()
+        .getChaosGame().getDescription();
     Vector2D oldMin = oldDescription.getMinCoords();
     Vector2D oldMax = oldDescription.getMaxCoords();
 
@@ -101,13 +114,17 @@ public class App extends Application {
     );
   }
 
+  /**
+   * Initializes the fractal from the last time the application was closed.
+   */
   public void initializeFractalFromConfig() {
     File descriptionFile = new File("src/main/resources/config/description.txt");
     File stepsFile = new File("src/main/resources/config/steps.txt");
 
     if (descriptionFile.exists() && stepsFile.exists()) {
       try {
-        ChaosGameDescription configDescription = fileHandler.readFromFile(descriptionFile.getPath());
+        ChaosGameDescription configDescription = fileHandler
+            .readFromFile(descriptionFile.getPath());
         int steps = fileHandler.readIntOnFirstLine(stepsFile.getPath());
         ChaosGameController.getInstance().setChaosGameDescription(configDescription);
         runChaosGameSteps(steps);
@@ -126,8 +143,10 @@ public class App extends Application {
     mainLayout.getChildren().add(menuBar);
     HBox row2 = new HBox(10);
     row2.getChildren().add(ChaosGameController.getInstance().getChaosGameView().getCanvas());
-    row2.getChildren().add(ChaosGameController.getInstance().getChaosGameView().getColorViewCheckBox());
-    ChaosGameController.getInstance().getChaosGameView().getCanvas().setOnScroll(this::handleScrollEvent);
+    row2.getChildren().add(ChaosGameController.getInstance().getChaosGameView()
+        .getColorViewCheckBox());
+    ChaosGameController.getInstance().getChaosGameView().getCanvas()
+        .setOnScroll(this::handleScrollEvent);
     row2.setAlignment(Pos.CENTER);
     row2.setPadding(new Insets(100));
     mainLayout.getChildren().add(row2);
@@ -150,18 +169,31 @@ public class App extends Application {
     slider.valueProperty().addListener(this::valueChangeInSliderEvent);
   }
 
+  /**
+   * The method that is called when the value of the slider changes. The method sets the text in the
+   * text field to the value of the slider and runs the chaos game for the amount of steps specified
+   * by the slider.
+   *
+   * @param observable the observable object that is being observed
+   */
   private void valueChangeInSliderEvent(Observable observable) {
     int sliderAmount = (int) slider.getValue();
     stepsTextField.setText(String.valueOf(sliderAmount));
     runChaosGameSteps(sliderAmount);
   }
 
+  /**
+   * Runs the chaos game for the given amount of steps, and surrounds the method call with a try
+   * catch block to catch any exceptions that might occur.
+   *
+   * @param steps the amount of steps to run the chaos game for
+   */
   private void runChaosGameSteps(int steps) {
     try {
       ChaosGameController.getInstance().runSteps(steps);
     } catch (NumberFormatException e) {
-      ChaosGameUtils.showErrorAlert("Couldn't generate fractal out " +
-          "of the given transforms because the point did not converge");
+      ChaosGameUtils.showErrorAlert("Couldn't generate fractal out "
+          + "of the given transforms because the point did not converge");
     }
   }
 
@@ -181,17 +213,32 @@ public class App extends Application {
     menuBar.getMenus().addAll(fileMenu, emptyFractalMenu, predefinedMenu, editMenu);
   }
 
+  /**
+   * Creates the edit menu for the application and adds menu items to it. Adds the action
+   * {@link #editMenuAction(ActionEvent)} to the menu item.
+   *
+   * @param editMenu the menu where the menu items are added
+   */
   public void createEditMenu(Menu editMenu) {
     MenuItem editCurrentFractalItem = new MenuItem("Edit current fractal");
     editCurrentFractalItem.setOnAction(this::editMenuAction);
     editMenu.getItems().add(editCurrentFractalItem);
   }
 
+  /**
+   * The action that is done when the "Edit current fractal" menu item is clicked. The method
+   * checks if the current fractal is an affine or Julia fractal, and opens the corresponding
+   * view for editing the fractal.
+   *
+   * @param actionEvent the event that occurred
+   */
   public void editMenuAction(ActionEvent actionEvent) {
-    if (ChaosGameController.getInstance().getChaosGame().getDescription().getTransforms().get(0).getClass() == JuliaTransform.class) {
+    if (ChaosGameController.getInstance().getChaosGame().getDescription().getTransforms()
+        .get(0).getClass() == JuliaTransform.class) {
       AbstractJuliaTransformView editJuliaTransformView = new EditJuliaTransformView();
       editJuliaTransformView.showStage();
-    } else if (ChaosGameController.getInstance().getChaosGame().getDescription().getTransforms().get(0).getClass() == AffineTransform2D.class) {
+    } else if (ChaosGameController.getInstance().getChaosGame().getDescription().getTransforms()
+        .get(0).getClass() == AffineTransform2D.class) {
       AbstractAffineTransformView editAffineTransformView = new EditAffineTransformView();
       editAffineTransformView.showStage();
     } else {
@@ -199,6 +246,13 @@ public class App extends Application {
     }
   }
 
+  /**
+   * Creates the file menu for the application and adds menu items to it. Adds the actions
+   * {@link #saveFractalToFileAction(ActionEvent)} and
+   * {@link #loadFractalFromFileAction(ActionEvent)} to the menu items.
+   *
+   * @param fileMenu the menu where the menu items are added
+   */
   public void createFileMenu(Menu fileMenu) {
     MenuItem saveFractal = new MenuItem("Save fractal");
     MenuItem loadFractal = new MenuItem("Load fractal from file");
@@ -209,11 +263,18 @@ public class App extends Application {
     fileMenu.getItems().addAll(saveFractal, loadFractal);
   }
 
+  /**
+   * The action that is done when the "Save fractal" menu item is clicked. The method opens a
+   * {@link SaveFileView} and saves the fractal to a file.
+   *
+   * @param actionEvent the event that occurred
+   */
   public void saveFractalToFileAction(ActionEvent actionEvent) {
     SaveFileView saveFileView = new SaveFileView();
     String fileName = saveFileView.getFileNameFromUser();
     try {
-      fileHandler.writeChaosGameToFile(ChaosGameController.getInstance().getChaosGame().getDescription(),
+      fileHandler.writeChaosGameToFile(ChaosGameController.getInstance().getChaosGame()
+              .getDescription(),
           saveFileView.getChosenDirectory().concat("/" + fileName + ".txt"));
     } catch (IOException e) {
       ChaosGameUtils.showErrorAlert(e.getMessage());
@@ -222,10 +283,17 @@ public class App extends Application {
     }
   }
 
+  /**
+   * The action that is done when the "Load fractal from file" menu item is clicked.
+   * The method opens a {@link LoadFileView} and loads the fractal from a file.
+   *
+   * @param actionEvent the event that occurred
+   */
   public void loadFractalFromFileAction(ActionEvent actionEvent) {
     LoadFileView loadFileView = new LoadFileView();
     try {
-      ChaosGameController.getInstance().setChaosGameDescription(fileHandler.readFromFile(loadFileView.getChosenFilePath()));
+      ChaosGameController.getInstance().setChaosGameDescription(
+          fileHandler.readFromFile(loadFileView.getChosenFilePath()));
     } catch (FileNotFoundException | NoSuchElementException | EmptyFileException e) {
       ChaosGameUtils.showErrorAlert(e.getMessage());
     } catch (NullPointerException e) {
@@ -260,7 +328,8 @@ public class App extends Application {
   public void createPredefinedMenu(Menu predefinedMenu) {
     MenuItem barnsleyFernItem = new MenuItem("Barnsley Fern");
     barnsleyFernItem.setOnAction(actionEvent ->
-        ChaosGameController.getInstance().setChaosGameDescription(ChaosGameDescriptionFactory.createBarnsleyDescription()));
+        ChaosGameController.getInstance().setChaosGameDescription(
+            ChaosGameDescriptionFactory.createBarnsleyDescription()));
 
     MenuItem sierpinskiTriangleItem = new MenuItem("Sierpinski Triangle");
     sierpinskiTriangleItem.setOnAction(actionEvent ->
@@ -274,19 +343,23 @@ public class App extends Application {
 
     MenuItem juliaSet1Item = new MenuItem("Julia set 1");
     juliaSet1Item.setOnAction(actionEvent ->
-        ChaosGameController.getInstance().setChaosGameDescription(ChaosGameDescriptionFactory.getJuliaSetDescription1()));
+        ChaosGameController.getInstance().setChaosGameDescription(
+            ChaosGameDescriptionFactory.getJuliaSetDescription1()));
 
     MenuItem juliaSet2Item = new MenuItem("Julia set 2");
     juliaSet2Item.setOnAction(actionEvent ->
-        ChaosGameController.getInstance().setChaosGameDescription(ChaosGameDescriptionFactory.getJuliaSetDescription2()));
+        ChaosGameController.getInstance().setChaosGameDescription(
+            ChaosGameDescriptionFactory.getJuliaSetDescription2()));
 
     MenuItem juliaSet3Item = new MenuItem("Julia set 3");
     juliaSet3Item.setOnAction(actionEvent ->
-        ChaosGameController.getInstance().setChaosGameDescription(ChaosGameDescriptionFactory.getJuliaSetDescription3()));
+        ChaosGameController.getInstance().setChaosGameDescription(
+            ChaosGameDescriptionFactory.getJuliaSetDescription3()));
 
     MenuItem juliaSet4Item = new MenuItem("Julia set 4");
     juliaSet4Item.setOnAction(actionEvent ->
-        ChaosGameController.getInstance().setChaosGameDescription(ChaosGameDescriptionFactory.getJuliaSetDescription4()));
+        ChaosGameController.getInstance().setChaosGameDescription(
+            ChaosGameDescriptionFactory.getJuliaSetDescription4()));
 
     predefinedMenu.getItems().addAll(barnsleyFernItem, sierpinskiTriangleItem, levyCurveItem,
         juliaSet1Item, juliaSet2Item, juliaSet3Item, juliaSet4Item);
@@ -320,6 +393,12 @@ public class App extends Application {
     runButton.setOnAction(this::runButtonAction);
   }
 
+  /**
+   * The action that is done when the "Run" button is clicked. The method runs the chaos game for
+   * the amount of steps specified in the text field.
+   *
+   * @param actionEvent the event that occurred
+   */
   public void runButtonAction(ActionEvent actionEvent) {
     int steps;
     try {
