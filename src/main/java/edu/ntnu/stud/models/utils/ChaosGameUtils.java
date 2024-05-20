@@ -1,11 +1,10 @@
 package edu.ntnu.stud.models.utils;
 
-import edu.ntnu.stud.models.transform.JuliaTransform;
 import edu.ntnu.stud.models.mathematics.Vector2D;
-import javafx.scene.control.Alert;
-
+import edu.ntnu.stud.models.transform.JuliaTransform;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import javafx.scene.control.Alert;
 
 /**
  * Utility class for common operations or methods that don't fit in any other class
@@ -59,7 +58,8 @@ public class ChaosGameUtils {
    * @param min the minimum coordinate
    * @param max the maximum coordinate
    */
-  public static void validateMinAndMaxCoords(Vector2D min, Vector2D max) throws IllegalArgumentException {
+  public static void validateMinAndMaxCoords(Vector2D min, Vector2D max)
+      throws IllegalArgumentException {
     if (min.equals(max)) {
       throw new IllegalArgumentException("Min and max coords of the fractal are the same");
     } else if (min.getX0() >= max.getX0() || min.getX1() >= max.getX1()) {

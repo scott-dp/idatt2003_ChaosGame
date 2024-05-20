@@ -1,12 +1,12 @@
 package edu.ntnu.stud.models.chaosgamehandling;
 
-import edu.ntnu.stud.models.transform.AffineTransform2D;
-import edu.ntnu.stud.models.mathematics.Complex;
-import edu.ntnu.stud.models.transform.JuliaTransform;
-import edu.ntnu.stud.models.mathematics.Matrix2x2;
-import edu.ntnu.stud.models.transform.Transform2D;
-import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.exceptions.EmptyFileException;
+import edu.ntnu.stud.models.mathematics.Complex;
+import edu.ntnu.stud.models.mathematics.Matrix2x2;
+import edu.ntnu.stud.models.mathematics.Vector2D;
+import edu.ntnu.stud.models.transform.AffineTransform2D;
+import edu.ntnu.stud.models.transform.JuliaTransform;
+import edu.ntnu.stud.models.transform.Transform2D;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -137,38 +137,54 @@ public class ChaosGameFileHandler {
     return juliaTransformList;
   }
 
-  public int readSteps(String path) throws FileNotFoundException {
-    int steps = 0;
+  /**
+   * Attempts to read an integer on the first line of a document using {@link Scanner}.
+   *
+   * @param path the path to the document where the integer is being read
+   * @return the integer which is found and parsed
+   * @throws FileNotFoundException If a file with the given path is not found
+   * @throws NumberFormatException If no integer can be parsed from the first line of the doc
+   */
+  public int readIntOnFirstLine(String path) throws FileNotFoundException, NumberFormatException {
+    int firstLineInt = 0;
     try {
       Scanner scanner = new Scanner(new File(path));
-      steps = Integer.parseInt(scanner.nextLine());
-    } catch (IOException ignored) {}
-    catch (NumberFormatException e) {
-      throw new NumberFormatException("Couldn't parse steps amount from file: " + e.getMessage());
+      firstLineInt = Integer.parseInt(scanner.nextLine());
+    } catch (FileNotFoundException e) {
+      throw new FileNotFoundException("Couldn't find file in path: " + path);
+    } catch (NumberFormatException e) {
+      throw new NumberFormatException("Couldn't parse steps amount from file, " + e.getMessage());
     }
-    return steps;
+    return firstLineInt;
   }
 
   /**
-   * Uses a BufferedWriter object to write a ChaosGameDescription object to a text file.
+   * Writes a {@link ChaosGameDescription} to a file by calling the
+   * {@link #writeStringToFile(String, String)} method and using the toString()
+   * method of the ChaosGameDescription object.
    *
    * @param description The ChaosGameDescription object to be written to the file.
    * @param path The path to the file to be written.
    * @throws IOException If the file cannot be written to.
    */
   public void writeChaosGameToFile(ChaosGameDescription description, String path)
-      throws IOException, NullPointerException {
+      throws IOException {
     writeStringToFile(path, description.toString());
   }
 
+  /**
+   * Uses a {@link java.io.BufferedWriter} to write a given string to a text file.
+   *
+   * @param path The path to write the file to
+   * @param content the content which will be written to the file
+   * @throws IOException if the BufferedWriter couldn't write to the file
+   */
   public void writeStringToFile(String path, String content)
-      throws IOException, NullPointerException{
+      throws IOException, NullPointerException {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
       writer.write(content);
     } catch (IOException e) {
       throw new IOException("Could not write to file: " + path);
-    } catch (NullPointerException e) {
-      throw new NullPointerException("No ChaosGameDescription found");
     }
   }
 }

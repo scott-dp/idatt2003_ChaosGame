@@ -61,11 +61,11 @@ public class ChaosGameView implements ChaosGameObserver {
             gc.setFill(Color.RED);
           } else if (scaledVal <= 0.05) {
             gc.setFill(Color.ORANGE);
-          } else if(scaledVal <= 0.1) {
+          } else if (scaledVal <= 0.1) {
             gc.setFill(Color.YELLOW);
-          } else if(scaledVal <= 0.15) {
+          } else if (scaledVal <= 0.15) {
             gc.setFill(Color.GREEN);
-          } else if(scaledVal <= 0.2) {
+          } else if (scaledVal <= 0.2) {
             gc.setFill(Color.BLUE);
           } else {
             gc.setFill(Color.INDIGO);
@@ -85,15 +85,29 @@ public class ChaosGameView implements ChaosGameObserver {
     }
   }
 
+  /**
+   * Scales a value between min and max to a value between 0 and 1.
+   *
+   * @param min minimum value
+   * @param max maximum value
+   * @param val value to be scaled
+   * @return the scaled value
+   */
   public double scale(int min, int max, int val) {
     max = max - min;
     val = val - min;
     double maxDouble = max;
     double valDouble = val;
 
-    return valDouble/maxDouble;
+    return valDouble / maxDouble;
   }
 
+  /**
+   * Finds the minimum and maximum amount of times a point has been hit during the chaos game.
+   *
+   * @param fractalList the 2D array to find the min and max value in
+   * @return an array containing the min value at index 0 and the max value at index 1
+   */
   public int[] findMinAndMaxArrayValue(int[][] fractalList) {
     int max = fractalList[0][0];
     int min = max;
@@ -108,7 +122,7 @@ public class ChaosGameView implements ChaosGameObserver {
       }
     }
 
-    if (min != max) {
+    if (max > 1) {
       min = 1;
     }
 

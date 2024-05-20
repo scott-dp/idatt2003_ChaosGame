@@ -1,10 +1,9 @@
 package edu.ntnu.stud.models.chaosgamehandling;
 
-import edu.ntnu.stud.models.transform.AffineTransform2D;
 import edu.ntnu.stud.models.mathematics.Matrix2x2;
 import edu.ntnu.stud.models.mathematics.Vector2D;
+import edu.ntnu.stud.models.transform.AffineTransform2D;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
-
 import java.util.Arrays;
 
 /**
@@ -69,7 +68,7 @@ public class ChaosCanvas {
    *
    * @param point The coordinates of the point in the plane.
    */
-  public void putPixel(Vector2D point) throws IllegalArgumentException{
+  public void putPixel(Vector2D point) throws IllegalArgumentException {
     ChaosGameUtils.verifyPointBetweenMinAndMax(point, minCoords, maxCoords);
     Vector2D transformedPoint = transformCoordsToIndices.transform(point);
     int x = (int) transformedPoint.getX0();

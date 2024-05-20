@@ -1,23 +1,16 @@
 package edu.ntnu.stud.views.juliatransformviews;
 
-import edu.ntnu.stud.controllers.ChaosGameController;
-import edu.ntnu.stud.models.mathematics.Complex;
-import edu.ntnu.stud.models.transform.JuliaTransform;
-import edu.ntnu.stud.models.transform.Transform2D;
-import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
-import edu.ntnu.stud.models.utils.ChaosGameUtils;
-import javafx.event.ActionEvent;
+import edu.ntnu.stud.models.transform.JuliaTransform;
 import javafx.scene.layout.VBox;
-
-import java.util.ArrayList;
 
 /**
  * A class that represents a view for adding a new Julia transform to the chaos game.
  * <p>
  * This class provides a GUI so that the user can enter the desired values for the Julia transform.
- * The user can enter the real and imaginary parts of the complex number, as well as the min and max coordinates.
- * The user can then save the Julia transform so that it can later be graphically displayed.
+ * The user can enter the real and imaginary parts of the complex number, as well as the min and
+ * max coordinates. The user can then save the Julia transform so that it can later be
+ * graphically displayed.
  * </p>
  *
  * @author Stanislovas Mockus, Scott du Plessis
@@ -39,7 +32,8 @@ public class AddJuliaTransformView extends AbstractJuliaTransformView {
 
   /**
    * Method that sets the main layout of the Interface.
-   * The layout consists of a vertical container that contains the top row, bottom row and a save button.
+   * The layout consists of a vertical container that contains the top row,
+   * bottom row and a save button.
    *
    * @return mainLayout the main layout container of the interface
    */
@@ -47,7 +41,8 @@ public class AddJuliaTransformView extends AbstractJuliaTransformView {
   public VBox setMainLayout() {
     VBox mainLayout = new VBox(10);
 
-    mainLayout.getChildren().addAll(createNumeralInput(), getCoordinatesInput(), createSaveButton());
+    mainLayout.getChildren().addAll(
+        createNumeralInput(), getCoordinatesInput(), createSaveButton());
 
     return mainLayout;
   }

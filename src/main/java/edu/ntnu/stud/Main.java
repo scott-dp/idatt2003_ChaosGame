@@ -1,10 +1,11 @@
 package edu.ntnu.stud;
 
-import edu.ntnu.stud.views.AppView;
-
+/**
+ * Main class that launches the application.
+ */
 public class Main {
   public static void main(String[] args) {
-    AppView appView = new AppView();
+    App appView = new App();
     appView.launchApp(args);
   }
 
