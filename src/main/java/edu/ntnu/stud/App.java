@@ -113,7 +113,7 @@ public class App extends Application {
         runChaosGameSteps(steps);
         stepsTextField.setText(String.valueOf(steps));
       } catch (IOException | NumberFormatException e) {
-        e.printStackTrace();
+        ChaosGameUtils.showErrorAlert("Couldn't load fractal from config");
       }
     }
   }

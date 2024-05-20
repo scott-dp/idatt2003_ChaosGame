@@ -16,7 +16,6 @@ import java.util.Random;
  *
  * @author Scott du Plessis, Stanislovas Mockus
  * @version 1.0
- * @see ChaosCanvas
  */
 public class ChaosGame {
   private ChaosCanvas canvas;

@@ -4,6 +4,8 @@ import edu.ntnu.stud.models.Coordinate;
 import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.transform.Transform2D;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,9 +16,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * An abstract class that represents a view in the app that has to do with affine transforms.
+ * Contains methods with implementations and abstract methods that have to be implemented
+ * in the subclasses that inherit from this.
+ *
+ * @author Scott du Plessis, Stasys Mockus
+ * @version x.x
+ */
 public abstract class AbstractAffineTransformView {
   protected List<Transform2D> affineTransforms;
   protected int currentIndex;
@@ -41,6 +48,9 @@ public abstract class AbstractAffineTransformView {
   protected TextField maxX0;
   protected TextField maxX1;
 
+  /**
+   * Constructor to initialize fields.
+   */
   protected AbstractAffineTransformView() {
     currentIndex = 0;
     affineTransforms = new ArrayList<>();
@@ -165,8 +175,8 @@ public abstract class AbstractAffineTransformView {
   public abstract void saveButtonAction(ActionEvent actionEvent);
 
   /**
-   * Method that creates a button which has the action {@link #addAffineTransformAction(ActionEvent)}
-   * linked to it.
+   * Method that creates a button which has the action
+   * {@link #addAffineTransformAction(ActionEvent)} linked to it.
    *
    * @return Button addTransformButton
    */
@@ -232,12 +242,23 @@ public abstract class AbstractAffineTransformView {
 
   public abstract VBox setMainLayout();
 
+  /**
+   * Creates a container for the matrix and vector input and calls submethods to create
+   * the specific matrix and vector inputs.
+   *
+   * @return a VBox containing the matrix and vector input fields.
+   */
   public VBox getMatrixAndVectorInput() {
     VBox matrixAndVectorInput = new VBox(10);
     matrixAndVectorInput.getChildren().addAll(createMatrixInput(), createVectorInput());
     return matrixAndVectorInput;
   }
 
+  /**
+   * Creates a container that has the input for min and max coords inside of it.
+   *
+   * @return return a VBox with the coordinate input fields
+   */
   public VBox getCoordinatesInput() {
     VBox coordinatesInput = new VBox(10);
 

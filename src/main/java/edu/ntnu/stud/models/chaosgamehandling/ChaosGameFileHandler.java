@@ -150,8 +150,8 @@ public class ChaosGameFileHandler {
     try {
       Scanner scanner = new Scanner(new File(path));
       firstLineInt = Integer.parseInt(scanner.nextLine());
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (FileNotFoundException e) {
+      throw new FileNotFoundException("Couldn't find file in path: " + path);
     } catch (NumberFormatException e) {
       throw new NumberFormatException("Couldn't parse steps amount from file, " + e.getMessage());
     }

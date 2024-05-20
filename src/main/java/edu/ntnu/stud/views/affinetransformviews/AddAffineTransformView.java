@@ -54,7 +54,8 @@ public class AddAffineTransformView extends AbstractAffineTransformView {
 
     HBox mainHorizontalContainer = new HBox(10);
     mainHorizontalContainer.getChildren().addAll(
-        getMatrixAndVectorInput(), getCoordinatesInput(), createAddTransformButton(), createSaveButton());
+        getMatrixAndVectorInput(), getCoordinatesInput(),
+        createAddTransformButton(), createSaveButton());
 
     mainLayout.getChildren().add(mainHorizontalContainer);
     return mainLayout;
