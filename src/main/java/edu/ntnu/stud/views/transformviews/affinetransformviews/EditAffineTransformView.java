@@ -1,4 +1,4 @@
-package edu.ntnu.stud.views.affinetransformviews;
+package edu.ntnu.stud.views.transformviews.affinetransformviews;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
@@ -11,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A view in the application that shows the edit window if the current fractal is
@@ -20,6 +22,7 @@ import javafx.scene.layout.VBox;
  * @version x.x
  */
 public class EditAffineTransformView extends AbstractAffineTransformView {
+  private final static Logger LOGGER = Logger.getLogger(EditAffineTransformView.class.getName());
 
   /**
    * Constructor for this class. Calls the superclass' constructor and does some necessary
@@ -147,7 +150,7 @@ public class EditAffineTransformView extends AbstractAffineTransformView {
       setTransformNumber();
     } catch (NumberFormatException | IndexOutOfBoundsException e) {
       //If there are no previous transforms to be shown
-      e.printStackTrace();
+      LOGGER.log(Level.INFO, "No previous transform to show", e);
     }
   }
 
@@ -159,7 +162,7 @@ public class EditAffineTransformView extends AbstractAffineTransformView {
    * @throws NumberFormatException if the input is invalid
    */
   public AffineTransform2D getTransformFromInput() throws NumberFormatException {
-    if (isInputInvalid()) {
+    if (!isInputValid()) {
       ChaosGameUtils.showErrorAlert("Invalid input");
       throw new NumberFormatException("Invalid input");
     } else {
@@ -198,7 +201,7 @@ public class EditAffineTransformView extends AbstractAffineTransformView {
       currentIndex++;
       setTransformNumber();
     } catch (NumberFormatException | IndexOutOfBoundsException e) {
-      e.printStackTrace();
+      LOGGER.log(Level.INFO, "No next transform to show", e);
     }
   }
 
@@ -229,7 +232,7 @@ public class EditAffineTransformView extends AbstractAffineTransformView {
    */
   @Override
   public void saveButtonAction(ActionEvent actionEvent) {
-    if (isInputInvalid()) {
+    if (!isInputValid()) {
       ChaosGameUtils.showErrorAlert("Input is invalid");
       return;
     }

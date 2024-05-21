@@ -1,4 +1,4 @@
-package edu.ntnu.stud.views.affinetransformviews;
+package edu.ntnu.stud.views.transformviews.affinetransformviews;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
@@ -71,7 +71,7 @@ public class AddAffineTransformView extends AbstractAffineTransformView {
    */
   @Override
   public void addAffineTransformAction(ActionEvent actionEvent) {
-    if (isInputInvalid()) {
+    if (!isInputValid()) {
       ChaosGameUtils.showErrorAlert("Input is invalid");
       return;
     }
@@ -92,7 +92,7 @@ public class AddAffineTransformView extends AbstractAffineTransformView {
    */
   @Override
   public void saveButtonAction(ActionEvent actionEvent) {
-    if (isInputInvalid()) {
+    if (!isInputValid()) {
       ChaosGameUtils.showErrorAlert("Input is invalid");
       return;
     }

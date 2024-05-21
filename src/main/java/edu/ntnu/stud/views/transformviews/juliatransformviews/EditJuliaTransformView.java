@@ -1,9 +1,9 @@
-package edu.ntnu.stud.views.juliatransformviews;
+package edu.ntnu.stud.views.transformviews.juliatransformviews;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.transform.JuliaTransform;
+import edu.ntnu.stud.views.transformviews.juliatransformviews.AbstractJuliaTransformView;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 
 /**
  * A class that represents a view for editing a Julia transform in the chaos game.

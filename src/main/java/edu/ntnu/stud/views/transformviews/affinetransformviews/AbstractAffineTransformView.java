@@ -1,4 +1,4 @@
-package edu.ntnu.stud.views.affinetransformviews;
+package edu.ntnu.stud.views.transformviews.affinetransformviews;
 
 import edu.ntnu.stud.models.Coordinate;
 import edu.ntnu.stud.models.mathematics.Vector2D;
@@ -6,15 +6,14 @@ import edu.ntnu.stud.models.transform.Transform2D;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import java.util.ArrayList;
 import java.util.List;
+import edu.ntnu.stud.views.transformviews.TransformView;
 import javafx.event.ActionEvent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 /**
  * An abstract class that represents a view in the app that has to do with affine transforms.
@@ -24,12 +23,9 @@ import javafx.stage.Stage;
  * @author Scott du Plessis, Stasys Mockus
  * @version x.x
  */
-public abstract class AbstractAffineTransformView {
+public abstract class AbstractAffineTransformView extends TransformView {
   protected List<Transform2D> affineTransforms;
   protected int currentIndex;
-  protected final Stage stage;
-  protected final Scene scene;
-
   //Elements in matrix
   protected TextField a00;
   protected TextField a01;
@@ -40,22 +36,13 @@ public abstract class AbstractAffineTransformView {
   protected TextField x0;
   protected TextField x1;
 
-  //Elements minCoords
-  protected TextField minX0;
-  protected TextField minX1;
-
-  //Elements maxCoords
-  protected TextField maxX0;
-  protected TextField maxX1;
-
   /**
    * Constructor to initialize fields.
    */
   protected AbstractAffineTransformView() {
+    super();
     currentIndex = 0;
     affineTransforms = new ArrayList<>();
-    this.stage = new Stage();
-    this.scene = new Scene(new VBox());
     a00 = new TextField();
     a01 = new TextField();
     a10 = new TextField();
@@ -95,7 +82,7 @@ public abstract class AbstractAffineTransformView {
    *
    * @return true if the input is invalid, false if the input is valid.
    */
-  public boolean isInputInvalid() {
+  public boolean isInputValid() {
     try {
       Double.parseDouble(a00.getText());
       Double.parseDouble(a01.getText());
@@ -103,18 +90,13 @@ public abstract class AbstractAffineTransformView {
       Double.parseDouble(a11.getText());
       Double.parseDouble(x0.getText());
       Double.parseDouble(x1.getText());
-      double minX0parsed = Double.parseDouble(minX0.getText());
-      double minX1parsed = Double.parseDouble(minX1.getText());
-      double maxX0parsed = Double.parseDouble(maxX0.getText());
-      double maxX1parsed = Double.parseDouble(maxX1.getText());
-      ChaosGameUtils.validateMinAndMaxCoords(
-          new Vector2D(minX0parsed, minX1parsed), new Vector2D(maxX0parsed, maxX1parsed));
-      return false;
-    } catch (NumberFormatException e) {
+      validateCoords();
       return true;
+    } catch (NumberFormatException e) {
+      return false;
     } catch (IllegalArgumentException e) {
       ChaosGameUtils.showErrorAlert(e.getMessage());
-      return true;
+      return false;
     }
   }
 
@@ -128,31 +110,6 @@ public abstract class AbstractAffineTransformView {
     stage.setScene(scene);
     stage.initModality(Modality.APPLICATION_MODAL);
     stage.show();
-  }
-
-  /**
-   * A method that creates a horizontal container for entering the max coordinates of the fractal.
-   * The max coordinates layout consists of a horizontal container, within a vertical container.
-   * The horizontal container holds text-fields which represent the max coordinates of the fractal.
-   *
-   * @return HBox maxCoordsContainer
-   */
-  public HBox createCoordinateInput(TextField x0, TextField x1, Coordinate coordinate) {
-    HBox coordsContainer = new HBox(10);
-    Label coordsLabel = new Label();
-
-    switch (coordinate) {
-      case MAX ->     coordsLabel.setText("Max coords: ");
-      case MIN ->     coordsLabel.setText("Min coords: ");
-    }
-
-    coordsContainer.getChildren().add(coordsLabel);
-    VBox coordsLayout = new VBox(10);
-
-    coordsLayout.getChildren().addAll(x0, x1);
-
-    coordsContainer.getChildren().add(coordsLayout);
-    return coordsContainer;
   }
 
   /**
