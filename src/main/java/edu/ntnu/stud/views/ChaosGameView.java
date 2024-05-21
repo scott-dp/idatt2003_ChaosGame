@@ -2,13 +2,11 @@ package edu.ntnu.stud.views;
 
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGame;
 import edu.ntnu.stud.models.observer.ChaosGameObserver;
+import java.util.stream.IntStream;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.CheckBox;
 import javafx.scene.paint.Color;
-
-import java.util.Arrays;
-import java.util.stream.IntStream;
 
 /**
  * View class for the ChaosGame class. Implements the {@link ChaosGameObserver} interface.

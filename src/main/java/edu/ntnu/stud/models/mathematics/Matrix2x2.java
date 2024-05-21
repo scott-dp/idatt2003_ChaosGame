@@ -60,7 +60,11 @@ public class Matrix2x2 {
         * vector.getX0() + a11 * vector.getX1());
   }
 
-  //TODO add javadoc here
+  /**
+   * Creates a string representation of this matrix.
+   *
+   * @return the string representation of this matrix
+   */
   @Override
   public String toString() {
     return a00 + ", " + a01 + ", " + a10 + ", " + a11;
