@@ -103,7 +103,7 @@ public class App extends Application {
     double positionX = scrollEvent.getX();
     double positionY = scrollEvent.getY();
 
-    double totalZoom = scrollDeltaY * zoomFactor;
+    double zoom = scrollDeltaY * zoomFactor;
 
     //get old coords
     ChaosGameDescription oldDescription = ChaosGameController.getInstance()
@@ -120,9 +120,9 @@ public class App extends Application {
 
     //New coords according to mouse pos and old coords
     Vector2D newMin = new Vector2D(oldMin.getX0()
-        + totalZoom * centerX, oldMin.getX1() + totalZoom * centerY);
+        + zoom * centerX, oldMin.getX1() + zoom * centerY);
     Vector2D newMax = new Vector2D(oldMax.getX0()
-        - totalZoom * (1 - centerX), oldMax.getX1() - totalZoom * (1 - centerY));
+        - zoom * (1 - centerX), oldMax.getX1() - zoom * (1 - centerY));
 
     if ((newMax.getX0() - newMin.getX0()) < 0.2) {
       //Max zoom so the application doesn't crash
@@ -429,8 +429,8 @@ public class App extends Application {
     }
     if (steps > slider.getMax()) {
       slider.setMax(steps);
-      slider.setValue(steps);
     }
+    slider.setValue(steps);
     runChaosGameSteps(steps);
   }
 
