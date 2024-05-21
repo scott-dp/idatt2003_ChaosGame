@@ -1,7 +1,8 @@
-package edu.ntnu.stud.views.juliatransformviews;
+package edu.ntnu.stud.views.transformviews.juliatransformviews;
 
 import edu.ntnu.stud.models.chaosgamehandling.ChaosGameDescription;
 import edu.ntnu.stud.models.transform.JuliaTransform;
+import edu.ntnu.stud.views.transformviews.juliatransformviews.AbstractJuliaTransformView;
 import javafx.scene.layout.VBox;
 
 /**

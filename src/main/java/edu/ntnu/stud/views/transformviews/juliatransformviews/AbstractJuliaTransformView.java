@@ -1,4 +1,4 @@
-package edu.ntnu.stud.views.juliatransformviews;
+package edu.ntnu.stud.views.transformviews.juliatransformviews;
 
 import edu.ntnu.stud.controllers.ChaosGameController;
 import edu.ntnu.stud.models.Coordinate;
@@ -9,15 +9,15 @@ import edu.ntnu.stud.models.transform.JuliaTransform;
 import edu.ntnu.stud.models.transform.Transform2D;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
 import java.util.ArrayList;
+
+import edu.ntnu.stud.views.transformviews.TransformView;
 import javafx.event.ActionEvent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 /**
  * An abstract class that represents a view in the app that has to do with Julia transforms.
@@ -27,25 +27,15 @@ import javafx.stage.Stage;
  * @author Scott du Plessis, Stasys Mockus
  * @version x.x
  */
-public abstract class AbstractJuliaTransformView {
-  protected final Stage stage;
-  protected final Scene scene;
-
+public abstract class AbstractJuliaTransformView extends TransformView {
   protected TextField imaginaryPartField;
   protected TextField realPartField;
-
-  protected TextField minX0;
-  protected TextField minX1;
-
-  protected TextField maxX0;
-  protected TextField maxX1;
 
   /**
    * Constructor to initialize fields.
    */
   protected AbstractJuliaTransformView() {
-    this.stage = new Stage();
-    this.scene = new Scene(new VBox());
+    super();
     imaginaryPartField = new TextField();
     realPartField = new TextField();
     minX0 = new TextField();
@@ -65,12 +55,7 @@ public abstract class AbstractJuliaTransformView {
     try {
       Double.parseDouble(realPartField.getText());
       Double.parseDouble(imaginaryPartField.getText());
-      double minX0parsed = Double.parseDouble(minX0.getText());
-      double minX1parsed = Double.parseDouble(minX1.getText());
-      double maxX0parsed = Double.parseDouble(maxX0.getText());
-      double maxX1parsed = Double.parseDouble(maxX1.getText());
-      ChaosGameUtils.validateMinAndMaxCoords(
-          new Vector2D(minX0parsed, minX1parsed), new Vector2D(maxX0parsed, maxX1parsed));
+      validateCoords();
       return true;
     } catch (NumberFormatException e) {
       return false;
@@ -89,33 +74,6 @@ public abstract class AbstractJuliaTransformView {
     stage.initModality(Modality.APPLICATION_MODAL);
     stage.show();
   }
-
-  /**
-   * Method to create a coordinate input.
-   *
-   * @param x0 x value of the coordinate
-   * @param x1 y value of the coordinate
-   * @param coordinate the type of coordinate
-   * @return HBox with the coordinate input
-   */
-  public HBox createCoordinateInput(TextField x0, TextField x1, Coordinate coordinate) {
-    HBox coordsContainer = new HBox(10);
-    Label coordsLabel = new Label();
-
-    switch (coordinate) {
-      case MAX -> coordsLabel.setText("Max coords: ");
-      case MIN -> coordsLabel.setText("Min coords: ");
-    }
-
-    coordsContainer.getChildren().add(coordsLabel);
-    VBox coordsLayout = new VBox(10);
-
-    coordsLayout.getChildren().addAll(x0, x1);
-
-    coordsContainer.getChildren().add(coordsLayout);
-    return coordsContainer;
-  }
-
 
   /**
    * Method that create the save button and adds an action to it.

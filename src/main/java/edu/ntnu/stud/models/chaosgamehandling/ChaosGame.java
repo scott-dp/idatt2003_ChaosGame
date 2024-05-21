@@ -106,12 +106,9 @@ public class ChaosGame {
    *
    */
   public void runSteps() {
-
     canvas.clear();
-
     List<Transform2D> transforms = description.getTransforms();
     int amountOfTransforms = transforms.size();
-
     for (int i = 0; i < stepsAmount; i++) {
       int randomIndex = random.nextInt(amountOfTransforms);
       currentPoint = transforms.get(randomIndex).transform(currentPoint);
