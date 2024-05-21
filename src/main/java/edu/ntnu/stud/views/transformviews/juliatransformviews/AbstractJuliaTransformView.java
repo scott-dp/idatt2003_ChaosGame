@@ -8,9 +8,8 @@ import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.transform.JuliaTransform;
 import edu.ntnu.stud.models.transform.Transform2D;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
-import java.util.ArrayList;
-
 import edu.ntnu.stud.views.transformviews.TransformView;
+import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
