@@ -7,12 +7,13 @@ import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.transform.AffineTransform2D;
 import edu.ntnu.stud.models.transform.Transform2D;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  * A view in the application that shows the edit window if the current fractal is
@@ -22,7 +23,7 @@ import java.util.logging.Logger;
  * @version x.x
  */
 public class EditAffineTransformView extends AbstractAffineTransformView {
-  private final static Logger LOGGER = Logger.getLogger(EditAffineTransformView.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(EditAffineTransformView.class.getName());
 
   /**
    * Constructor for this class. Calls the superclass' constructor and does some necessary

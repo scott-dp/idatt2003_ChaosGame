@@ -10,11 +10,11 @@ import edu.ntnu.stud.models.mathematics.Vector2D;
 import edu.ntnu.stud.models.transform.AffineTransform2D;
 import edu.ntnu.stud.models.transform.JuliaTransform;
 import edu.ntnu.stud.models.utils.ChaosGameUtils;
+import edu.ntnu.stud.views.fileviews.LoadFileView;
+import edu.ntnu.stud.views.fileviews.SaveFileView;
 import edu.ntnu.stud.views.transformviews.affinetransformviews.AbstractAffineTransformView;
 import edu.ntnu.stud.views.transformviews.affinetransformviews.AddAffineTransformView;
 import edu.ntnu.stud.views.transformviews.affinetransformviews.EditAffineTransformView;
-import edu.ntnu.stud.views.fileviews.LoadFileView;
-import edu.ntnu.stud.views.fileviews.SaveFileView;
 import edu.ntnu.stud.views.transformviews.juliatransformviews.AbstractJuliaTransformView;
 import edu.ntnu.stud.views.transformviews.juliatransformviews.AddJuliaTransformView;
 import edu.ntnu.stud.views.transformviews.juliatransformviews.EditJuliaTransformView;
@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.NoSuchElementException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
@@ -34,14 +36,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  * The main view class for the ChaosGame application.
  */
 public class App extends Application {
-  private final static Logger LOGGER = Logger.getLogger(App.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(App.class.getName());
   private final ChaosGameFileHandler fileHandler = new ChaosGameFileHandler();
   private Slider slider;
   MenuBar menuBar;
@@ -91,7 +90,7 @@ public class App extends Application {
 
   /**
    * Handles the scroll event on the canvas and zooms in or out depending on the direction of the
-   * scroll.
+   * scroll. The zoom is centered around the mouse position.
    *
    * @param scrollEvent the scroll event that occurred
    */
@@ -99,32 +98,37 @@ public class App extends Application {
     double zoomFactor = 0.0001;
 
     double scrollDeltaY = scrollEvent.getDeltaY();
-    double xPos = scrollEvent.getX();
-    double yPos = scrollEvent.getY();
+
+    //mouse position
+    double positionX = scrollEvent.getX();
+    double positionY = scrollEvent.getY();
 
     double totalZoom = scrollDeltaY * zoomFactor;
 
+    //get old coords
     ChaosGameDescription oldDescription = ChaosGameController.getInstance()
         .getChaosGame().getDescription();
     Vector2D oldMin = oldDescription.getMinCoords();
     Vector2D oldMax = oldDescription.getMaxCoords();
 
     ChaosCanvas chaosGameCanvas = ChaosGameController.getInstance().getChaosGame().getChaosCanvas();
+    //Calculate center of zoom
+    double centerX = oldMin.getX0()
+        + (positionX / chaosGameCanvas.getWidth()) * (oldMax.getX0() - oldMin.getX0());
+    double centerY = oldMin.getX1()
+        + (positionY / chaosGameCanvas.getHeight()) * (oldMax.getX1() - oldMin.getX1());
 
-    double centerX = oldMin.getX0() +
-        (xPos / chaosGameCanvas.getWidth()) * (oldMax.getX0() - oldMin.getX0());
-    double centerY = oldMin.getX1() +
-        (yPos / chaosGameCanvas.getHeight()) * (oldMax.getX1() - oldMin.getX1());
-
-    Vector2D newMin = new Vector2D(oldMin.getX0() + totalZoom * centerX, oldMin.getX1() + totalZoom * centerY);
-    Vector2D newMax = new Vector2D(oldMax.getX0() - totalZoom * (1 - centerX), oldMax.getX1() - totalZoom * (1 - centerY));
+    //New coords according to mouse pos and old coords
+    Vector2D newMin = new Vector2D(oldMin.getX0()
+        + totalZoom * centerX, oldMin.getX1() + totalZoom * centerY);
+    Vector2D newMax = new Vector2D(oldMax.getX0()
+        - totalZoom * (1 - centerX), oldMax.getX1() - totalZoom * (1 - centerY));
 
     if ((newMax.getX0() - newMin.getX0()) < 0.2) {
       //Max zoom so the application doesn't crash
       return;
     }
 
-    // Set the new coordinates
     ChaosGameController.getInstance().setChaosGameDescription(
         new ChaosGameDescription(newMin, newMax, oldDescription.getTransforms())
     );
